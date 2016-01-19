@@ -11,9 +11,15 @@ config :cartel, dealers: [
         env: :sandbox,
         cert: "/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem",
         key: "/Users/luca/Desktop/keys/tsc-apns-dev-key.pem",
-        cacert: "/Users/luca/Desktop/keys/entrust_2048_ca.cer"
+        cacert: "/Users/luca/Desktop/keys/entrust_2048_ca.cer",
+        poolboy_opts: [
+          size: 10
+        ]
       ],
-      [type: :gcm, key: "abc"]
+      [
+        type: :gcm,
+        key: "abc"
+      ]
     ]
   ],
   [
@@ -31,7 +37,10 @@ config :cartel, dealers: [
   [
     id: "com.mydomain2.myapp1",
     pushers: [
-      [type: :gcm, key: "abc"]
+      [
+        type: :gcm,
+        key: "abc"
+      ]
     ]
   ]
 ]
