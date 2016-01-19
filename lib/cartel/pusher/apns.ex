@@ -31,7 +31,7 @@ defmodule Cartel.Pusher.Apns do
   end
 
   defp connect(host, port, cert, key, cacert) do
-    opts = [:binary, certfile: cert, keyfile: key, cacertfile: cacert]
+    opts = [:binary, active: true, certfile: cert, keyfile: key, cacertfile: cacert]
     :ssl.connect(host, port, opts)
   end
 

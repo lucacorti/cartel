@@ -8,4 +8,8 @@ defmodule Cartel do
     opts = [strategy: :one_for_one]
     Supervisor.start_link(children, opts)
   end
+
+  def send(appid, type, message) do
+    Cartel.Dealer.send(appid, type, message)
+  end
 end
