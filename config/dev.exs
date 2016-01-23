@@ -11,10 +11,7 @@ config :cartel, dealers: [
         env: :sandbox,
         cert: "/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem",
         key: "/Users/luca/Desktop/keys/tsc-apns-dev-key.pem",
-        cacert: "/Users/luca/Desktop/keys/entrust_2048_ca.cer",
-        poolboy_opts: [
-          size: 10
-        ]
+        cacert: "/Users/luca/Desktop/keys/entrust_2048_ca.cer"
       ],
       [
         type: :gcm,
