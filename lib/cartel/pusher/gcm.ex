@@ -5,8 +5,8 @@ defmodule Cartel.Pusher.Gcm do
 
   @gcm_server_url "https://gcm-http.googleapis.com/gcm/send"
 
-  def start_link(args) do
-    GenServer.start_link(__MODULE__, args)
+  def start_link(id, args) do
+    GenServer.start_link(__MODULE__, args, name: id)
   end
 
   def send(pid, message) do

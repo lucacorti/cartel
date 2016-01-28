@@ -12,8 +12,8 @@ defmodule Cartel.Pusher.Apns do
   @apns_feedback_sandbox_host 'feedback.sandbox.push.apple.com'
   @apns_feedback_port 2196
 
-  def start_link(args) do
-    GenServer.start_link(__MODULE__, args)
+  def start_link(id, args) do
+    GenServer.start_link(__MODULE__, args, name: id)
   end
 
   def send(pid, message) do
