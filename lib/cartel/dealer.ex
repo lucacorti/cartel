@@ -4,7 +4,7 @@ defmodule Cartel.Dealer do
   alias Cartel.Pusher.{Apns, Gcm}
 
   def start_link(args) do
-    GenServer.start_link(__MODULE__, args, id: :"Cartel.Dealer@#{args[:id]}")
+    GenServer.start_link(__MODULE__, args, name: :"Cartel.Dealer@#{args[:id]}")
   end
 
   def send(appid, type, message) do
