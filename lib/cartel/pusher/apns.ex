@@ -1,6 +1,8 @@
 defmodule Cartel.Pusher.Apns do
   use GenServer
 
+  @behaviour Cartel.Pusher
+
   alias Cartel.Pusher.Apns.Message
 
   @initial_state %{socket: nil}
