@@ -29,6 +29,7 @@ defmodule Cartel.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
+      {:exrm, "~> 1.0.1"},
       {:poison, "~> 1.5.2"},
       {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
       {:httpotion, "~> 2.1.0"}
