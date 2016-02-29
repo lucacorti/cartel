@@ -1,14 +1,12 @@
 defmodule Cartel.Pusher.Gcm do
   use GenServer
+  alias Cartel.Message
 
   @behaviour Cartel.Pusher
-
-  alias Cartel.Pusher.Gcm.Message
-
   @gcm_server_url "https://gcm-http.googleapis.com/gcm/send"
 
-  def send(pid, message) do
-    GenServer.call(pid, {:send, message})
+  def send(message, pid) do
+    GenServer.cast(pid, {:send, message})
   end
 
   def start_link(id, args) do

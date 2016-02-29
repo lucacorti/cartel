@@ -1,5 +1,7 @@
 use Mix.Config
 
+alias Cartel.Pusher.{Apns,Gcm}
+
 config :logger, level: :debug
 
 config :cartel, dealers: [
@@ -7,14 +9,14 @@ config :cartel, dealers: [
     id: "com.mydomain1.myapp1",
     pushers: [
       [
-        type: :apns,
+        type: Apns,
         env: :sandbox,
         cert: "/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem",
         key: "/Users/luca/Desktop/keys/tsc-apns-dev-key.pem",
         cacert: "/Users/luca/Desktop/keys/entrust_2048_ca.cer"
       ],
       [
-        type: :gcm,
+        type: Gcm,
         key: "abc"
       ]
     ]
@@ -23,7 +25,7 @@ config :cartel, dealers: [
     id: "com.mydomain1.myapp2",
     pushers: [
       [
-        type: :apns,
+        type: Apns,
         env: :sandbox,
         cert: "/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem",
         key: "/Users/luca/Desktop/keys/tsc-apns-dev-key.pem",
@@ -35,7 +37,7 @@ config :cartel, dealers: [
     id: "com.mydomain2.myapp1",
     pushers: [
       [
-        type: :gcm,
+        type: Gcm,
         key: "abc"
       ]
     ]

@@ -1,8 +1,6 @@
 defmodule Cartel.Dealer do
   use GenServer
 
-  alias Cartel.Pusher.{Apns, Gcm}
-
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, name: dealer_name(args[:id]))
   end
@@ -16,23 +14,15 @@ defmodule Cartel.Dealer do
     children = args[:pushers]
     |> Enum.map(fn pusher ->
       id = pusher_name(args[:id], pusher[:type])
-      case pusher[:type] do
-        :apns -> worker(Apns, [id, pusher], id: id)
-        :gcm -> worker(Gcm, [id, pusher], id: id)
-      end
+      worker(pusher[:type], [id, pusher], id: id)
     end)
     opts = [strategy: :one_for_one, id: :"Cartel.Dealer.Supervisor@#{args[:id]}"]
     Supervisor.start_link(children, opts)
   end
 
-  def handle_call({:send, appid, type = :apns, message}, _from, state) do
+  def handle_call({:send, appid, type, message}, _from, state) do
     pid = GenServer.whereis(pusher_name(appid, type))
-    {:reply, Apns.send(pid, message), state}
-  end
-
-  def handle_call({:send, appid, type = :gcm, message}, _from, state) do
-    pid = GenServer.whereis(pusher_name(appid, type))
-    {:reply, Gcm.send(pid, message), state}
+    {:reply, type.send(message, pid), state}
   end
 
   defp dealer_name(id) do

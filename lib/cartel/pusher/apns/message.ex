@@ -1,7 +1,7 @@
 defmodule Cartel.Pusher.Apns.Message do
-  alias Cartel.Pusher.Apns.Message.Item
+  alias Cartel.Message.Encoder
 
-  @behaviour Cartel.Message
+  defstruct [items: []]
 
   @apns_no_errors 0
   @apns_processing_error 1
@@ -14,16 +14,6 @@ defmodule Cartel.Pusher.Apns.Message do
   @apns_invalid_token 8
   @apns_shutdown 10
   @apns_unknown_error 255
-
-  defstruct [items: []]
-
-  def encode(message) do
-    items = Enum.map_join(message.items, fn item ->
-      {:ok, binary} = Item.encode(item)
-      binary
-    end)
-    <<2::size(8), byte_size(items)::size(32)>> <> items
-  end
 
   def decode(binary) do
     case binary do
@@ -53,5 +43,21 @@ defmodule Cartel.Pusher.Apns.Message do
             {:error, identifier, status, "None (unknown)"}
         end
     end
+  end
+
+  def encode(message) do
+    Encoder.encode(message)
+  end
+end
+
+defimpl Cartel.Message.Encoder, for: Cartel.Pusher.Apns.Message do
+  alias Cartel.Pusher.Apns.Message.Item
+
+  def encode(message) do
+    items = Enum.map_join(message.items, fn item ->
+      {:ok, binary} = Item.encode(item)
+      binary
+    end)
+    <<2::size(8), byte_size(items)::size(32)>> <> items
   end
 end
