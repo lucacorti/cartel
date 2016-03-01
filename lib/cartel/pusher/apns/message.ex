@@ -3,6 +3,8 @@ defmodule Cartel.Pusher.Apns.Message do
 
   defstruct [items: []]
 
+  @behaviour Cartel.Message
+
   @apns_no_errors 0
   @apns_processing_error 1
   @apns_missing_token 2
@@ -15,7 +17,7 @@ defmodule Cartel.Pusher.Apns.Message do
   @apns_shutdown 10
   @apns_unknown_error 255
 
-  def decode(binary) do
+  def deserialize(binary) do
     case binary do
       <<8::size(8), status::size(8), identifier::size(32)>> ->
         case status do
@@ -45,7 +47,7 @@ defmodule Cartel.Pusher.Apns.Message do
     end
   end
 
-  def encode(message) do
+  def serialize(message) do
     Encoder.encode(message)
   end
 end

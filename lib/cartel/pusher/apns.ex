@@ -1,6 +1,6 @@
 defmodule Cartel.Pusher.Apns do
   use GenServer
-  alias Cartel.Message
+  alias Cartel.Pusher.Apns.Message
 
   @behaviour Cartel.Pusher
 
@@ -36,7 +36,7 @@ defmodule Cartel.Pusher.Apns do
   end
 
   def handle_cast({:send, message}, state) do
-    request = Message.Encoder.encode(message)
+    request = Message.serialize(message)
     :ok = :ssl.send(state.socket, request)
     {:noreply, state}
   end
