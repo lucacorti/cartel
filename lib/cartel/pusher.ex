@@ -1,3 +1,3 @@
 defmodule Cartel.Pusher do
-  @callback send(pid, message :: Cartel.Message) :: :ok
+  @callback send(pname :: Atom, message :: Cartel.Message) :: :ok
 end

@@ -21,8 +21,7 @@ defmodule Cartel.Dealer do
   end
 
   def handle_call({:send, appid, type, message}, _from, state) do
-    pid = GenServer.whereis(pusher_name(appid, type))
-    {:reply, type.send(message, pid), state}
+    {:reply, type.send(message, pusher_name(appid, type)), state}
   end
 
   defp dealer_name(id) do
