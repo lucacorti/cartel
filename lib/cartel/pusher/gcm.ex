@@ -18,8 +18,11 @@ defmodule Cartel.Pusher.Gcm do
   end
 
   def handle_call({:send, message}, _from, state) do
-    {:ok, request} = Message.encode(message)
-    headers = ["Content-Type": "application/json", "Authorization": "key=" <> state[:key]]
+    {:ok, request} = Message.serialize(message)
+    headers = [
+      "Content-Type": "application/json",
+      "Authorization": "key=" <> state[:key]
+    ]
     response = HTTPotion.post(@gcm_server_url, [body: request, headers: headers])
     if response.status_code >= 400 do
       {:stop, response.status_code, state}

@@ -43,7 +43,7 @@ defmodule Cartel.Pusher.Apns do
 
   def handle_info(info, state) do
     case info do
-      {:ssl, _, msg} -> {:stop, Message.decode(msg), state}
+      {:ssl, _, msg} -> {:stop, Message.deserialize(msg), state}
       {:ssl_closed, _} -> {:stop, "Connection closed", state}
       _ -> {:stop, info, state}
     end
