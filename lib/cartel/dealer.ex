@@ -1,5 +1,6 @@
 defmodule Cartel.Dealer do
   use GenServer
+  import Supervisor.Spec, warn: false
 
   defp dealer_supervisor_name(id), do: :"Cartel.Dealer.Supervisor@#{id}"
   defp dealer_name(id), do: :"Cartel.Dealer@#{id}"
@@ -14,14 +15,13 @@ defmodule Cartel.Dealer do
   end
 
   def init(args) do
-    import Supervisor.Spec, warn: false
-    children = args[:pushers]
-    |> Enum.map(fn pusher ->
-      id = pusher_name(args[:id], pusher[:type])
-      worker(pusher[:type], [id, pusher], id: id)
-    end)
     opts = [strategy: :one_for_one, id: dealer_supervisor_name(args[:id])]
-    Supervisor.start_link(children, opts)
+    args[:pushers]
+    |> Enum.map(fn pusher ->
+      pusher_id = pusher_name(args[:id], pusher[:type])
+      worker(pusher[:type], [pusher_id, pusher], id: pusher_id)
+    end)
+    |> Supervisor.start_link(opts)
   end
 
   def handle_call({:send, appid, type, message}, _from, state) do

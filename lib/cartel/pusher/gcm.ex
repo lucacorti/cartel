@@ -23,7 +23,10 @@ defmodule Cartel.Pusher.Gcm do
       "Content-Type": "application/json",
       "Authorization": "key=" <> state[:key]
     ]
-    response = HTTPotion.post(@gcm_server_url, [body: request, headers: headers])
+    response = HTTPotion.post(
+      @gcm_server_url,
+      [body: request, headers: headers]
+    )
     if response.status_code >= 400 do
       {:stop, response.status_code, state}
     else

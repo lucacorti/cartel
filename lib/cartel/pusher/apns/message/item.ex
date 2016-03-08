@@ -28,23 +28,23 @@ defmodule Cartel.Pusher.Apns.Message.Item do
         {:ok, token} = Base.decode16(item.data, case: :mixed)
         {:ok, <<item.id::size(8), 32::size(16)>> <> token}
       @payload ->
-        {:ok, payload} = Poison.encode(item.data)
-        payload_size = byte_size(payload)
-        {:ok, <<item.id::size(8), payload_size::size(16)>> <> payload}
+        {:ok, msg_payload} = Poison.encode(item.data)
+        payload_size = byte_size(msg_payload)
+        {:ok, <<item.id::size(8), payload_size::size(16)>> <> msg_payload}
       @notification_identifier ->
         {:ok, <<item.id::size(8), 4::size(16), item.data::size(32)>>}
       @expiration_date ->
-        expiration_date = item.data
-        if item.data == nil do
-          expiration_date = 0
+        date = item.data
+        if date == nil do
+          date = 0
         end
         {:ok, <<item.id::size(8), 4::size(16), expiration_date::size(32)>>}
       @priority ->
-        priority = item.data
-        if priority == nil do
-          priority = @priority_immediately
+        msg_priority = item.data
+        if msg_priority == nil do
+          msg_priority = @priority_immediately
         end
-        {:ok, <<item.id::size(8), 1::size(16), priority::size(32)>>}
+        {:ok, <<item.id::size(8), 1::size(16), msg_priority::size(32)>>}
     end
   end
 end

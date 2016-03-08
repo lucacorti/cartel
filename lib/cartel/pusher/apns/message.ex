@@ -5,45 +5,34 @@ defmodule Cartel.Pusher.Apns.Message do
 
   @behaviour Cartel.Message
 
-  @apns_no_errors 0
-  @apns_processing_error 1
-  @apns_missing_token 2
-  @apns_missing_topic 3
-  @apns_missing_payload 4
-  @apns_invalid_token_size 5
-  @apns_invalid_topic_size 6
-  @apns_invalid_payload_size 7
-  @apns_invalid_token 8
-  @apns_shutdown 10
-  @apns_unknown_error 255
+  @no_errors 0
+  @processing_error 1
+  @missing_token 2
+  @missing_topic 3
+  @missing_payload 4
+  @invalid_token_size 5
+  @invalid_topic_size 6
+  @invalid_payload_size 7
+  @invalid_token 8
+  @shutdown 10
+  @unknown_error 255
+
+  defp status_to_string(@no_errors), do: "No errors encountered"
+  defp status_to_string(@processing_error), do: "Processing error"
+  defp status_to_string(@missing_token), do: "Missing device token"
+  defp status_to_string(@missing_topic), do: "Missing topic"
+  defp status_to_string(@missing_payload), do: "Missing payload"
+  defp status_to_string(@invalid_token_size), do: "Invalid token size"
+  defp status_to_string(@invalid_topic_size), do: "Invalid topic size"
+  defp status_to_string(@invalid_payload_size), do: "Invalid payload_size"
+  defp status_to_string(@invalid_token), do: "Invalid token"
+  defp status_to_string(@shutdown), do: "Shutdown"
+  defp status_to_string(status), do: "None (unknown)"
 
   def deserialize(binary) do
     case binary do
       <<8::size(8), status::size(8), identifier::size(32)>> ->
-        case status do
-          @apns_no_errors ->
-            {:error, identifier, status, "No errors encountered"}
-          @apns_processing_error ->
-            {:error, identifier, status, "Processing error"}
-          @apns_missing_token ->
-            {:error, identifier, status, "Missing device token"}
-          @apns_missing_topic ->
-            {:error, identifier, status, "Missing topic"}
-          @apns_missing_payload ->
-            {:error, identifier, status, "Missing payload"}
-          @apns_invalid_token_size ->
-            {:error, identifier, status, "Invalid token size"}
-          @apns_invalid_topic_size ->
-            {:error, identifier, status, "Invalid topic size"}
-          @apns_invalid_payload_size ->
-            {:error, identifier, status, "Invalid payload_size"}
-          @apns_invalid_token ->
-            {:error, identifier, status, "Invalid token"}
-          @apns_shutdown ->
-            {:error, identifier, status, "Shutdown"}
-          @apns_unknown_error ->
-            {:error, identifier, status, "None (unknown)"}
-        end
+        {:error, identifier, status, status_to_string(status)}
     end
   end
 
