@@ -27,7 +27,7 @@ defmodule Cartel.Pusher.Apns.Message do
   defp status_to_string(@invalid_payload_size), do: "Invalid payload_size"
   defp status_to_string(@invalid_token), do: "Invalid token"
   defp status_to_string(@shutdown), do: "Shutdown"
-  defp status_to_string(status), do: "None (unknown)"
+  defp status_to_string(_), do: "None (unknown)"
 
   def deserialize(binary) do
     case binary do
