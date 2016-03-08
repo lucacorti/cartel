@@ -7,7 +7,9 @@ defmodule Cartel.Supervisor do
 
   def init(dealers) do
     dealers
-    |> Enum.map(&(worker(Cartel.Dealer, [&1], id: &1[:id], name: &1[:id])))
+    |> Enum.map(fn dealer ->
+      worker(Cartel.Dealer, [dealer], id: dealer[:id], name: dealer[:name])
+    end)
     |> supervise([strategy: :one_for_one])
   end
 end
