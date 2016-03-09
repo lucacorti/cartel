@@ -1,4 +1,4 @@
-defmodule Cartel.Pusher.Apns.Message do
+defmodule Cartel.Message.Apns do
   alias Cartel.Message.Encoder
 
   defstruct [items: []]
@@ -41,8 +41,8 @@ defmodule Cartel.Pusher.Apns.Message do
   end
 end
 
-defimpl Cartel.Message.Encoder, for: Cartel.Pusher.Apns.Message do
-  alias Cartel.Pusher.Apns.Message.Item
+defimpl Cartel.Message.Encoder, for: Cartel.Message.Apns do
+  alias Cartel.Message.Apns.Item
 
   def encode(message) do
     items = Enum.map_join(message.items, fn item ->

@@ -1,6 +1,6 @@
-defmodule Cartel.Pusher.Apns.Message.Item do
+defmodule Cartel.Message.Apns.Item do
   defstruct [:id, :data]
-  alias Cartel.Pusher.Apns.Message.Item
+  alias Cartel.Message.Apns.Item
 
   @device_token 1
   def device_token, do: @device_token

@@ -1,6 +1,6 @@
 defmodule Cartel.Pusher.Wns do
   use GenServer
-  alias Cartel.Pusher.Wns.Message
+  alias Cartel.Message.Wns, as: Message
 
   @wns_login_url "https://login.live.com/accesstoken.srf"
   @wns_server_url "https://cloud.notify.windows.com"
@@ -42,7 +42,8 @@ defmodule Cartel.Pusher.Wns do
     if response.status_code >= 400 do
       {:stop, response.status_code, state}
     else
-      {:reply, {:ok, response.status_code, Message.deserialize(response.body)}, state}
+      body = Message.deserialize(response.body)
+      {:reply, {:ok, response.status_code, body}, state}
     end
   end
 end

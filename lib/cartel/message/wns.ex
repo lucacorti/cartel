@@ -1,4 +1,4 @@
-defmodule Cartel.Pusher.Wns.Message do
+defmodule Cartel.Message.Wns do
   alias Cartel.Message.Encoder
 
   @behaviour Cartel.Message

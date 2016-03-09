@@ -1,7 +1,7 @@
 defmodule Cartel.Pusher.Apns do
   use GenServer
   alias Cartel.Pusher.Apns
-  alias Cartel.Pusher.Apns.Message
+  alias Cartel.Message.Apns, as: Message
 
   @initial_state %{socket: nil}
   @push_host 'gateway.push.apple.com'

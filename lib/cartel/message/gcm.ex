@@ -1,4 +1,4 @@
-defmodule Cartel.Pusher.Gcm.Message do
+defmodule Cartel.Message.Gcm do
   alias Cartel.Message.Encoder
 
   @behaviour Cartel.Message
@@ -15,7 +15,7 @@ defmodule Cartel.Pusher.Gcm.Message do
   end
 end
 
-defimpl Cartel.Message.Encoder, for: Cartel.Pusher.Gcm.Message do
+defimpl Cartel.Message.Encoder, for: Cartel.Message.Gcm do
   def encode(message) do
     Poison.encode(message)
   end
