@@ -2,12 +2,11 @@ defmodule Cartel.Pusher.Wns do
   use GenServer
   alias Cartel.Pusher.Wns.Message
 
-  @behaviour Cartel.Pusher
   @wns_login_url "https://login.live.com/accesstoken.srf"
   @wns_server_url "https://cloud.notify.windows.com"
 
-  def send(message, pname) do
-    GenServer.cast(pname, {:send, message})
+  def send(pid, message) do
+    GenServer.cast(pid, {:send, message})
   end
 
   def start_link(id, args) do

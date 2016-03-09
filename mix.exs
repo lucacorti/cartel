@@ -29,11 +29,11 @@ defmodule Cartel.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
+      {:credo, "~> 0.3", only: [:dev, :test]},
       {:exrm, "~> 1.0.2"},
       {:poison, "~> 2.1.0"},
       {:httpotion, "~> 2.2.0"},
-      {:poolboy, "~> 1.5.1"},
-      {:credo, "~> 0.3", only: [:dev, :test]}
+      {:poolboy, "~> 1.5.1"}
     ]
   end
 end
