@@ -5,7 +5,7 @@ defmodule Cartel.Dealer do
   defp pusher_name(id, type), do: :"Cartel.Pusher@#{id}/#{type}"
 
   def send(appid, type, message) do
-    type.send(message, pusher_name(appid, type))
+    Cartel.Pusher.send(pusher_name(appid, type), type, message)
   end
 
   def start_link(args) do
@@ -17,7 +17,7 @@ defmodule Cartel.Dealer do
     args[:pushers]
     |> Enum.map(fn pusher ->
       pusher_id = pusher_name(args[:id], pusher[:type])
-      worker(pusher[:type], [pusher_id, pusher], id: pusher_id)
+      worker(Cartel.Pusher, [pusher_id, pusher], id: pusher_id, name: pusher_id)
     end)
     |> supervise([strategy: :one_for_one])
   end

@@ -3,8 +3,6 @@ defmodule Cartel.Pusher.Apns do
   alias Cartel.Pusher.Apns
   alias Cartel.Pusher.Apns.Message
 
-  @behaviour Cartel.Pusher
-
   @initial_state %{socket: nil}
   @push_host 'gateway.push.apple.com'
   @push_sandbox_host 'gateway.sandbox.push.apple.com'
@@ -13,12 +11,12 @@ defmodule Cartel.Pusher.Apns do
   @feedback_sandbox_host 'feedback.sandbox.push.apple.com'
   @feedback_port 2196
 
-  def send(message, pname) do
-    GenServer.cast(pname, {:send, message})
+  def send(pid, message) do
+    GenServer.cast(pid, {:send, message})
   end
 
-  def start_link(id, args) do
-    GenServer.start_link(__MODULE__, args, name: id)
+  def start_link(args) do
+    GenServer.start_link(__MODULE__, args, [])
   end
 
   def init([type: Apns, env: :sandbox, cert: cert, key: key, cacert: cacert]) do

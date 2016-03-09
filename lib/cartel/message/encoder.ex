@@ -5,6 +5,6 @@ end
 
 defimpl Cartel.Message.Encoder, for: Any do
   def encode(_) do
-    {:error, "Cartel.Message.Encoder protocol not implemented this type."}
+    {:error, "Cartel.Message.Encoder protocol not implemented for this type."}
   end
 end
