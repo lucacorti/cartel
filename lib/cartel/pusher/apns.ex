@@ -1,37 +1,38 @@
 defmodule Cartel.Pusher.Apns do
   use GenServer
+  alias Cartel.Pusher.Apns
   alias Cartel.Pusher.Apns.Message
 
-  @behaviour Cartel.Pusher
-
   @initial_state %{socket: nil}
-  @apns_push_host 'gateway.push.apple.com'
-  @apns_push_sandbox_host 'gateway.sandbox.push.apple.com'
-  @apns_push_port 2195
-  @apns_feedback_host 'feedback.push.apple.com'
-  @apns_feedback_sandbox_host 'feedback.sandbox.push.apple.com'
-  @apns_feedback_port 2196
+  @push_host 'gateway.push.apple.com'
+  @push_sandbox_host 'gateway.sandbox.push.apple.com'
+  @push_port 2195
+  @feedback_host 'feedback.push.apple.com'
+  @feedback_sandbox_host 'feedback.sandbox.push.apple.com'
+  @feedback_port 2196
 
-  def send(message, pname) do
-    GenServer.cast(pname, {:send, message})
+  def send(pid, message) do
+    GenServer.cast(pid, {:send, message})
   end
 
-  def start_link(id, args) do
-    GenServer.start_link(__MODULE__, args, name: id)
+  def start_link(args) do
+    GenServer.start_link(__MODULE__, args, [])
   end
 
-  def init([type: Cartel.Pusher.Apns, env: :sandbox, cert: cert, key: key, cacert: cacert]) do
-    {:ok, socket} = connect(@apns_push_sandbox_host, @apns_push_port, cert, key, cacert)
+  def init([type: Apns, env: :sandbox, cert: cert, key: key, cacert: cacert]) do
+    {:ok, socket} = connect(@push_sandbox_host, @push_port, cert, key, cacert)
     {:ok, %{@initial_state | socket: socket}}
   end
 
-  def init([type: Cartel.Pusher.Apns, env: :production, cert: cert, key: key, cacert: cacert]) do
-    {:ok, socket} = connect(@apns_push_host, @apns_push_port, cert, key, cacert)
+  def init([type: Apns, env: :production, cert: cert, key: key, cacert: cacert])
+  do
+    {:ok, socket} = connect(@push_host, @push_port, cert, key, cacert)
     {:ok, %{@initial_state | socket: socket}}
   end
 
   defp connect(host, port, cert, key, cacert) do
-    opts = [:binary, active: true, certfile: cert, keyfile: key, cacertfile: cacert]
+    opts = [:binary, active: true, certfile: cert, keyfile: key,
+            cacertfile: cacert]
     :ssl.connect(host, port, opts)
   end
 

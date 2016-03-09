@@ -32,7 +32,8 @@ defmodule Cartel.Mixfile do
       {:exrm, "~> 1.0.2"},
       {:poison, "~> 2.1.0"},
       {:httpotion, "~> 2.2.0"},
-      {:poolboy, "~> 1.5.1"}
+      {:poolboy, "~> 1.5.1"},
+      {:credo, "~> 0.3", only: [:dev, :test]}
     ]
   end
 end

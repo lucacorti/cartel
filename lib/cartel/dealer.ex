@@ -1,34 +1,25 @@
 defmodule Cartel.Dealer do
-  use GenServer
+  use Supervisor
+  alias Cartel.Pusher
 
-  def start_link(args) do
-    GenServer.start_link(__MODULE__, args, name: dealer_name(args[:id]))
-  end
+  defp dealer_name(id), do: :"Cartel.Dealer@#{id}"
+  defp pusher_name(id, type), do: :"Cartel.Pusher@#{id}/#{type}"
 
   def send(appid, type, message) do
-    GenServer.call(dealer_name(appid), {:send, appid, type, message})
+    Pusher.send(pusher_name(appid, type), type, message)
+  end
+
+  def start_link(args) do
+    opts = [id: dealer_name(args[:id]), name: dealer_name(args[:id])]
+    Supervisor.start_link(__MODULE__, args, opts)
   end
 
   def init(args) do
-    import Supervisor.Spec, warn: false
-    children = args[:pushers]
+    args[:pushers]
     |> Enum.map(fn pusher ->
-      id = pusher_name(args[:id], pusher[:type])
-      worker(pusher[:type], [id, pusher], id: id)
+      pusher_id = pusher_name(args[:id], pusher[:type])
+      worker(Cartel.Pusher, [pusher_id, pusher], id: pusher_id, name: pusher_id)
     end)
-    opts = [strategy: :one_for_one, id: :"Cartel.Dealer.Supervisor@#{args[:id]}"]
-    Supervisor.start_link(children, opts)
-  end
-
-  def handle_call({:send, appid, type, message}, _from, state) do
-    {:reply, type.send(message, pusher_name(appid, type)), state}
-  end
-
-  defp dealer_name(id) do
-    :"Cartel.Dealer@#{id}"
-  end
-
-  defp pusher_name(id, type) do
-    :"Cartel.Pusher@#{id}/#{type}"
+    |> supervise([strategy: :one_for_one])
   end
 end

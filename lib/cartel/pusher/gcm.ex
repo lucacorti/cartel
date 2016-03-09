@@ -2,15 +2,14 @@ defmodule Cartel.Pusher.Gcm do
   use GenServer
   alias Cartel.Pusher.Gcm.Message
 
-  @behaviour Cartel.Pusher
   @gcm_server_url "https://gcm-http.googleapis.com/gcm/send"
 
-  def send(message, pname) do
-    GenServer.cast(pname, {:send, message})
+  def send(pid, message) do
+    GenServer.call(pid, {:send, message})
   end
 
-  def start_link(id, args) do
-    GenServer.start_link(__MODULE__, args, name: id)
+  def start_link(args) do
+    GenServer.start_link(__MODULE__, args, [])
   end
 
   def init(state) do
@@ -23,7 +22,10 @@ defmodule Cartel.Pusher.Gcm do
       "Content-Type": "application/json",
       "Authorization": "key=" <> state[:key]
     ]
-    response = HTTPotion.post(@gcm_server_url, [body: request, headers: headers])
+    response = HTTPotion.post(
+      @gcm_server_url,
+      [body: request, headers: headers]
+    )
     if response.status_code >= 400 do
       {:stop, response.status_code, state}
     else
