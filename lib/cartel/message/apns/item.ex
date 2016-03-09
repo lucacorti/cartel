@@ -38,19 +38,19 @@ defmodule Cartel.Message.Apns.Item do
     {:ok, <<item.id::size(8), 4::size(16), item.data::size(32)>>}
   end
 
+  def encode(item = %Item{id: @expiration_date, data: nil}) do
+    {:ok, <<item.id::size(8), 4::size(16), 0::size(32)>>}
+  end
+
   def encode(item = %Item{id: @expiration_date}) do
-    date = item.data
-    if date == nil do
-      date = 0
-    end
-    {:ok, <<item.id::size(8), 4::size(16), date::size(32)>>}
+    {:ok, <<item.id::size(8), 4::size(16), item.data::size(32)>>}
+  end
+
+  def encode(item = %Item{id: @priority, data: nil}) do
+    {:ok, <<item.id::size(8), 1::size(16), @priority_immediately::size(32)>>}
   end
 
   def encode(item = %Item{id: @priority}) do
-    msg_priority = item.data
-    if msg_priority == nil do
-      msg_priority = @priority_immediately
-    end
-    {:ok, <<item.id::size(8), 1::size(16), msg_priority::size(32)>>}
+    {:ok, <<item.id::size(8), 1::size(16), item.data::size(32)>>}
   end
 end
