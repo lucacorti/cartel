@@ -1,6 +1,6 @@
 # Cartel
 
-**TODO: Add description**
+**WIP: Multi platform, multi app push notification server**
 
 ## Installation
 
@@ -17,4 +17,3 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
         def application do
           [applications: [:cartel]]
         end
-
