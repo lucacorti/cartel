@@ -1,11 +1,12 @@
 defmodule Cartel.Dealer do
   use Supervisor
+  alias Cartel.Pusher
 
   defp dealer_name(id), do: :"Cartel.Dealer@#{id}"
   defp pusher_name(id, type), do: :"Cartel.Pusher@#{id}/#{type}"
 
   def send(appid, type, message) do
-    Cartel.Pusher.send(pusher_name(appid, type), type, message)
+    Pusher.send(pusher_name(appid, type), type, message)
   end
 
   def start_link(args) do
