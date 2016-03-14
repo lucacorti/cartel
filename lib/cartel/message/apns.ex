@@ -29,11 +29,8 @@ defmodule Cartel.Message.Apns do
   defp status_to_string(@shutdown), do: "Shutdown"
   defp status_to_string(_), do: "None (unknown)"
 
-  def deserialize(binary) do
-    case binary do
-      <<8::size(8), status::size(8), identifier::size(32)>> ->
-        {:error, identifier, status, status_to_string(status)}
-    end
+  def deserialize(<<8::size(8), status::size(8), identifier::size(32)>>) do
+    {:error, identifier, status, status_to_string(status)}
   end
 
   def serialize(message) do
