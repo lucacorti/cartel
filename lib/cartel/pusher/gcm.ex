@@ -22,14 +22,19 @@ defmodule Cartel.Pusher.Gcm do
       "Content-Type": "application/json",
       "Authorization": "key=" <> state[:key]
     ]
-    response = HTTPotion.post(
+    HTTPotion.post(
       @gcm_server_url,
       [body: request, headers: headers]
     )
-    if response.status_code >= 400 do
-      {:stop, response.status_code, state}
-    else
-      {:reply, {:ok, response.status_code, Poison.decode(response.body)}, state}
-    end
+    |> respond(state)
+  end
+
+  defp respond(res = %HTTPotion.Response{status_code: code}, state)
+  when code >= 400 do
+    {:stop, res.code, state}
+  end
+
+  defp respond(res = %HTTPotion.Response{}, state) do
+    {:reply, {:ok, res.status_code, Poison.decode(res.body)}, state}
   end
 end

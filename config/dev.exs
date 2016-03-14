@@ -15,6 +15,7 @@ config :cartel, dealers: [
       ],
       [
         type: Cartel.Pusher.Gcm,
+        env: :sandbox,
         sender: "abc",
         key: "def"
       ]
@@ -37,6 +38,7 @@ config :cartel, dealers: [
     pushers: [
       [
         type: Cartel.Pusher.Gcm,
+        env: :sandbox,
         sender: "abc",
         key: "def"
       ]

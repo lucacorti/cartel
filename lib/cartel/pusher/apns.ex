@@ -7,13 +7,6 @@ defmodule Cartel.Pusher.Apns do
   @push_host 'gateway.push.apple.com'
   @push_sandbox_host 'gateway.sandbox.push.apple.com'
   @push_port 2195
-  @feedback_host 'feedback.push.apple.com'
-  @feedback_sandbox_host 'feedback.sandbox.push.apple.com'
-  @feedback_port 2196
-
-  def send(pid, message) do
-    GenServer.cast(pid, {:send, message})
-  end
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, [])
@@ -34,6 +27,10 @@ defmodule Cartel.Pusher.Apns do
     opts = [:binary, active: true, certfile: cert, keyfile: key,
             cacertfile: cacert]
     :ssl.connect(host, port, opts)
+  end
+
+  def send(pid, message) do
+    GenServer.cast(pid, {:send, message})
   end
 
   def handle_cast({:send, message}, state) do

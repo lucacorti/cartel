@@ -30,20 +30,20 @@ defmodule Cartel.Pusher.Wns do
 
   def handle_call({:send, message}, _from, state) do
     {:ok, request} = Message.serialize(message)
-    query = [
-      "token": state[:token]
-    ]
-    headers = [
-      "Content-Type": "text/xml"
-    ]
-    response = HTTPotion.post(@wns_login_url, [
+    query = ["token": state[:token]]
+    headers = ["Content-Type": "text/xml"]
+    HTTPotion.post(@wns_login_url, [
       body: request, headers: headers, query: query
     ])
-    if response.status_code >= 400 do
-      {:stop, response.status_code, state}
-    else
-      body = Message.deserialize(response.body)
-      {:reply, {:ok, response.status_code, body}, state}
-    end
+    |> respond(state)
+  end
+
+  defp respond(res = %HTTPotion.Response{status_code: code}, state)
+  when code >= 400 do
+    {:stop, res.code, state}
+  end
+
+  defp respond(res = %HTTPotion.Response{}, state) do
+    {:reply, {:ok, res.status_code, Message.deserialize(res.body)}, state}
   end
 end
