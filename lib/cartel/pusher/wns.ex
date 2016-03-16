@@ -20,30 +20,34 @@ defmodule Cartel.Pusher.Wns do
       "client_secret": state[:client_secret],
       "scope": "notify.windows.com"
     ]
-    response = HTTPotion.post(@wns_login_url, [query: query])
-    if response.status_code >= 400 do
-      {:stop, response.status_code, state}
-    else
-      {:ok, [[token: Poison.decode(response.body)[:access_token]] | state]}
-    end
+    res = HTTPotion.post(@wns_login_url, [query: query])
+    login_respond(res)
+  end
+
+  defp login_respond(res = %HTTPotion.Response{status_code: code}, state)
+  when code >= 400 do
+      {:stop, res.status_code, state}
+  end
+
+  defp login_respond(res = %HTTPotion.Response{}, state) do
+    {:ok, [[token: Poison.decode(response.body)[:access_token]] | state]}
   end
 
   def handle_call({:send, message}, _from, state) do
     {:ok, request} = Message.serialize(message)
     query = ["token": state[:token]]
     headers = ["Content-Type": "text/xml"]
-    HTTPotion.post(@wns_login_url, [
-      body: request, headers: headers, query: query
-    ])
-    |> respond(state)
+    res = HTTPotion.post(@wns_login_url, [body: request, headers: headers,
+                        query: query])
+    send_respond(res, state)
   end
 
-  defp respond(res = %HTTPotion.Response{status_code: code}, state)
+  defp send_respond(res = %HTTPotion.Response{status_code: code}, state)
   when code >= 400 do
     {:stop, res.code, state}
   end
 
-  defp respond(res = %HTTPotion.Response{}, state) do
+  defp send_respond(res = %HTTPotion.Response{}, state) do
     {:reply, {:ok, res.status_code, Message.deserialize(res.body)}, state}
   end
 end

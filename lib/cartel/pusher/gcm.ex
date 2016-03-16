@@ -22,11 +22,8 @@ defmodule Cartel.Pusher.Gcm do
       "Content-Type": "application/json",
       "Authorization": "key=" <> state[:key]
     ]
-    HTTPotion.post(
-      @gcm_server_url,
-      [body: request, headers: headers]
-    )
-    |> respond(state)
+    res = HTTPotion.post(@gcm_server_url, [body: request, headers: headers])
+    respond(res, state)
   end
 
   defp respond(res = %HTTPotion.Response{status_code: code}, state)
