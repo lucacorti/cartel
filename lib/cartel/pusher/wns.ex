@@ -30,7 +30,7 @@ defmodule Cartel.Pusher.Wns do
   end
 
   defp login_respond(res = %HTTPotion.Response{}, state) do
-    {:ok, [[token: Poison.decode(response.body)[:access_token]] | state]}
+    {:ok, [[token: Poison.decode(res.body)[:access_token]] | state]}
   end
 
   def handle_call({:send, message}, _from, state) do
