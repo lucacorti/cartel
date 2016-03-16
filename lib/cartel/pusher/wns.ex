@@ -26,7 +26,7 @@ defmodule Cartel.Pusher.Wns do
 
   defp login_respond(res = %HTTPotion.Response{status_code: code}, state)
   when code >= 400 do
-      {:stop, res.status_code, state}
+    {:stop, res.status_code, state}
   end
 
   defp login_respond(res = %HTTPotion.Response{}, state) do
