@@ -21,7 +21,7 @@ defmodule Cartel.Pusher.Wns do
       "scope": "notify.windows.com"
     ]
     res = HTTPotion.post(@wns_login_url, [query: query])
-    login_respond(res)
+    login_respond(res, state)
   end
 
   defp login_respond(res = %HTTPotion.Response{status_code: code}, state)
