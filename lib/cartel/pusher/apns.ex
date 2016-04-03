@@ -3,7 +3,6 @@ defmodule Cartel.Pusher.Apns do
   alias Cartel.Pusher.Apns
   alias Cartel.Message.Apns, as: Message
 
-  @initial_state %{socket: nil}
   @push_host 'gateway.push.apple.com'
   @push_sandbox_host 'gateway.sandbox.push.apple.com'
   @push_port 2195
@@ -12,25 +11,27 @@ defmodule Cartel.Pusher.Apns do
     GenServer.start_link(__MODULE__, args, [])
   end
 
-  def init([type: Apns, env: :sandbox, cert: cert, key: key, cacert: cacert]) do
-    {:ok, socket} = connect(@push_sandbox_host, @push_port, cert, key, cacert)
-    {:ok, %{@initial_state | socket: socket}}
-  end
-
-  def init([type: Apns, env: :production, cert: cert, key: key, cacert: cacert])
-  do
-    {:ok, socket} = connect(@push_host, @push_port, cert, key, cacert)
-    {:ok, %{@initial_state | socket: socket}}
-  end
-
-  defp connect(host, port, cert, key, cacert) do
-    opts = [:binary, active: true, certfile: cert, keyfile: key,
-            cacertfile: cacert]
-    :ssl.connect(host, port, opts)
+  def init(conf = %{type: Apns}) do
+    {:ok, %{socket: nil, conf: conf}}
   end
 
   def send(pid, message) do
     GenServer.cast(pid, {:send, message})
+  end
+
+  defp connect(:sandbox, opts) do
+   :ssl.connect(@push_sandbox_host, @push_port, opts)
+  end
+
+  defp connect(:production, opts) do
+    :ssl.connect(@push_host, @push_port, opts)
+  end
+
+  def handle_cast({:send, message}, state = %{conf: conf, socket: nil}) do
+    opts = [:binary, active: true, certfile: conf.cert, keyfile: conf.key,
+          cacertfile: conf.cacert]
+    {:ok, socket} = connect(conf.env, opts)
+    handle_cast({:send, message}, %{state | socket: socket})
   end
 
   def handle_cast({:send, message}, state) do
