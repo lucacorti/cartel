@@ -7,7 +7,7 @@ config :cartel, dealers: [
     id: "com.mydomain1.myapp1",
     pushers: [
       %{
-        type: Cartel.Pusher.Apns,
+        type: Cartel.Pusher.Apns2,
         env: :sandbox,
         cert: "/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem",
         key: "/Users/luca/Desktop/keys/tsc-apns-dev-key.pem",

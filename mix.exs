@@ -14,7 +14,7 @@ defmodule Cartel.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :ssl, :poolboy, :poison, :httpotion],
+    [applications: [:logger, :ssl, :poolboy, :poison, :httpotion, :chatterbox],
      mod: {Cartel, []}]
   end
 
@@ -32,7 +32,8 @@ defmodule Cartel.Mixfile do
       {:credo, "~> 0.3", only: [:dev, :test]},
       {:poison, "~> 2.1.0"},
       {:httpotion, "~> 2.2.0"},
-      {:poolboy, "~> 1.5.1"}
+      {:poolboy, "~> 1.5.1"},
+      {:chatterbox, github: "joedevivo/chatterbox", branch: :master}
     ]
   end
 end

@@ -1,0 +1,843 @@
+2016-04-07 01:58:08 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.310.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 01:58:33 =ERROR REPORT====
+** Generic server <0.365.0> terminating 
+** Last message in was {send,#{'__struct__' => 'Elixir.Cartel.Message.Apns2',expiration => nil,id => nil,payload => #{aps => #{alert => <<"ciao">>}},priority => 5,token => <<"b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>,topic => nil}}
+** When Server state == #{conf => #{cacert => <<"/Users/luca/Desktop/keys/entrust_2048_ca.cer">>,cert => <<"/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem">>,env => sandbox,key => <<"/Users/luca/Desktop/keys/tsc-apns-dev-key.pem">>,type => 'Elixir.Cartel.Pusher.Apns2'},headers => nil,pid => nil}
+** Reason for termination == 
+** {{badmatch,{error,{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}},[{'Elixir.Cartel.Pusher.Apns2',connect,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,19}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,45}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 01:58:33 =CRASH REPORT====
+  crasher:
+    initial call: Elixir.Cartel.Pusher.Apns2:init/1
+    pid: <0.365.0>
+    registered_name: []
+    exception exit: {{{badmatch,{error,{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}},[{'Elixir.Cartel.Pusher.Apns2',connect,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,19}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,45}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,826}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.360.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.358.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.356.0>,<0.355.0>]
+    messages: []
+    links: [<0.360.0>,<0.399.0>,<0.359.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 282
+  neighbours:
+    neighbour: [{pid,<0.399.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{erlang,process_info,2}},{ancestors,[<0.365.0>,<0.360.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.358.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.356.0>,<0.355.0>]},{messages,[]},{links,[<0.365.0>]},{dictionary,[]},{trap_exit,false},{status,suspended},{heap_size,987},{stack_size,30},{reductions,2721}]
+2016-04-07 01:58:33 =SUPERVISOR REPORT====
+     Supervisor: {<0.360.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {{badmatch,{error,{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}},[{'Elixir.Cartel.Pusher.Apns2',connect,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,19}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,45}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.365.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:00:15 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.176.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:00:18 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.265.0>
+    registered_name: []
+    exception exit: {{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,396}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.231.0>,<0.226.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.224.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.222.0>,<0.221.0>]
+    messages: []
+    links: [<0.231.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 2653
+  neighbours:
+    neighbour: [{pid,<0.231.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{proc_lib,sync_wait,2}},{ancestors,[<0.226.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.224.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.222.0>,<0.221.0>]},{messages,[{ack,<0.265.0>,{error,{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}}]},{links,[<0.226.0>,<0.265.0>,<0.225.0>]},{dictionary,[]},{trap_exit,false},{status,runnable},{heap_size,376},{stack_size,20},{reductions,121}]
+2016-04-07 02:00:18 =SUPERVISOR REPORT====
+     Supervisor: {<0.226.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.231.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:01:16 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.176.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:01:28 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.265.0>
+    registered_name: []
+    exception exit: {{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,396}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.231.0>,<0.226.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.224.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.222.0>,<0.221.0>]
+    messages: []
+    links: [<0.231.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 2474
+  neighbours:
+    neighbour: [{pid,<0.231.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{proc_lib,sync_wait,2}},{ancestors,[<0.226.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.224.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.222.0>,<0.221.0>]},{messages,[{ack,<0.265.0>,{error,{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}}]},{links,[<0.226.0>,<0.265.0>,<0.225.0>]},{dictionary,[]},{trap_exit,false},{status,runnable},{heap_size,376},{stack_size,20},{reductions,107}]
+2016-04-07 02:01:28 =SUPERVISOR REPORT====
+     Supervisor: {<0.226.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.231.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:02:07 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.279.0>
+    registered_name: []
+    exception exit: {{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,396}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.267.0>,<0.226.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.224.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.222.0>,<0.221.0>]
+    messages: []
+    links: [<0.267.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 2616
+  neighbours:
+    neighbour: [{pid,<0.267.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{proc_lib,sync_wait,2}},{ancestors,[<0.226.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.224.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.222.0>,<0.221.0>]},{messages,[{ack,<0.279.0>,{error,{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}}]},{links,[<0.226.0>,<0.279.0>,<0.225.0>]},{dictionary,[]},{trap_exit,false},{status,runnable},{heap_size,376},{stack_size,20},{reductions,100}]
+2016-04-07 02:02:07 =SUPERVISOR REPORT====
+     Supervisor: {<0.226.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.267.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:06:19 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.150.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:06:42 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.239.0>
+    registered_name: []
+    exception exit: {{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,396}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.205.0>,<0.200.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.198.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.196.0>,<0.195.0>]
+    messages: []
+    links: [<0.205.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 2669
+  neighbours:
+    neighbour: [{pid,<0.205.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{proc_lib,sync_wait,2}},{ancestors,[<0.200.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.198.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.196.0>,<0.195.0>]},{messages,[{ack,<0.239.0>,{error,{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}}]},{links,[<0.200.0>,<0.239.0>,<0.199.0>]},{dictionary,[]},{trap_exit,false},{status,runnable},{heap_size,376},{stack_size,20},{reductions,127}]
+2016-04-07 02:06:42 =SUPERVISOR REPORT====
+     Supervisor: {<0.200.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.205.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:10:06 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.245.0>
+    registered_name: []
+    exception exit: {{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,396}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.232.0>]
+    messages: []
+    links: [<0.232.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 2434
+  neighbours:
+    neighbour: [{pid,<0.232.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{proc_lib,sync_wait,2}},{ancestors,[]},{messages,[{ack,<0.245.0>,{error,{{badmatch,{error,{options,{socket_options,[{mode,binary},{packet,raw},{active,once}]}}}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}}]},{links,[<0.245.0>]},{dictionary,[{iex_history,#{'__struct__' => 'Elixir.IEx.History.State',queue => {[{2,"alias Cartel.Message.Apns2, as: Message\n",nil}],[{1,"alias Cartel.Pusher.Apns2\n",nil}]},size => 2,start => 1}}]},{trap_exit,false},{status,runnable},{heap_size,4185},{stack_size,47},{reductions,16676}]
+2016-04-07 02:10:37 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.252.0>
+    registered_name: []
+    exception exit: {{function_clause,[{proplists,delete,[binary,nil],[{file,"proplists.erl"},{line,367}]},{proplists,delete,2,[{file,"proplists.erl"},{line,373}]},{proplists,delete,2,[{file,"proplists.erl"},{line,373}]},{proplists,expand_3,5,[{file,"proplists.erl"},{line,557}]},{proplists,expand_2,4,[{file,"proplists.erl"},{line,546}]},{proplists,expand_0,2,[{file,"proplists.erl"},{line,522}]},{proplists,expand,2,[{file,"proplists.erl"},{line,514}]},{ssl,handle_options,2,[{file,"ssl.erl"},{line,660}]}]},[{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,396}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.246.0>]
+    messages: []
+    links: [<0.246.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 141
+  neighbours:
+    neighbour: [{pid,<0.246.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{proc_lib,sync_wait,2}},{ancestors,[]},{messages,[{ack,<0.252.0>,{error,{function_clause,[{proplists,delete,[binary,nil],[{file,"proplists.erl"},{line,367}]},{proplists,delete,2,[{file,"proplists.erl"},{line,373}]},{proplists,delete,2,[{file,"proplists.erl"},{line,373}]},{proplists,expand_3,5,[{file,"proplists.erl"},{line,557}]},{proplists,expand_2,4,[{file,"proplists.erl"},{line,546}]},{proplists,expand_0,2,[{file,"proplists.erl"},{line,522}]},{proplists,expand,2,[{file,"proplists.erl"},{line,514}]},{ssl,handle_options,2,[{file,"ssl.erl"},{line,660}]}]}}}]},{links,[<0.252.0>]},{dictionary,[{iex_history,#{'__struct__' => 'Elixir.IEx.History.State',queue => {[{2,"\n",nil}],[{1,"\n",nil}]},size => 2,start => 1}}]},{trap_exit,false},{status,runnable},{heap_size,2586},{stack_size,47},{reductions,6021}]
+2016-04-07 02:11:52 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.256.0>
+    registered_name: []
+    exception exit: {{function_clause,[{proplists,delete,[binary,nil],[{file,"proplists.erl"},{line,367}]},{proplists,delete,2,[{file,"proplists.erl"},{line,373}]},{proplists,delete,2,[{file,"proplists.erl"},{line,373}]},{proplists,expand_3,5,[{file,"proplists.erl"},{line,557}]},{proplists,expand_2,4,[{file,"proplists.erl"},{line,546}]},{proplists,expand_0,2,[{file,"proplists.erl"},{line,522}]},{proplists,expand,2,[{file,"proplists.erl"},{line,514}]},{ssl,handle_options,2,[{file,"ssl.erl"},{line,660}]}]},[{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,396}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.253.0>]
+    messages: []
+    links: [<0.253.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 141
+  neighbours:
+    neighbour: [{pid,<0.253.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{proc_lib,sync_wait,2}},{ancestors,[]},{messages,[{ack,<0.256.0>,{error,{function_clause,[{proplists,delete,[binary,nil],[{file,"proplists.erl"},{line,367}]},{proplists,delete,2,[{file,"proplists.erl"},{line,373}]},{proplists,delete,2,[{file,"proplists.erl"},{line,373}]},{proplists,expand_3,5,[{file,"proplists.erl"},{line,557}]},{proplists,expand_2,4,[{file,"proplists.erl"},{line,546}]},{proplists,expand_0,2,[{file,"proplists.erl"},{line,522}]},{proplists,expand,2,[{file,"proplists.erl"},{line,514}]},{ssl,handle_options,2,[{file,"ssl.erl"},{line,660}]}]}}}]},{links,[<0.256.0>]},{dictionary,[{iex_history,#{'__struct__' => 'Elixir.IEx.History.State',queue => {[],[]},size => 0,start => 1}}]},{trap_exit,false},{status,runnable},{heap_size,987},{stack_size,47},{reductions,4697}]
+2016-04-07 02:12:25 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:16:35 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     killed
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:16:46 =ERROR REPORT====
+** Generic server <0.284.0> terminating 
+** Last message in was {send,#{'__struct__' => 'Elixir.Cartel.Message.Apns2',expiration => nil,id => nil,payload => #{aps => #{alert => <<"ciao">>}},priority => 5,token => <<"b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>,topic => nil}}
+** When Server state == #{conf => #{cacert => <<"/Users/luca/Desktop/keys/entrust_2048_ca.cer">>,cert => <<"/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem">>,env => sandbox,key => <<"/Users/luca/Desktop/keys/tsc-apns-dev-key.pem">>,type => 'Elixir.Cartel.Pusher.Apns2'},headers => nil,pid => nil}
+** Reason for termination == 
+** {#{'__exception__' => true,'__struct__' => 'Elixir.Protocol.UndefinedError',description => nil,protocol => 'Elixir.String.Chars',value => <0.284.0>},[{'Elixir.String.Chars','impl_for!',1,[{file,"lib/string/chars.ex"},{line,3}]},{'Elixir.String.Chars',to_string,1,[{file,"lib/string/chars.ex"},{line,17}]},{'Elixir.IO',puts,2,[{file,"lib/io.ex"},{line,442}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,50}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:16:46 =CRASH REPORT====
+  crasher:
+    initial call: Elixir.Cartel.Pusher.Apns2:init/1
+    pid: <0.284.0>
+    registered_name: []
+    exception exit: {{#{'__exception__' => true,'__struct__' => 'Elixir.Protocol.UndefinedError',description => nil,protocol => 'Elixir.String.Chars',value => <0.284.0>},[{'Elixir.String.Chars','impl_for!',1,[{file,"lib/string/chars.ex"},{line,3}]},{'Elixir.String.Chars',to_string,1,[{file,"lib/string/chars.ex"},{line,17}]},{'Elixir.IO',puts,2,[{file,"lib/io.ex"},{line,442}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,50}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,826}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.213.0>,<0.292.0>,<0.212.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 239
+  neighbours:
+    neighbour: [{pid,<0.294.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.292.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.292.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{code_server,call,2}},{ancestors,[<0.284.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.284.0>,<0.294.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,987},{stack_size,21},{reductions,3336}]
+2016-04-07 02:16:46 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {#{'__exception__' => true,'__struct__' => 'Elixir.Protocol.UndefinedError',description => nil,protocol => 'Elixir.String.Chars',value => <0.284.0>},[{'Elixir.String.Chars','impl_for!',1,[{file,"lib/string/chars.ex"},{line,3}]},{'Elixir.String.Chars',to_string,1,[{file,"lib/string/chars.ex"},{line,17}]},{'Elixir.IO',puts,2,[{file,"lib/io.ex"},{line,442}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,50}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.284.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:18:59 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:19:03 =ERROR REPORT====
+** Generic server <0.218.0> terminating 
+** Last message in was {send,#{'__struct__' => 'Elixir.Cartel.Message.Apns2',expiration => nil,id => nil,payload => #{aps => #{alert => <<"ciao">>}},priority => 5,token => <<"b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>,topic => nil}}
+** When Server state == #{conf => #{cacert => <<"/Users/luca/Desktop/keys/entrust_2048_ca.cer">>,cert => <<"/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem">>,env => sandbox,key => <<"/Users/luca/Desktop/keys/tsc-apns-dev-key.pem">>,type => 'Elixir.Cartel.Pusher.Apns2'},headers => nil,pid => nil}
+** Reason for termination == 
+** {#{'__exception__' => true,'__struct__' => 'Elixir.Protocol.UndefinedError',description => nil,protocol => 'Elixir.String.Chars',value => <0.252.0>},[{'Elixir.String.Chars','impl_for!',1,[{file,"lib/string/chars.ex"},{line,3}]},{'Elixir.String.Chars',to_string,1,[{file,"lib/string/chars.ex"},{line,17}]},{'Elixir.IO',puts,2,[{file,"lib/io.ex"},{line,442}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,50}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:19:03 =CRASH REPORT====
+  crasher:
+    initial call: Elixir.Cartel.Pusher.Apns2:init/1
+    pid: <0.218.0>
+    registered_name: []
+    exception exit: {{#{'__exception__' => true,'__struct__' => 'Elixir.Protocol.UndefinedError',description => nil,protocol => 'Elixir.String.Chars',value => <0.252.0>},[{'Elixir.String.Chars','impl_for!',1,[{file,"lib/string/chars.ex"},{line,3}]},{'Elixir.String.Chars',to_string,1,[{file,"lib/string/chars.ex"},{line,17}]},{'Elixir.IO',puts,2,[{file,"lib/io.ex"},{line,442}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,50}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,826}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.213.0>,<0.252.0>,<0.212.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 263
+  neighbours:
+    neighbour: [{pid,<0.258.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.252.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{code_server,call,2}},{ancestors,[<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.218.0>,<0.258.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,987},{stack_size,21},{reductions,3427}]
+2016-04-07 02:19:03 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {#{'__exception__' => true,'__struct__' => 'Elixir.Protocol.UndefinedError',description => nil,protocol => 'Elixir.String.Chars',value => <0.252.0>},[{'Elixir.String.Chars','impl_for!',1,[{file,"lib/string/chars.ex"},{line,3}]},{'Elixir.String.Chars',to_string,1,[{file,"lib/string/chars.ex"},{line,17}]},{'Elixir.IO',puts,2,[{file,"lib/io.ex"},{line,442}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,50}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:19:25 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:19:28 =ERROR REPORT====
+** State machine <0.252.0> terminating 
+** Last event in was {send_headers,1,[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,"api.development.push.apple.com"},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"user-agent">>,<<"cartel/0.0.1">>}]} (for all states)
+** When State == connected
+**      Data  == {connection,client,[],undefined,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},{settings,4096,1,500,65535,16384,8000},{settings,4096,1,unlimited,65535,16384,unlimited},65535,65535,{hpack_context,{dynamic_table,[],4096,0},4096},{hpack_context,{dynamic_table,[],4096,0},4096},{[{#Ref<0.0.6.389>,{settings,4096,1,unlimited,65535,16384,unlimited}}],[]},3,[{1,<0.259.0>}],chatterbox_static_stream,chatterbox_static_content_handler,empty,undefined,{[],[]},auto}
+** Reason for termination = 
+** {badarg,[{erlang,size,["api.development.push.apple.com"],[]},{hpack,encode_literal,1,[{file,"src/hpack.erl"},{line,224}]},{hpack,encode_literal_indexed,2,[{file,"src/hpack.erl"},{line,216}]},{hpack,encode,3,[{file,"src/hpack.erl"},{line,200}]},{http2_frame_headers,to_frame,3,[{file,"src/http2_frame_headers.erl"},{line,47}]},{http2_connection,handle_event,3,[{file,"src/http2_connection.erl"},{line,866}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:19:28 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.252.0>
+    registered_name: []
+    exception exit: {{badarg,[{erlang,size,["api.development.push.apple.com"],[]},{hpack,encode_literal,1,[{file,"src/hpack.erl"},{line,224}]},{hpack,encode_literal_indexed,2,[{file,"src/hpack.erl"},{line,216}]},{hpack,encode,3,[{file,"src/hpack.erl"},{line,200}]},{http2_frame_headers,to_frame,3,[{file,"src/http2_frame_headers.erl"},{line,47}]},{http2_connection,handle_event,3,[{file,"src/http2_connection.erl"},{line,866}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: [{'$gen_all_state_event',{send_body,1,{ok,<<"{\"aps\":{\"alert\":\"ciao\"}}">>}}}]
+    links: [<0.258.0>,<0.259.0>,<0.218.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 3798
+  neighbours:
+    neighbour: [{pid,<0.218.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{http2_client,sync_request,3}},{ancestors,[<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.213.0>,<0.252.0>,<0.212.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,610},{stack_size,19},{reductions,292}]
+    neighbour: [{pid,<0.259.0>},{registered_name,[]},{initial_call,{http2_stream,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.252.0>,<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,10},{reductions,62}]
+    neighbour: [{pid,<0.258.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+2016-04-07 02:19:28 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,size,["api.development.push.apple.com"],[]},{hpack,encode_literal,1,[{file,"src/hpack.erl"},{line,224}]},{hpack,encode_literal_indexed,2,[{file,"src/hpack.erl"},{line,216}]},{hpack,encode,3,[{file,"src/hpack.erl"},{line,200}]},{http2_frame_headers,to_frame,3,[{file,"src/http2_frame_headers.erl"},{line,47}]},{http2_connection,handle_event,3,[{file,"src/http2_connection.erl"},{line,866}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:20:24 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:20:27 =ERROR REPORT====
+** Generic server <0.218.0> terminating 
+** Last message in was {send,#{'__struct__' => 'Elixir.Cartel.Message.Apns2',expiration => nil,id => nil,payload => #{aps => #{alert => <<"ciao">>}},priority => 5,token => <<"b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>,topic => nil}}
+** When Server state == #{conf => #{cacert => <<"/Users/luca/Desktop/keys/entrust_2048_ca.cer">>,cert => <<"/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem">>,env => sandbox,key => <<"/Users/luca/Desktop/keys/tsc-apns-dev-key.pem">>,type => 'Elixir.Cartel.Pusher.Apns2'},headers => nil,pid => nil}
+** Reason for termination == 
+** {badarg,[{'Elixir.Cartel.Pusher.Apns2',headers,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,33}]},{'Elixir.Cartel.Pusher.Apns2',connect,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,20}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,45}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:20:27 =CRASH REPORT====
+  crasher:
+    initial call: Elixir.Cartel.Pusher.Apns2:init/1
+    pid: <0.218.0>
+    registered_name: []
+    exception exit: {{badarg,[{'Elixir.Cartel.Pusher.Apns2',headers,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,33}]},{'Elixir.Cartel.Pusher.Apns2',connect,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,20}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,45}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,826}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.213.0>,<0.252.0>,<0.212.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 279
+  neighbours:
+    neighbour: [{pid,<0.258.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.252.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen,do_call,4}},{ancestors,[<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.218.0>,<0.258.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,987},{stack_size,30},{reductions,3418}]
+2016-04-07 02:20:27 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{'Elixir.Cartel.Pusher.Apns2',headers,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,33}]},{'Elixir.Cartel.Pusher.Apns2',connect,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,20}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,45}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:22:21 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:22:23 =ERROR REPORT====
+** State machine <0.252.0> terminating 
+** Last event in was {send_body,1,{ok,<<"{\"aps\":{\"alert\":\"ciao\"}}">>}} (for all states)
+** When State == connected
+**      Data  == {connection,client,[],undefined,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},{settings,4096,1,500,65535,16384,8000},{settings,4096,1,unlimited,65535,16384,unlimited},65535,65535,{hpack_context,{dynamic_table,[],4096,0},4096},{hpack_context,{dynamic_table,[{62,<<"user-agent">>,<<"cartel/0.0.1">>},{63,<<"accept">>,<<"application/json">>},{64,<<":authority">>,<<"api.development.push.apple.com">>},{65,<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>}],4096,291},4096},{[{#Ref<0.0.1.1294>,{settings,4096,1,unlimited,65535,16384,unlimited}}],[]},3,[{1,<0.259.0>}],chatterbox_static_stream,chatterbox_static_content_handler,empty,undefined,{[],[]},auto}
+** Reason for termination = 
+** {badarg,[{erlang,byte_size,[{ok,<<"{\"aps\":{\"alert\":\"ciao\"}}">>}],[]},{http2_frame_data,to_frames,3,[{file,"src/http2_frame_data.erl"},{line,40}]},{http2_connection,handle_event,3,[{file,"src/http2_connection.erl"},{line,884}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:22:23 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.252.0>
+    registered_name: []
+    exception exit: {{badarg,[{erlang,byte_size,[{ok,<<"{\"aps\":{\"alert\":\"ciao\"}}">>}],[]},{http2_frame_data,to_frames,3,[{file,"src/http2_frame_data.erl"},{line,40}]},{http2_connection,handle_event,3,[{file,"src/http2_connection.erl"},{line,884}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.258.0>,<0.259.0>,<0.218.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 3898
+  neighbours:
+    neighbour: [{pid,<0.218.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{http2_client,sync_request,3}},{ancestors,[<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.213.0>,<0.252.0>,<0.212.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,19},{reductions,278}]
+    neighbour: [{pid,<0.259.0>},{registered_name,[]},{initial_call,{http2_stream,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.252.0>,<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,10},{reductions,84}]
+    neighbour: [{pid,<0.258.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+2016-04-07 02:22:23 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,byte_size,[{ok,<<"{\"aps\":{\"alert\":\"ciao\"}}">>}],[]},{http2_frame_data,to_frames,3,[{file,"src/http2_frame_data.erl"},{line,40}]},{http2_connection,handle_event,3,[{file,"src/http2_connection.erl"},{line,884}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:24:58 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.270.0>
+    registered_name: []
+    exception exit: {{{badmatch,{error,closed}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,396}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.260.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.260.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 3252
+  neighbours:
+    neighbour: [{pid,<0.260.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{proc_lib,sync_wait,2}},{ancestors,[<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[{ack,<0.270.0>,{error,{{badmatch,{error,closed}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}}]},{links,[<0.213.0>,<0.270.0>,<0.212.0>]},{dictionary,[]},{trap_exit,false},{status,runnable},{heap_size,376},{stack_size,20},{reductions,84}]
+2016-04-07 02:24:58 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {{badmatch,{error,closed}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.260.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:25:16 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:25:19 =ERROR REPORT====
+** Generic server <0.218.0> terminating 
+** Last message in was {send,#{'__struct__' => 'Elixir.Cartel.Message.Apns2',expiration => nil,id => nil,payload => #{aps => #{alert => <<"ciao">>}},priority => 5,token => <<"b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>,topic => nil}}
+** When Server state == #{conf => #{cacert => <<"/Users/luca/Desktop/keys/entrust_2048_ca.cer">>,cert => <<"/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem">>,env => sandbox,key => <<"/Users/luca/Desktop/keys/tsc-apns-dev-key.pem">>,type => 'Elixir.Cartel.Pusher.Apns2'},headers => nil,pid => nil}
+** Reason for termination == 
+** {function_clause,[{'Elixir.String',to_char_list,[{ok,<<"{\"aps\":{\"alert\":\"ciao\"}}">>}],[{file,"lib/string.ex"},{line,1633}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,52}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:25:19 =CRASH REPORT====
+  crasher:
+    initial call: Elixir.Cartel.Pusher.Apns2:init/1
+    pid: <0.218.0>
+    registered_name: []
+    exception exit: {{function_clause,[{'Elixir.String',to_char_list,[{ok,<<"{\"aps\":{\"alert\":\"ciao\"}}">>}],[{file,"lib/string.ex"},{line,1633}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,52}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,826}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.213.0>,<0.252.0>,<0.212.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 375
+  neighbours:
+    neighbour: [{pid,<0.258.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.252.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.218.0>,<0.258.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,987},{stack_size,10},{reductions,3530}]
+2016-04-07 02:25:19 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{'Elixir.String',to_char_list,[{ok,<<"{\"aps\":{\"alert\":\"ciao\"}}">>}],[{file,"lib/string.ex"},{line,1633}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,52}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:26:42 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.168.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:26:45 =ERROR REPORT====
+** State machine <0.264.0> terminating 
+** Last event in was recv_es
+** When State == half_closed_local
+**      Data  == {stream_state,1,<0.257.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6758>,tls_connection,undefined},<0.261.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"user-agent">>,<<"cartel/0.0.1">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"F305DFD5-C0BC-9F40-2ED3-8B33D9079DBF">>}],undefined,false,false,undefined,undefined,<0.223.0>,{cb_static,[]},chatterbox_static_stream}
+** Reason for termination = 
+** {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.257.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6758>,tls_connection,undefined},<0.261.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"user-agent">>,<<"cartel/0.0.1">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"F305DFD5-C0BC-9F40-2ED3-8B33D9079DBF">>}],undefined,false,false,undefined,undefined,<0.223.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:26:45 =CRASH REPORT====
+  crasher:
+    initial call: http2_stream:init/1
+    pid: <0.264.0>
+    registered_name: []
+    exception exit: {{function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.257.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6758>,tls_connection,undefined},<0.261.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"user-agent">>,<<"cartel/0.0.1">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"F305DFD5-C0BC-9F40-2ED3-8B33D9079DBF">>}],undefined,false,false,undefined,undefined,<0.223.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.257.0>,<0.223.0>,<0.218.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.216.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.214.0>,<0.213.0>]
+    messages: []
+    links: [<0.257.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 266
+  neighbours:
+    neighbour: [{pid,<0.223.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{http2_client,sync_request,3}},{ancestors,[<0.218.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.216.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.214.0>,<0.213.0>]},{messages,[]},{links,[<0.218.0>,<0.257.0>,<0.217.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,19},{reductions,278}]
+    neighbour: [{pid,<0.263.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.257.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.257.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.223.0>,<0.218.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.216.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.214.0>,<0.213.0>]},{messages,[]},{links,[<0.263.0>,<0.264.0>,<0.223.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,987},{stack_size,10},{reductions,4027}]
+2016-04-07 02:26:45 =SUPERVISOR REPORT====
+     Supervisor: {<0.218.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.257.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6758>,tls_connection,undefined},<0.261.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"user-agent">>,<<"cartel/0.0.1">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"F305DFD5-C0BC-9F40-2ED3-8B33D9079DBF">>}],undefined,false,false,undefined,undefined,<0.223.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.223.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:28:30 =CRASH REPORT====
+  crasher:
+    initial call: http2_connection:init/1
+    pid: <0.276.0>
+    registered_name: []
+    exception exit: {{{badmatch,{error,closed}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,396}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.265.0>,<0.218.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.216.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.214.0>,<0.213.0>]
+    messages: []
+    links: [<0.265.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 3252
+  neighbours:
+    neighbour: [{pid,<0.265.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{proc_lib,sync_wait,2}},{ancestors,[<0.218.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.216.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.214.0>,<0.213.0>]},{messages,[{ack,<0.276.0>,{error,{{badmatch,{error,closed}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}}]},{links,[<0.218.0>,<0.276.0>,<0.217.0>]},{dictionary,[]},{trap_exit,false},{status,runnable},{heap_size,376},{stack_size,20},{reductions,84}]
+2016-04-07 02:28:30 =ERROR REPORT====
+** Generic server <0.265.0> terminating 
+** Last message in was {send,#{'__struct__' => 'Elixir.Cartel.Message.Apns2',expiration => nil,id => nil,payload => #{aps => #{alert => <<"ciao">>}},priority => 5,token => <<"b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>,topic => nil}}
+** When Server state == #{conf => #{cacert => <<"/Users/luca/Desktop/keys/entrust_2048_ca.cer">>,cert => <<"/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem">>,env => sandbox,key => <<"/Users/luca/Desktop/keys/tsc-apns-dev-key.pem">>,type => 'Elixir.Cartel.Pusher.Apns2'},headers => nil,pid => nil}
+** Reason for termination == 
+** {{badmatch,{error,{{badmatch,{error,closed}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}},[{'Elixir.Cartel.Pusher.Apns2',connect,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,19}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,45}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:28:30 =CRASH REPORT====
+  crasher:
+    initial call: Elixir.Cartel.Pusher.Apns2:init/1
+    pid: <0.265.0>
+    registered_name: []
+    exception exit: {{{badmatch,{error,{{badmatch,{error,closed}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}},[{'Elixir.Cartel.Pusher.Apns2',connect,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,19}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,45}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,826}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.218.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.216.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.214.0>,<0.213.0>]
+    messages: []
+    links: [<0.218.0>,<0.217.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 241
+  neighbours:
+2016-04-07 02:28:30 =SUPERVISOR REPORT====
+     Supervisor: {<0.218.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {{badmatch,{error,{{badmatch,{error,closed}},[{http2_connection,init,1,[{file,"src/http2_connection.erl"},{line,138}]},{gen_fsm,init_it,6,[{file,"gen_fsm.erl"},{line,378}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}}},[{'Elixir.Cartel.Pusher.Apns2',connect,1,[{file,"lib/cartel/pusher/apns2.ex"},{line,19}]},{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,45}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.265.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:29:52 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.150.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:30:00 =ERROR REPORT====
+** State machine <0.246.0> terminating 
+** Last event in was recv_es
+** When State == half_closed_local
+**      Data  == {stream_state,1,<0.239.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6419>,tls_connection,undefined},<0.243.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"user-agent">>,<<"cartel/0.0.1">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"46E5EA76-FFB7-12B1-4050-56F392E51E95">>}],undefined,false,false,undefined,undefined,<0.205.0>,{cb_static,[]},chatterbox_static_stream}
+** Reason for termination = 
+** {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.239.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6419>,tls_connection,undefined},<0.243.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"user-agent">>,<<"cartel/0.0.1">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"46E5EA76-FFB7-12B1-4050-56F392E51E95">>}],undefined,false,false,undefined,undefined,<0.205.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:30:00 =CRASH REPORT====
+  crasher:
+    initial call: http2_stream:init/1
+    pid: <0.246.0>
+    registered_name: []
+    exception exit: {{function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.239.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6419>,tls_connection,undefined},<0.243.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"user-agent">>,<<"cartel/0.0.1">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"46E5EA76-FFB7-12B1-4050-56F392E51E95">>}],undefined,false,false,undefined,undefined,<0.205.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.239.0>,<0.205.0>,<0.200.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.198.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.196.0>,<0.195.0>]
+    messages: []
+    links: [<0.239.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 266
+  neighbours:
+    neighbour: [{pid,<0.205.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{http2_client,sync_request,3}},{ancestors,[<0.200.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.198.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.196.0>,<0.195.0>]},{messages,[]},{links,[<0.200.0>,<0.239.0>,<0.199.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,19},{reductions,375}]
+    neighbour: [{pid,<0.245.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.239.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.239.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.205.0>,<0.200.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.198.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.196.0>,<0.195.0>]},{messages,[]},{links,[<0.245.0>,<0.246.0>,<0.205.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,987},{stack_size,10},{reductions,4027}]
+2016-04-07 02:30:00 =SUPERVISOR REPORT====
+     Supervisor: {<0.200.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.239.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6419>,tls_connection,undefined},<0.243.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"user-agent">>,<<"cartel/0.0.1">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"46E5EA76-FFB7-12B1-4050-56F392E51E95">>}],undefined,false,false,undefined,undefined,<0.205.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.205.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:38:44 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-07 02:38:46 =ERROR REPORT====
+** State machine <0.259.0> terminating 
+** Last event in was recv_es
+** When State == half_closed_local
+**      Data  == {stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"6FFB6C9C-4CF9-CD59-F06D-E03E3C01583A">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}
+** Reason for termination = 
+** {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"6FFB6C9C-4CF9-CD59-F06D-E03E3C01583A">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-07 02:38:46 =CRASH REPORT====
+  crasher:
+    initial call: http2_stream:init/1
+    pid: <0.259.0>
+    registered_name: []
+    exception exit: {{function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"6FFB6C9C-4CF9-CD59-F06D-E03E3C01583A">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.252.0>,<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.252.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 251
+  neighbours:
+    neighbour: [{pid,<0.218.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{http2_client,sync_request,3}},{ancestors,[<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.213.0>,<0.252.0>,<0.212.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,17},{reductions,301}]
+    neighbour: [{pid,<0.258.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.252.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.258.0>,<0.259.0>,<0.218.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,987},{stack_size,10},{reductions,4004}]
+2016-04-07 02:38:46 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"6FFB6C9C-4CF9-CD59-F06D-E03E3C01583A">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 00:46:04 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.150.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 00:49:18 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 00:49:21 =ERROR REPORT====
+** State machine <0.259.0> terminating 
+** Last event in was recv_es
+** When State == half_closed_local
+**      Data  == {stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"17AF4F3B-015A-D84D-C279-EFF21D88B4C3">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}
+** Reason for termination = 
+** {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"17AF4F3B-015A-D84D-C279-EFF21D88B4C3">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-09 00:49:21 =CRASH REPORT====
+  crasher:
+    initial call: http2_stream:init/1
+    pid: <0.259.0>
+    registered_name: []
+    exception exit: {{function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"17AF4F3B-015A-D84D-C279-EFF21D88B4C3">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.252.0>,<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.252.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 269
+  neighbours:
+    neighbour: [{pid,<0.218.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{http2_client,sync_request,3}},{ancestors,[<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.213.0>,<0.252.0>,<0.212.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,17},{reductions,287}]
+    neighbour: [{pid,<0.258.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.252.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.258.0>,<0.259.0>,<0.218.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,1598},{stack_size,10},{reductions,4074}]
+2016-04-09 00:49:21 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"17AF4F3B-015A-D84D-C279-EFF21D88B4C3">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 00:51:42 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 00:51:53 =ERROR REPORT====
+** State machine <0.260.0> terminating 
+** Last event in was recv_es
+** When State == half_closed_local
+**      Data  == {stream_state,1,<0.253.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6653>,tls_connection,undefined},<0.257.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"8BC0A64E-A5ED-0DDB-50D6-083EC0FD4688">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}
+** Reason for termination = 
+** {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.253.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6653>,tls_connection,undefined},<0.257.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"8BC0A64E-A5ED-0DDB-50D6-083EC0FD4688">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-09 00:51:53 =CRASH REPORT====
+  crasher:
+    initial call: http2_stream:init/1
+    pid: <0.260.0>
+    registered_name: []
+    exception exit: {{function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.253.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6653>,tls_connection,undefined},<0.257.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"8BC0A64E-A5ED-0DDB-50D6-083EC0FD4688">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.253.0>,<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.253.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 269
+  neighbours:
+    neighbour: [{pid,<0.218.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{http2_client,sync_request,3}},{ancestors,[<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.213.0>,<0.253.0>,<0.212.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,17},{reductions,550}]
+    neighbour: [{pid,<0.259.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.253.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.253.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.259.0>,<0.260.0>,<0.218.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,1598},{stack_size,10},{reductions,4074}]
+2016-04-09 00:51:53 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.253.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6653>,tls_connection,undefined},<0.257.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"8BC0A64E-A5ED-0DDB-50D6-083EC0FD4688">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 00:57:39 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.313.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 00:57:50 =ERROR REPORT====
+** State machine <0.409.0> terminating 
+** Last event in was recv_es
+** When State == half_closed_local
+**      Data  == {stream_state,1,<0.402.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.13518>,tls_connection,undefined},<0.406.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"F42F5426-89BC-750B-3E65-6EFAF71859BF">>}],undefined,false,false,undefined,undefined,<0.368.0>,{cb_static,[]},chatterbox_static_stream}
+** Reason for termination = 
+** {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.402.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.13518>,tls_connection,undefined},<0.406.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"F42F5426-89BC-750B-3E65-6EFAF71859BF">>}],undefined,false,false,undefined,undefined,<0.368.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-09 00:57:50 =CRASH REPORT====
+  crasher:
+    initial call: http2_stream:init/1
+    pid: <0.409.0>
+    registered_name: []
+    exception exit: {{function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.402.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.13518>,tls_connection,undefined},<0.406.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"F42F5426-89BC-750B-3E65-6EFAF71859BF">>}],undefined,false,false,undefined,undefined,<0.368.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.402.0>,<0.368.0>,<0.363.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.361.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.359.0>,<0.358.0>]
+    messages: []
+    links: [<0.402.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 269
+  neighbours:
+    neighbour: [{pid,<0.368.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{http2_client,sync_request,3}},{ancestors,[<0.363.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.361.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.359.0>,<0.358.0>]},{messages,[]},{links,[<0.363.0>,<0.402.0>,<0.362.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,17},{reductions,267}]
+    neighbour: [{pid,<0.408.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.402.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.402.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.368.0>,<0.363.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.361.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.359.0>,<0.358.0>]},{messages,[]},{links,[<0.408.0>,<0.409.0>,<0.368.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,1598},{stack_size,10},{reductions,4066}]
+2016-04-09 00:57:50 =SUPERVISOR REPORT====
+     Supervisor: {<0.363.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.402.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.13518>,tls_connection,undefined},<0.406.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"F42F5426-89BC-750B-3E65-6EFAF71859BF">>}],undefined,false,false,undefined,undefined,<0.368.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.368.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 01:02:13 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 01:02:21 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.150.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 01:02:32 =ERROR REPORT====
+** Generic server <0.205.0> terminating 
+** Last message in was {send,#{'__struct__' => 'Elixir.Cartel.Message.Apns2',expiration => 0,id => nil,payload => #{aps => #{alert => <<"ciao">>}},priority => 10,token => <<"b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>,topic => nil}}
+** When Server state == #{conf => #{cacert => <<"/Users/luca/Desktop/keys/entrust_2048_ca.cer">>,cert => <<"/Users/luca/Desktop/keys/tsc-apns-dev-crt.pem">>,env => sandbox,key => <<"/Users/luca/Desktop/keys/tsc-apns-dev-key.pem">>,type => 'Elixir.Cartel.Pusher.Apns2'},headers => nil,pid => nil}
+** Reason for termination == 
+** {{badmatch,{ok,1}},[{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,49}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-09 01:02:32 =CRASH REPORT====
+  crasher:
+    initial call: Elixir.Cartel.Pusher.Apns2:init/1
+    pid: <0.205.0>
+    registered_name: []
+    exception exit: {{{badmatch,{ok,1}},[{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,49}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,826}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.200.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.198.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.196.0>,<0.195.0>]
+    messages: []
+    links: [<0.200.0>,<0.239.0>,<0.199.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 442
+  neighbours:
+    neighbour: [{pid,<0.246.0>},{registered_name,[]},{initial_call,{http2_stream,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.239.0>,<0.205.0>,<0.200.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.198.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.196.0>,<0.195.0>]},{messages,[]},{links,[<0.239.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,10},{reductions,62}]
+    neighbour: [{pid,<0.245.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.239.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.239.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.205.0>,<0.200.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.198.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.196.0>,<0.195.0>]},{messages,[{'$gen_all_state_event',{send_headers,1,[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}]}},{'$gen_all_state_event',{send_body,1,<<"{\"aps\":{\"alert\":\"ciao\"}}">>}}]},{links,[<0.245.0>,<0.246.0>,<0.205.0>]},{dictionary,[]},{trap_exit,false},{status,runnable},{heap_size,987},{stack_size,10},{reductions,3574}]
+2016-04-09 01:02:32 =SUPERVISOR REPORT====
+     Supervisor: {<0.200.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {{badmatch,{ok,1}},[{'Elixir.Cartel.Pusher.Apns2',handle_call,3,[{file,"lib/cartel/pusher/apns2.ex"},{line,49}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,629}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,661}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.205.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 01:05:58 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 01:06:03 =ERROR REPORT====
+** State machine <0.259.0> terminating 
+** Last event in was recv_es
+** When State == half_closed_local
+**      Data  == {stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"0D44784D-B1D9-7711-DAA2-33CFCAE454E4">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}
+** Reason for termination = 
+** {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"0D44784D-B1D9-7711-DAA2-33CFCAE454E4">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-09 01:06:03 =CRASH REPORT====
+  crasher:
+    initial call: http2_stream:init/1
+    pid: <0.259.0>
+    registered_name: []
+    exception exit: {{function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"0D44784D-B1D9-7711-DAA2-33CFCAE454E4">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.252.0>,<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.252.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 269
+  neighbours:
+    neighbour: [{pid,<0.218.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{gen_server,loop,6}},{ancestors,[<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.213.0>,<0.252.0>,<0.212.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,9},{reductions,595}]
+    neighbour: [{pid,<0.258.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.252.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.258.0>,<0.259.0>,<0.218.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,1598},{stack_size,10},{reductions,4074}]
+2016-04-09 01:06:03 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"0D44784D-B1D9-7711-DAA2-33CFCAE454E4">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 01:07:25 =SUPERVISOR REPORT====
+     Supervisor: {local,'Elixir.Logger.Supervisor'}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.163.0>},{id,'Elixir.Logger.ErrorHandler'},{mfargs,{'Elixir.Logger.Watcher',watcher,[error_logger,'Elixir.Logger.ErrorHandler',{true,false,500},link]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2016-04-09 01:07:26 =ERROR REPORT====
+** State machine <0.259.0> terminating 
+** Last event in was recv_es
+** When State == half_closed_local
+**      Data  == {stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"E7F31509-B34C-D305-F029-61B61468CC5C">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}
+** Reason for termination = 
+** {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"E7F31509-B34C-D305-F029-61B61468CC5C">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+2016-04-09 01:07:26 =CRASH REPORT====
+  crasher:
+    initial call: http2_stream:init/1
+    pid: <0.259.0>
+    registered_name: []
+    exception exit: {{function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"E7F31509-B34C-D305-F029-61B61468CC5C">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]},[{gen_fsm,terminate,7,[{file,"gen_fsm.erl"},{line,626}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+    ancestors: [<0.252.0>,<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]
+    messages: []
+    links: [<0.252.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 269
+  neighbours:
+    neighbour: [{pid,<0.218.0>},{registered_name,[]},{initial_call,{'Elixir.Cartel.Pusher.Apns2',init,['Argument__1']}},{current_function,{http2_client,sync_request,3}},{ancestors,[<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.213.0>,<0.252.0>,<0.212.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,376},{stack_size,17},{reductions,2277}]
+    neighbour: [{pid,<0.258.0>},{registered_name,[]},{initial_call,{erlang,apply,2}},{current_function,{timer,sleep,1}},{ancestors,[]},{messages,[]},{links,[<0.252.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,233},{stack_size,5},{reductions,7}]
+    neighbour: [{pid,<0.252.0>},{registered_name,[]},{initial_call,{http2_connection,init,['Argument__1']}},{current_function,{gen_fsm,loop,7}},{ancestors,[<0.218.0>,<0.213.0>,'Elixir.Cartel.Pusher.Apns2@com.mydomain1.myapp1/sandbox',<0.211.0>,'Elixir.Cartel.Dealer@com.mydomain1.myapp1',<0.209.0>,<0.208.0>]},{messages,[]},{links,[<0.258.0>,<0.259.0>,<0.218.0>]},{dictionary,[]},{trap_exit,false},{status,waiting},{heap_size,1598},{stack_size,10},{reductions,4074}]
+2016-04-09 01:07:26 =SUPERVISOR REPORT====
+     Supervisor: {<0.213.0>,poolboy_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{http2_stream,half_closed_local,[recv_es,{stream_state,1,<0.252.0>,{ssl,{sslsocket,{gen_tcp,#Port<0.6581>,tls_connection,undefined},<0.256.0>}},idle,65535,65535,{[],[]},{[],[]},[{<<":method">>,<<"POST">>},{<<":scheme">>,<<"https">>},{<<":authority">>,<<"api.development.push.apple.com">>},{<<"accept">>,<<"application/json">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<":path">>,<<"/3/device/b9f91716e547ea82e8441a86b8a9f57bcd720cf73e02ad35062fbec3ee241ecb">>},{<<":apns-expiration">>,<<"0">>},{<<":apns-priority">>,<<"10">>}],undefined,false,false,[{<<":status">>,<<"200">>},{<<"apns-id">>,<<"E7F31509-B34C-D305-F029-61B61468CC5C">>}],undefined,false,false,undefined,undefined,<0.218.0>,{cb_static,[]},chatterbox_static_stream}],[{file,"src/http2_stream.erl"},{line,480}]},{gen_fsm,handle_msg,7,[{file,"gen_fsm.erl"},{line,518}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,240}]}]}
+     Offender:   [{pid,<0.218.0>},{id,'Elixir.Cartel.Pusher.Apns2'},{mfargs,{'Elixir.Cartel.Pusher.Apns2',start_link,undefined}},{restart_type,temporary},{shutdown,5000},{child_type,worker}]
+
