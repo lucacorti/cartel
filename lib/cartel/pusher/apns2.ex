@@ -36,22 +36,6 @@ defmodule Cartel.Pusher.Apns2 do
     ]
   end
 
-  def send(pid, message) do
-    GenServer.call(pid, {:send, message})
-  end
-
-  def handle_call({:send, message}, from, state = %{pid: nil}) do
-    {:ok, pid, headers} = connect(state.conf)
-    handle_call({:send, message}, from, %{state | pid: pid, headers: headers})
-  end
-
-  def handle_call({:send, message}, _from, state) do
-    {:ok, {res_headers, res_body}} = :http2_client.sync_request(state.pid,
-      add_message_headers(state.headers, message),
-      Message.serialize(message))
-    respond(res_headers, res_body, state)
-  end
-
   defp add_message_required_headers(headers, message) do
     headers ++ [{":path", "/3/device/#{message.token}"},
       {":apns-expiration", "#{message.expiration}"},
@@ -76,6 +60,22 @@ defmodule Cartel.Pusher.Apns2 do
       {":apns-id", "#{id}"},
       {":apns-topic", "#{topic}"}
     ]
+  end
+
+  def send(pid, message) do
+    GenServer.call(pid, {:send, message})
+  end
+
+  def handle_call({:send, message}, from, state = %{pid: nil, headers: nil}) do
+    {:ok, pid, headers} = connect(state.conf)
+    handle_call({:send, message}, from, %{state | pid: pid, headers: headers})
+  end
+
+  def handle_call({:send, message}, _from, state) do
+    {:ok, {res_headers, res_body}} = :http2_client.sync_request(state.pid,
+      add_message_headers(state.headers, message),
+      Message.serialize(message))
+    respond(res_headers, res_body, state)
   end
 
   defp respond(%{code: code}, body, state) when code >= 400 do
