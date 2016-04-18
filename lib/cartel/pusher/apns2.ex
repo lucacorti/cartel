@@ -72,10 +72,11 @@ defmodule Cartel.Pusher.Apns2 do
   end
 
   def handle_call({:send, message}, _from, state) do
-    {:ok, {res_headers, res_body}} = :http2_client.sync_request(state.pid,
+    {:ok, result} = :http2_client.send_request(state.pid,
       add_message_headers(state.headers, message),
       Message.serialize(message))
-    respond(res_headers, res_body, state)
+    # respond(res_headers, res_body, state)
+    {:reply, {:ok, result}, state}
   end
 
   defp respond(%{code: code}, body, state) when code >= 400 do
