@@ -75,15 +75,6 @@ defmodule Cartel.Pusher.Apns2 do
     {:ok, result} = :http2_client.send_request(state.pid,
       add_message_headers(state.headers, message),
       Message.serialize(message))
-    # respond(res_headers, res_body, state)
     {:reply, {:ok, result}, state}
-  end
-
-  defp respond(%{code: code}, body, state) when code >= 400 do
-    {:stop, {code, Poison.decode(body)}, state}
-  end
-
-  defp respond(%{code: code}, body, state) do
-    {:reply, {:ok, code, Poison.decode(body)}, state}
   end
 end
