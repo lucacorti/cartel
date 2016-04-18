@@ -1,7 +1,9 @@
 defmodule Cartel.Message.Apns2 do
   alias Cartel.Message.Encoder
 
-  defstruct [token: nil, id: nil, expiration: 0, priority: 10, topic: nil, payload: %{}]
+  defstruct [
+    token: nil, id: nil, expiration: 0, priority: 10, topic: nil, payload: %{}
+  ]
 
   @behaviour Cartel.Message
 

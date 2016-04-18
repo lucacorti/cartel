@@ -4,7 +4,7 @@ defmodule Cartel.Dealer do
 
   defp dealer_name(id), do: :"#{__MODULE__}@#{id}"
   defp pusher_name(appid, type, env), do: :"#{type}@#{appid}/#{env}"
-  
+
   def send(appid, type, env, message) do
     Pusher.send(pusher_name(appid, type, env), type, message)
   end

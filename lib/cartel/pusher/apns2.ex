@@ -36,27 +36,27 @@ defmodule Cartel.Pusher.Apns2 do
     ]
   end
 
-  defp add_message_required_headers(headers, message) do
-    headers ++ [{":path", "/3/device/#{message.token}"},
-      {":apns-expiration", "#{message.expiration}"},
-      {":apns-priority", "#{message.priority}"}
+  defp add_message_required_headers(headers, msg) do
+    headers ++ [{":path", "/3/device/#{msg.token}"},
+      {":apns-expiration", "#{msg.expiration}"},
+      {":apns-priority", "#{msg.priority}"}
     ]
   end
 
-  defp add_message_headers(headers, message = %Message{id: nil, topic: nil}) do
-    add_message_required_headers(headers, message)
+  defp add_message_headers(headers, msg = %Message{id: nil, topic: nil}) do
+    add_message_required_headers(headers, msg)
   end
 
-  defp add_message_headers(headers, message = %Message{id: id, topic: nil}) do
-    [{":apns-id", "#{id}"} | add_message_required_headers(message, headers)]
+  defp add_message_headers(headers, msg = %Message{id: id, topic: nil}) do
+    [{":apns-id", "#{id}"} | add_message_required_headers(msg, headers)]
   end
 
-  defp add_message_headers(headers, message = %Message{id: nil, topic: topic}) do
-    [{":apns-topic", "#{topic}"} | add_message_required_headers(message, headers)]
+  defp add_message_headers(headers, msg = %Message{id: nil, topic: topic}) do
+    [{":apns-topic", "#{topic}"} | add_message_required_headers(msg, headers)]
   end
 
-  defp add_message_headers(headers, message = %Message{id: id, topic: topic}) do
-    add_message_required_headers(message, headers) ++ [
+  defp add_message_headers(headers, msg = %Message{id: id, topic: topic}) do
+    add_message_required_headers(msg, headers) ++ [
       {":apns-id", "#{id}"},
       {":apns-topic", "#{topic}"}
     ]
