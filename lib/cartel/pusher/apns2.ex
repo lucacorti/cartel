@@ -1,6 +1,5 @@
 defmodule Cartel.Pusher.Apns2 do
   use GenServer
-  alias Cartel.Pusher.Apns2
   alias Cartel.Message.Apns2, as: Message
 
   @push_host 'api.push.apple.com'
@@ -16,13 +15,13 @@ defmodule Cartel.Pusher.Apns2 do
 
   defp connect(conf = %{env: :sandbox}) do
     opts = [certfile: conf.cert, keyfile: conf.key, cacertfile: conf.cacert]
-    {:ok, pid} = :http2_client.start_link(:https, @push_sandbox_host, 443, opts)
+    {:ok, pid} = :h2_client.start_link(:https, @push_sandbox_host, 443, opts)
     {:ok, pid, add_basic_headers(@push_sandbox_host)}
   end
 
   defp connect(conf = %{env: :production}) do
     opts = [certfile: conf.cert, keyfile: conf.key, cacertfile: conf.cacert]
-    {:ok, pid} = :http2_client.start_link(:https, @push_host, 443, opts)
+    {:ok, pid} = :h2_client.start_link(:https, @push_host, 443, opts)
     {:ok, pid, add_basic_headers(@push_host)}
   end
 
@@ -72,7 +71,7 @@ defmodule Cartel.Pusher.Apns2 do
   end
 
   def handle_call({:send, message}, _from, state) do
-    {:ok, result} = :http2_client.send_request(state.pid,
+    {:ok, result} = :h2_client.send_request(state.pid,
       add_message_headers(state.headers, message),
       Message.serialize(message))
     {:reply, {:ok, result}, state}

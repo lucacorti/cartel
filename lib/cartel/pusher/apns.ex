@@ -1,6 +1,5 @@
 defmodule Cartel.Pusher.Apns do
   use GenServer
-  alias Cartel.Pusher.Apns
   alias Cartel.Message.Apns, as: Message
 
   @push_host 'gateway.push.apple.com'
