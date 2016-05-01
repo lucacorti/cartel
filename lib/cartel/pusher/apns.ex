@@ -16,7 +16,7 @@ defmodule Cartel.Pusher.Apns do
   end
 
   def send(pid, message) do
-    GenServer.cast(pid, {:send, message})
+    GenServer.call(pid, {:send, message})
   end
 
   defp connect(:sandbox, opts) do
@@ -27,17 +27,17 @@ defmodule Cartel.Pusher.Apns do
     :ssl.connect(@push_host, @push_port, opts)
   end
 
-  def handle_cast({:send, message}, state = %{conf: conf, socket: nil}) do
+  def handle_call({:send, message}, from, state = %{conf: conf, socket: nil}) do
     opts = [:binary, active: true, certfile: conf.cert, keyfile: conf.key,
           cacertfile: conf.cacert]
     {:ok, socket} = connect(conf.env, opts)
-    handle_cast({:send, message}, %{state | socket: socket})
+    handle_call({:send, message}, from, %{state | socket: socket})
   end
 
-  def handle_cast({:send, message}, state) do
+  def handle_call({:send, message}, _from, state) do
     request = Message.serialize(message)
     :ok = :ssl.send(state.socket, request)
-    {:noreply, state}
+    {:reply, :ok, state}
   end
 
   def handle_info({:ssl, _, msg}, state) do
