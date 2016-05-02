@@ -18,6 +18,8 @@ defmodule Cartel.Pusher.Apns do
 
   def send(pid, message), do: GenServer.call(pid, {:send, message})
 
+  def feedback(pid), do: GenServer.call(pid, {:feedback})
+
   def handle_call({:send, message}, from, state = %{conf: conf, socket: nil}) do
     opts = [:binary, active: true, certfile: conf.cert, keyfile: conf.key,
           cacertfile: conf.cacert]
@@ -31,22 +33,21 @@ defmodule Cartel.Pusher.Apns do
     {:reply, :ok, state}
   end
 
-  def feedback(pid), do: GenServer.call(pid, {:feedback})
-
   def handle_call({:feedback}, _from, state = %{conf: conf}) do
     opts = [:binary, active: false, certfile: conf.cert, keyfile: conf.key,
           cacertfile: conf.cacert]
     {:ok, socket} = connect(:feedback, conf.env, opts)
-    {:reply, {:ok, process_feedback(socket, [])}, state}
-  end
-
-  defp process_feedback(socket, feedback) do
-    case :ssl.recv(socket, Feedback.record_size) do
-      {:ok, data} ->
-        process_feedback(socket, [Feedback.deserialize(data) | feedback])
-      {:error, :closed} ->
-        feedback
-    end
+    stream = Stream.resource(
+      fn -> socket end,
+      fn socket ->
+        case  :ssl.recv(socket, Feedback.record_size) do
+          {:ok, data} -> {[Feedback.deserialize(data)]}
+          _ -> {:halt, socket}
+        end
+      end,
+      fn socket -> :ssl.close(socket) end
+    )
+    {:reply, {:ok, stream}, state}
   end
 
   def handle_info({:ssl, _, msg}, state) do
