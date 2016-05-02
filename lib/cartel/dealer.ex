@@ -9,6 +9,10 @@ defmodule Cartel.Dealer do
     Pusher.send(pusher_name(appid, type, env), type, message)
   end
 
+  def feedback(appid, type, env) do
+    Pusher.feedback(pusher_name(appid, type, env), type)
+  end
+
   def start_link(args) do
     opts = [id: dealer_name(args[:id]), name: dealer_name(args[:id])]
     Supervisor.start_link(__MODULE__, args, opts)

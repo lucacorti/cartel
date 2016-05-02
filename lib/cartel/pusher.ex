@@ -19,4 +19,8 @@ defmodule Cartel.Pusher do
   def send(pool, type, message) do
     :poolboy.transaction(pool, fn worker -> type.send(worker, message) end)
   end
+
+  def feedback(pool, type) do
+    :poolboy.transaction(pool, fn worker -> type.feedback(worker) end)
+  end
 end

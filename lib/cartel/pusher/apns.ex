@@ -2,35 +2,26 @@ defmodule Cartel.Pusher.Apns do
   use GenServer
   alias Cartel.Pusher.Apns
   alias Cartel.Message.Apns, as: Message
+  alias Cartel.Message.Apns.Feedback
 
   @push_host 'gateway.push.apple.com'
   @push_sandbox_host 'gateway.sandbox.push.apple.com'
   @push_port 2195
 
-  def start_link(args) do
-    GenServer.start_link(__MODULE__, args, [])
-  end
+  @feedback_host 'feedback.push.apple.com'
+  @feedback_sandbox_host 'feedback.sandbox.push.apple.com'
+  @feedback_port 2196
 
-  def init(conf = %{type: Apns}) do
-    {:ok, %{socket: nil, conf: conf}}
-  end
+  def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def send(pid, message) do
-    GenServer.call(pid, {:send, message})
-  end
+  def init(conf = %{type: Apns}), do: {:ok, %{socket: nil, conf: conf}}
 
-  defp connect(:sandbox, opts) do
-   :ssl.connect(@push_sandbox_host, @push_port, opts)
-  end
-
-  defp connect(:production, opts) do
-    :ssl.connect(@push_host, @push_port, opts)
-  end
+  def send(pid, message), do: GenServer.call(pid, {:send, message})
 
   def handle_call({:send, message}, from, state = %{conf: conf, socket: nil}) do
     opts = [:binary, active: true, certfile: conf.cert, keyfile: conf.key,
           cacertfile: conf.cacert]
-    {:ok, socket} = connect(conf.env, opts)
+    {:ok, socket} = connect(:push, conf.env, opts)
     handle_call({:send, message}, from, %{state | socket: socket})
   end
 
@@ -38,6 +29,24 @@ defmodule Cartel.Pusher.Apns do
     request = Message.serialize(message)
     :ok = :ssl.send(state.socket, request)
     {:reply, :ok, state}
+  end
+
+  def feedback(pid), do: GenServer.call(pid, {:feedback})
+
+  def handle_call({:feedback}, _from, state = %{conf: conf}) do
+    opts = [:binary, active: false, certfile: conf.cert, keyfile: conf.key,
+          cacertfile: conf.cacert]
+    {:ok, socket} = connect(:feedback, conf.env, opts)
+    {:reply, {:ok, process_feedback(socket, [])}, state}
+  end
+
+  defp process_feedback(socket, feedback) do
+    case :ssl.recv(socket, Feedback.record_size) do
+      {:ok, data} ->
+        process_feedback(socket, [Feedback.deserialize(data) | feedback])
+      {:error, :closed} ->
+        feedback
+    end
   end
 
   def handle_info({:ssl, _, msg}, state) do
@@ -50,5 +59,21 @@ defmodule Cartel.Pusher.Apns do
 
   def handle_info(info, state) do
     {:stop, info, state}
+  end
+
+  defp connect(:push, :sandbox, opts) do
+   :ssl.connect(@push_sandbox_host, @push_port, opts)
+  end
+
+  defp connect(:push, :production, opts) do
+    :ssl.connect(@push_host, @push_port, opts)
+  end
+
+  defp connect(:feedback, :sandbox, opts) do
+   :ssl.connect(@feedback_sandbox_host, @feedback_port, opts)
+  end
+
+  defp connect(:feedback, :production, opts) do
+    :ssl.connect(@feedback_host, @feedback_port, opts)
   end
 end
