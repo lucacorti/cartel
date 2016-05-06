@@ -1,4 +1,8 @@
 defmodule Cartel.Message.Apns2 do
+  @moduledoc """
+  APNS HTTP/2 interface message format
+  """
+
   alias Cartel.Message.Encoder
 
   defstruct [

@@ -1,4 +1,8 @@
 defmodule Cartel.Message.Wns do
+  @moduledoc """
+  WNS message format
+  """
+
   alias Cartel.Message.Encoder
 
   @behaviour Cartel.Message

@@ -1,4 +1,8 @@
 defmodule Cartel.Pusher.Apns do
+  @moduledoc """
+  APNS legacy binary interface worker
+  """
+
   use GenServer
   alias Cartel.Pusher.Apns
   alias Cartel.Message.Apns, as: Message
@@ -16,8 +20,14 @@ defmodule Cartel.Pusher.Apns do
 
   def init(conf = %{type: Apns}), do: {:ok, %{socket: nil, conf: conf}}
 
+  @doc """
+  Sends the message via the specified worker process
+  """
   def send(pid, message), do: GenServer.call(pid, {:send, message})
 
+  @doc """
+  Gets the feedback via the specified worker process
+  """
   def feedback(pid), do: GenServer.call(pid, {:feedback})
 
   def handle_call({:send, message}, from, state = %{conf: conf, socket: nil}) do

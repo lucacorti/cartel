@@ -1,4 +1,7 @@
 defmodule Cartel.Supervisor do
+  @moduledoc """
+  `Cartel.Supervisor` main OTP Supervisor
+  """
   use Supervisor
 
   def start_link(dealers) do

@@ -1,4 +1,8 @@
 defmodule Cartel.Message.Apns do
+  @moduledoc """
+  APNS legacy binary interface message format
+  """
+
   alias Cartel.Message.Encoder
 
   defstruct [items: []]

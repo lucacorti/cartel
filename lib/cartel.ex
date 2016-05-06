@@ -1,4 +1,7 @@
 defmodule Cartel do
+  @moduledoc """
+  `Cartel` Application
+  """
   use Application
 
   def start(_type, _args) do

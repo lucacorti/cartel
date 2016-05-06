@@ -1,4 +1,8 @@
 defmodule Cartel.Message.Gcm do
+  @moduledoc """
+  Google GCM message format
+  """
+
   alias Cartel.Message.Encoder
 
   @behaviour Cartel.Message

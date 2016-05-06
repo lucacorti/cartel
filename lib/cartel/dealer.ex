@@ -1,14 +1,26 @@
 defmodule Cartel.Dealer do
+  @moduledoc """
+  `Cartel.Dealer` OTP Supervisor for a specific `appid`
+  """
+
   use Supervisor
   alias Cartel.Pusher
 
   defp dealer_name(id), do: :"#{__MODULE__}@#{id}"
   defp pusher_name(appid, type, env), do: :"#{type}@#{appid}/#{env}"
 
+  @doc """
+  `Cartel.Dealer` method to dispatch a message to the correct `Cartel.Pusher`
+  """
   def send(appid, type, env, message) do
     Pusher.send(pusher_name(appid, type, env), type, message)
   end
 
+  @doc """
+  `Cartel.Dealer` method to fetch feedback, only works for `Cartel.Pusher.Apns`.
+
+  Returns an Enumerable `Stream` of `Cartel.Message.Apns.Feedback` structs.
+  """
   def feedback(appid, type, env) do
     Pusher.feedback(pusher_name(appid, type, env), type)
   end

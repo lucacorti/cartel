@@ -1,10 +1,17 @@
 defmodule Cartel.Pusher.Wns do
+  @moduledoc """
+  WNS legacy binary interface worker
+  """
+
   use GenServer
   alias Cartel.Message.Wns, as: Message
 
   @wns_login_url "https://login.live.com/accesstoken.srf"
   @wns_server_url "https://cloud.notify.windows.com"
 
+  @doc """
+  Sends the message via the specified worker process
+  """
   def send(pid, message) do
     GenServer.cast(pid, {:send, message})
   end

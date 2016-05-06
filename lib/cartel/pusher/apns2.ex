@@ -1,4 +1,8 @@
 defmodule Cartel.Pusher.Apns2 do
+  @moduledoc """
+  APNS HTTP/2 interface worker
+  """
+
   use GenServer
   alias Cartel.Pusher.Apns2
   alias Cartel.Message.Apns2, as: Message
@@ -62,6 +66,9 @@ defmodule Cartel.Pusher.Apns2 do
     ]
   end
 
+  @doc """
+  Sends the message via the specified worker process
+  """
   def send(pid, message) do
     GenServer.call(pid, {:send, message})
   end

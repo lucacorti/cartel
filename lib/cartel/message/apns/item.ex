@@ -1,4 +1,7 @@
 defmodule Cartel.Message.Apns.Item do
+  @moduledoc """
+  APNS legacy binary interface item submessage format
+  """
   defstruct [:id, :data]
   alias Cartel.Message.Apns.Item
 

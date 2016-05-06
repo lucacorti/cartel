@@ -1,5 +1,12 @@
 defprotocol Cartel.Message.Encoder do
+  @moduledoc """
+  Protocol for encoding messages in wire format
+  """
   @fallback_to_any true
+
+  @doc """
+  Encode the message in a format suitable for wire transmission
+  """
   def encode(message)
 end
 

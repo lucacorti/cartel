@@ -1,4 +1,7 @@
 defmodule Cartel.Message.Apns.Feedback do
+  @moduledoc """
+  APNS legacy binary interface feedback message format
+  """
   alias Cartel.Message.Encoder
   defstruct [time: nil, token: nil]
 
