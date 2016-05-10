@@ -24,8 +24,8 @@ defmodule Cartel.Pusher do
 
   def init([pusher_id, pusher]) do
     pool_options = Map.get(pusher, :pool, [size: 5, max_overflow: 10])
-    pool_options = Keyword.put(pool_options, :name, {:local, pusher_id})
-    pool_options = Keyword.put(pool_options, :worker_module, pusher[:type])
+    |> Keyword.put(:name, {:local, pusher_id})
+    |> Keyword.put(:worker_module, pusher[:type])
 
     [:poolboy.child_spec(pusher_id, pool_options, pusher)]
     |> supervise(strategy: :one_for_one)

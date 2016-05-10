@@ -1,11 +1,11 @@
 defprotocol Cartel.Message.Encoder do
   @moduledoc """
-  Protocol for encoding messages in wire format
+  Encode `Cartel.Message` structs to wire format
   """
   @fallback_to_any true
 
   @doc """
-  Encode the message in a format suitable for wire transmission
+  Encode the message in a format suitable for transmission
   """
   def encode(message)
 end
