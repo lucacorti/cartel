@@ -45,7 +45,7 @@ Each pusher uses a different message format, examples are provided below.
 
 `Cartel.Message.Apns2`:
 
-    %Message{
+    %Cartel.Message.Apns2{
       token: "devicetoken",
       payload: %{aps: %{alert: "Hello"}}
     }
