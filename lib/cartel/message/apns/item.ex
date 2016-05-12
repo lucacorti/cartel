@@ -1,6 +1,6 @@
 defmodule Cartel.Message.Apns.Item do
   @moduledoc """
-  APNS legacy binary interface item submessage format
+  APNS binary interface item submessage format
   """
 
   alias Cartel.Message.Apns.Item
