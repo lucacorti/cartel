@@ -2,7 +2,9 @@ defmodule Cartel.Message.Wns do
   @moduledoc """
   WNS message format
   """
+
   @type t :: %__MODULE__{}
+
   defstruct []
 end
 

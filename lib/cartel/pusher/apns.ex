@@ -55,8 +55,8 @@ defmodule Cartel.Pusher.Apns do
       fn -> socket end,
       fn socket ->
         case  :ssl.recv(socket, Feedback.record_size) do
-          {:ok, <<time::size(32), 32::size(16), token::size(256)>>} ->
-            %Feedback{time: time, token: token}
+          {:ok, data} ->
+            Feedback.decode!(data)
           _ ->
             {:halt, socket}
         end
