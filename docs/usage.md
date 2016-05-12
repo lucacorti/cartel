@@ -2,7 +2,7 @@
 
 ## APNS
 
-Sending:
+Sending notifications:
 
     alias Cartel.Pusher.Apns
     alias Cartel.Message.Apns, as: Message
