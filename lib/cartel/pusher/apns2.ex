@@ -33,7 +33,7 @@ defmodule Cartel.Pusher.Apns2 do
     {:ok, result} = :h2_client.send_request(state.pid,
       add_message_headers(state.headers, message),
       Message.serialize(message))
-    {:reply, {:ok, result}, state}
+    {:reply, :ok, state}
   end
 
   defp connect(conf = %{env: :sandbox}) do
