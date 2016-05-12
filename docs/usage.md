@@ -2,7 +2,7 @@
 
 ## Common API
 
-All the `Cartel.Pusher` types share a common interface for message sending.
+All the pusher types share a common interface for message sending.
 `send/3` for single recipient and `send_bulk/4` for bulk sending.
 
     alias Cartel.Pusher.<Type>, as: Pusher
