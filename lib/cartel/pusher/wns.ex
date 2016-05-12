@@ -6,7 +6,6 @@ defmodule Cartel.Pusher.Wns do
   use GenServer
   use Cartel.Pusher
 
-  alias Cartel.Message
   alias Cartel.Message.Wns
   alias HTTPotion.Response
 
@@ -15,7 +14,7 @@ defmodule Cartel.Pusher.Wns do
 
   def start_link(id, args), do: GenServer.start_link(__MODULE__, args, name: id)
 
-  def init(state), do: {:ok, %{conf: state, token: nil}}
+  def init(conf = %{type: __MODULE__}), do: {:ok, %{conf: conf, token: nil}}
 
   @doc """
   Sends the message via the specified worker process

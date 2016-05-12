@@ -6,7 +6,6 @@ defmodule Cartel.Pusher.Apns2 do
   use GenServer
   use Cartel.Pusher
 
-  alias Cartel.Message
   alias Cartel.Message.Apns2
 
   @push_host 'api.push.apple.com'
@@ -14,7 +13,7 @@ defmodule Cartel.Pusher.Apns2 do
 
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def init(conf = %{type: Cartel.Pusher.Apns2}) do
+  def init(conf = %{type: __MODULE__}) do
     {:ok, %{conf: conf, headers: nil, pid: nil}}
   end
 
@@ -30,7 +29,7 @@ defmodule Cartel.Pusher.Apns2 do
   end
 
   def handle_call({:send, message}, _from, state) do
-    {:ok, result} = :h2_client.send_request(state.pid,
+    {:ok, _} = :h2_client.send_request(state.pid,
       add_message_headers(state.headers, message),
       Message.serialize(message))
     {:reply, :ok, state}

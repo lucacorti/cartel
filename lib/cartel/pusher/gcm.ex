@@ -6,14 +6,13 @@ defmodule Cartel.Pusher.Gcm do
   use GenServer
   use Cartel.Pusher
 
-  alias Cartel.Message
   alias Cartel.Message.Gcm
 
   @gcm_server_url "https://gcm-http.googleapis.com/gcm/send"
 
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def init(state), do: {:ok, state}
+  def init(conf = %{type: __MODULE__}), do: {:ok, conf}
 
   @doc """
   Sends the message via the specified worker process

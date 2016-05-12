@@ -6,8 +6,6 @@ defmodule Cartel.Pusher.Apns do
   use GenServer
   use Cartel.Pusher
 
-  alias Cartel.Pusher
-  alias Cartel.Message
   alias Cartel.Message.Apns
   alias Cartel.Message.Apns.Feedback
 
@@ -21,7 +19,7 @@ defmodule Cartel.Pusher.Apns do
 
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def init(conf = %{type: Cartel.Pusher.Apns}) do
+  def init(conf = %{type: __MODULE__}) do
     {:ok, %{socket: nil, conf: conf}}
   end
 
