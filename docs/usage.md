@@ -2,29 +2,17 @@
 
 ## APNS
 
-Sending notifications:
-
-    alias Cartel.Pusher.Apns2
-    alias Cartel.Message.Apns2, as: Message
-
-    Cartel.Dealer.send("com.mydomain1.myapp1", Apns2, :sandbox, %Message{
-      token: "device token",
-      payload: %{aps: %{alert: "Hello"}}
-    })
-
-## APNS (legacy)
-
 Sending:
 
     alias Cartel.Pusher.Apns
     alias Cartel.Message.Apns, as: Message
     alias Message.Item
 
-    Cartel.Pusher.send("appid", Apns, :sandbox, %Message{
+    Apns.send("appid", :sandbox, %Message{
       items: [
         %Item{
           id: Item.device_token,
-          data: "device token"
+          data: "devicetoken"
         },
         %Item{
           id: Item.payload,
@@ -36,7 +24,20 @@ Sending:
 Consuming feedback:
 
     alias Cartel.Pusher.Apns
-    Cartel.Pusher.feedback("appid", Apns, :sandbox)
+
+    Apns.feedback("appid", Apns, :sandbox)
+
+## APNS HTTP/2 (experimental)
+
+Sending notifications:
+
+    alias Cartel.Pusher.Apns2
+    alias Cartel.Message.Apns2, as: Message
+
+    Apns2.send("appid", :sandbox, %Message{
+      token: "devicetoken",
+      payload: %{aps: %{alert: "Hello"}}
+    })
 
 ## GCM
 
