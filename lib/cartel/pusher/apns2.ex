@@ -4,6 +4,8 @@ defmodule Cartel.Pusher.Apns2 do
   """
 
   use GenServer
+  use Cartel.Pusher
+
   alias Cartel.Message
   alias Cartel.Message.Apns2
 

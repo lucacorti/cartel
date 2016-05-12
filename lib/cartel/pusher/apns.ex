@@ -4,6 +4,9 @@ defmodule Cartel.Pusher.Apns do
   """
 
   use GenServer
+  use Cartel.Pusher
+
+  alias Cartel.Pusher
   alias Cartel.Message
   alias Cartel.Message.Apns
   alias Cartel.Message.Apns.Feedback
@@ -29,10 +32,16 @@ defmodule Cartel.Pusher.Apns do
   def send(process, message), do: GenServer.call(process, {:send, message})
 
   @doc """
-  Gets the feedback via the specified worker process
+  Method to fetch `Cartel.Message.Apns.Feedback.t` records from feedback service
+
+  Returns an Enumerable `Stream` of `Cartel.Message.Apns.Feedback` structs.
   """
-  @spec feedback(pid) :: Stream.t
-  def feedback(process), do: GenServer.call(process, {:feedback})
+  @spec feedback(String.t, :sandbox | :production) :: {:ok, Stream.t}
+  def feedback(appid, env) do
+    :poolboy.transaction(Pusher.name(appid, __MODULE__, env), fn
+      worker -> GenServer.call(worker, {:feedback})
+    end)
+  end
 
   def handle_call({:send, message}, from, state = %{conf: conf, socket: nil}) do
     opts = [:binary, active: true, certfile: conf.cert, keyfile: conf.key,

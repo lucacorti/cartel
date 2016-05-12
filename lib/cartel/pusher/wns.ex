@@ -4,6 +4,8 @@ defmodule Cartel.Pusher.Wns do
   """
 
   use GenServer
+  use Cartel.Pusher
+
   alias Cartel.Message
   alias Cartel.Message.Wns
   alias HTTPotion.Response
