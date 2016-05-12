@@ -9,7 +9,20 @@ All the `Cartel.Pusher` types share a common interface for message sending.
     alias Cartel.Message.<Type>, as: Message
     alias Message.Item
 
-    Pusher.send("appid", :sandbox, %Message{
+    Pusher.send("appid", :production, <message>)
+
+    Pusher.send_bulk("appid", :sandbox, ["devicetoken", "devicetoken"], <message>)
+
+When doing bulk sending, the device token in the message is ignored.
+Each pusher uses a different message format, detailed below.
+
+## Pusher specific APIs and Message Formats
+
+### APNS
+
+`Cartel.Message.Apns`:
+
+    %Cartel.Apns.Message{
       items: [
         %Item{
           id: Item.device_token,
@@ -20,22 +33,27 @@ All the `Cartel.Pusher` types share a common interface for message sending.
           data: %{aps: %{alert: "Hello"}}
         }
       ]
-    })
+    }
 
-    Pusher.send_bulk("appid", :sandbox, ["devicetoken", "devicetoken"], %Message {
-      items: [
-        %Item{
-          id: Item.payload,
-          data: %{aps: %{alert: "Hello"}}
-        }
-      ]
-    })
-
-
-## Apns specific API
-
-`Cartel.Pusher.Apns` allows consuming feedback as a `Stream.t`:
+`Cartel.Pusher.Apns` also allows consuming feedback as a `Stream.t`:
 
     alias Cartel.Pusher.Apns
 
     {:ok, stream} = Apns.feedback("appid", :sandbox)
+
+### APNS2
+
+`Cartel.Message.Apns2`:
+
+    %Message{
+      token: "devicetoken",
+      payload: %{aps: %{alert: "Hello"}}
+    }
+
+### GCM
+
+TBD
+
+### WNS
+
+TBD
