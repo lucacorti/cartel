@@ -42,7 +42,7 @@ defmodule Cartel.Mixfile do
   defp docs do
     [
       main: "main",
-      extras: ["docs/main.md", "docs/usage.md"]
+      extras: ["docs/main.md", "docs/getting-started.md", "docs/usage.md"]
     ]
   end
 end
