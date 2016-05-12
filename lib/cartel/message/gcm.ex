@@ -2,8 +2,10 @@ defmodule Cartel.Message.Gcm do
   @moduledoc """
   Google GCM message format
   """
-
   @derive Poison.Encoder
+
+  @type t :: %__MODULE__{}
+
   defstruct [:to, :data]
 end
 

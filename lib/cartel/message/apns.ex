@@ -3,6 +3,8 @@ defmodule Cartel.Message.Apns do
   APNS legacy binary interface message format
   """
 
+  @type t :: %__MODULE__{}
+
   defstruct [items: []]
 end
 

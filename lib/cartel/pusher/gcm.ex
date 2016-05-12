@@ -5,6 +5,7 @@ defmodule Cartel.Pusher.Gcm do
 
   use GenServer
   alias Cartel.Message
+  alias Cartel.Message.Gcm
 
   @gcm_server_url "https://gcm-http.googleapis.com/gcm/send"
 
@@ -15,8 +16,9 @@ defmodule Cartel.Pusher.Gcm do
   @doc """
   Sends the message via the specified worker process
   """
+  @spec send(pid, Gcm.t) :: :ok | :error
   def send(pid, message), do: GenServer.call(pid, {:send, message})
-  
+
   def handle_call({:send, message}, _from, state) do
     {:ok, request} = Message.serialize(message)
     headers = [

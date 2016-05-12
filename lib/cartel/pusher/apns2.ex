@@ -19,6 +19,7 @@ defmodule Cartel.Pusher.Apns2 do
   @doc """
   Sends the message via the specified worker process
   """
+  @spec send(pid, Apns2.t) :: :ok | :error
   def send(process, message), do: GenServer.call(process, {:send, message})
 
   def handle_call({:send, message}, from, state = %{pid: nil, headers: nil}) do

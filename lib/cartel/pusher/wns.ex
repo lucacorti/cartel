@@ -5,6 +5,7 @@ defmodule Cartel.Pusher.Wns do
 
   use GenServer
   alias Cartel.Message
+  alias Cartel.Message.Wns
   alias HTTPotion.Response
 
   @wns_login_url "https://login.live.com/accesstoken.srf"
@@ -17,6 +18,7 @@ defmodule Cartel.Pusher.Wns do
   @doc """
   Sends the message via the specified worker process
   """
+  @spec send(pid, Wns.t) :: :ok | :error
   def send(pid, message), do: GenServer.cast(pid, {:send, message})
 
   def handle_call({:send, message}, from, state = %{token: nil}) do

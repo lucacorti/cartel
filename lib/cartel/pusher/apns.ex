@@ -5,6 +5,7 @@ defmodule Cartel.Pusher.Apns do
 
   use GenServer
   alias Cartel.Message
+  alias Cartel.Message.Apns
   alias Cartel.Message.Apns.Feedback
 
   @push_host 'gateway.push.apple.com'
@@ -24,13 +25,13 @@ defmodule Cartel.Pusher.Apns do
   @doc """
   Sends the message via the specified worker process
   """
-  @spec send(PID, Cartel.Message.t) :: :ok | :error
+  @spec send(pid, Apns.t) :: :ok | :error
   def send(process, message), do: GenServer.call(process, {:send, message})
 
   @doc """
   Gets the feedback via the specified worker process
   """
-  @spec feedback(PID) :: Stream.t
+  @spec feedback(pid) :: Stream.t
   def feedback(process), do: GenServer.call(process, {:feedback})
 
   def handle_call({:send, message}, from, state = %{conf: conf, socket: nil}) do

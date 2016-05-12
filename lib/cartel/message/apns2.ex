@@ -3,6 +3,8 @@ defmodule Cartel.Message.Apns2 do
   APNS HTTP/2 interface message format
   """
 
+  @type t :: %__MODULE__{}
+
   defstruct [
     token: nil, id: nil, expiration: 0, priority: 10, topic: nil, payload: %{}
   ]
