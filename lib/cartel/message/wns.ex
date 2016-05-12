@@ -2,16 +2,14 @@ defmodule Cartel.Message.Wns do
   @moduledoc """
   WNS message format
   """
+end
 
-  alias Cartel.Message.Encoder
-
-  @behaviour Cartel.Message
-
-  def deserialize(binary) do
-    binary
+defimpl Cartel.Message, for: Cartel.Message.Wns do
+  def serialize(message) do
+    Poison.encode(message)
   end
 
-  def serialize(message) do
-    Encoder.encode(message)
+  def update_token(message, _) do
+    message
   end
 end

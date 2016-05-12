@@ -3,24 +3,16 @@ defmodule Cartel.Message.Gcm do
   Google GCM message format
   """
 
-  alias Cartel.Message.Encoder
-
-  @behaviour Cartel.Message
-
   @derive Poison.Encoder
   defstruct [:to, :data]
-
-  def deserialize(binary) do
-    Poison.decode(binary)
-  end
-
-  def serialize(message) do
-    Encoder.encode(message)
-  end
 end
 
-defimpl Cartel.Message.Encoder, for: Cartel.Message.Gcm do
-  def encode(message) do
+defimpl Cartel.Message, for: Cartel.Message.Gcm do
+  def serialize(message) do
     Poison.encode(message)
+  end
+
+  def update_token(message, token) do
+    %{message | to: token}
   end
 end

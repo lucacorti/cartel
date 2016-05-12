@@ -4,7 +4,7 @@ defmodule Cartel.Pusher.Wns do
   """
 
   use GenServer
-  alias Cartel.Message.Wns, as: Message
+  alias Cartel.Message
 
   @wns_login_url "https://login.live.com/accesstoken.srf"
   @wns_server_url "https://cloud.notify.windows.com"
@@ -65,6 +65,6 @@ defmodule Cartel.Pusher.Wns do
   end
 
   defp send_response(res = %HTTPotion.Response{}, state) do
-    {:reply, {:ok, res.status_code, Message.deserialize(res.body)}, state}
+    {:reply, {:ok, res.status_code, Poison.decode!(res.body)}, state}
   end
 end

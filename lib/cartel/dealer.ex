@@ -7,23 +7,6 @@ defmodule Cartel.Dealer do
   alias Cartel.Pusher
 
   defp dealer_name(id), do: :"#{__MODULE__}@#{id}"
-  defp pusher_name(appid, type, env), do: :"#{type}@#{appid}/#{env}"
-
-  @doc """
-  `Cartel.Dealer` method to dispatch a message to the correct `Cartel.Pusher`
-  """
-  def send(appid, type, env, message) do
-    Pusher.send(pusher_name(appid, type, env), type, message)
-  end
-
-  @doc """
-  `Cartel.Dealer` method to fetch feedback, only works for `Cartel.Pusher.Apns`.
-
-  Returns an Enumerable `Stream` of `Cartel.Message.Apns.Feedback` structs.
-  """
-  def feedback(appid, type, env) do
-    Pusher.feedback(pusher_name(appid, type, env), type)
-  end
 
   def start_link(args) do
     opts = [id: dealer_name(args[:id]), name: dealer_name(args[:id])]
@@ -33,8 +16,8 @@ defmodule Cartel.Dealer do
   def init(args) do
     args[:pushers]
     |> Enum.map(fn pusher ->
-      pusher_id = pusher_name(args[:id], pusher[:type], pusher[:env])
-      worker(Pusher, [pusher_id, pusher], id: pusher_id, name: pusher_id)
+      id = Pusher.name(args[:id], pusher[:type], pusher[:env])
+      worker(Pusher, [[id: args[:id], pusher: pusher]], id: id, name: id)
     end)
     |> supervise([strategy: :one_for_one])
   end

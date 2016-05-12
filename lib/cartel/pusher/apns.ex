@@ -5,7 +5,7 @@ defmodule Cartel.Pusher.Apns do
 
   use GenServer
   alias Cartel.Pusher.Apns
-  alias Cartel.Message.Apns, as: Message
+  alias Cartel.Message
   alias Cartel.Message.Apns.Feedback
 
   @push_host 'gateway.push.apple.com'
@@ -23,12 +23,12 @@ defmodule Cartel.Pusher.Apns do
   @doc """
   Sends the message via the specified worker process
   """
-  def send(pid, message), do: GenServer.call(pid, {:send, message})
+  def send(process, message), do: GenServer.call(process, {:send, message})
 
   @doc """
   Gets the feedback via the specified worker process
   """
-  def feedback(pid), do: GenServer.call(pid, {:feedback})
+  def feedback(process), do: GenServer.call(process, {:feedback})
 
   def handle_call({:send, message}, from, state = %{conf: conf, socket: nil}) do
     opts = [:binary, active: true, certfile: conf.cert, keyfile: conf.key,
@@ -51,8 +51,10 @@ defmodule Cartel.Pusher.Apns do
       fn -> socket end,
       fn socket ->
         case  :ssl.recv(socket, Feedback.record_size) do
-          {:ok, data} -> {[Feedback.deserialize(data)]}
-          _ -> {:halt, socket}
+          {:ok, <<time::size(32), 32::size(16), token::size(256)>>} ->
+            %Feedback{time: time, token: token}
+          _ ->
+            {:halt, socket}
         end
       end,
       fn socket -> :ssl.close(socket) end
@@ -60,8 +62,13 @@ defmodule Cartel.Pusher.Apns do
     {:reply, {:ok, stream}, state}
   end
 
-  def handle_info({:ssl, _, msg}, state) do
-    {:stop, Message.deserialize(msg), state}
+  def handle_info({:ssl, _, data}, state) do
+    case data do
+      <<8::size(8), status::size(8), identifier::size(32)>> ->
+        {:stop, {:error, identifier, status, status_to_string(status)}, state}
+      _ ->
+        {:stop, {:error, :unknown}, state}
+    end
   end
 
   def handle_info({:ssl_closed, _}, state) do
@@ -87,4 +94,28 @@ defmodule Cartel.Pusher.Apns do
   defp connect(:feedback, :production, opts) do
     :ssl.connect(@feedback_host, @feedback_port, opts)
   end
+
+  @no_errors 0
+  @processing_error 1
+  @missing_token 2
+  @missing_topic 3
+  @missing_payload 4
+  @invalid_token_size 5
+  @invalid_topic_size 6
+  @invalid_payload_size 7
+  @invalid_token 8
+  @shutdown 10
+  @unknown_error 255
+
+  defp status_to_string(@no_errors), do: "No errors encountered"
+  defp status_to_string(@processing_error), do: "Processing error"
+  defp status_to_string(@missing_token), do: "Missing device token"
+  defp status_to_string(@missing_topic), do: "Missing topic"
+  defp status_to_string(@missing_payload), do: "Missing payload"
+  defp status_to_string(@invalid_token_size), do: "Invalid token size"
+  defp status_to_string(@invalid_topic_size), do: "Invalid topic size"
+  defp status_to_string(@invalid_payload_size), do: "Invalid payload_size"
+  defp status_to_string(@invalid_token), do: "Invalid token"
+  defp status_to_string(@shutdown), do: "Shutdown"
+  defp status_to_string(_), do: "None (unknown)"
 end

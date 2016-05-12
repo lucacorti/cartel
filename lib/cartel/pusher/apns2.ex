@@ -5,7 +5,8 @@ defmodule Cartel.Pusher.Apns2 do
 
   use GenServer
   alias Cartel.Pusher.Apns2
-  alias Cartel.Message.Apns2, as: Message
+  alias Cartel.Message
+  alias Cartel.Message.Apns2, as: Apns2Message
 
   @push_host 'api.push.apple.com'
   @push_sandbox_host 'api.development.push.apple.com'
@@ -16,6 +17,25 @@ defmodule Cartel.Pusher.Apns2 do
 
   def init(conf = %{type: Apns2}) do
     {:ok, %{conf: conf, headers: nil, pid: nil}}
+  end
+
+  @doc """
+  Sends the message via the specified worker process
+  """
+  def send(process, message) do
+    GenServer.call(process, {:send, message})
+  end
+
+  def handle_call({:send, message}, from, state = %{pid: nil, headers: nil}) do
+    {:ok, pid, headers} = connect(state.conf)
+    handle_call({:send, message}, from, %{state | pid: pid, headers: headers})
+  end
+
+  def handle_call({:send, message}, _from, state) do
+    {:ok, result} = :h2_client.send_request(state.pid,
+      add_message_headers(state.headers, message),
+      Message.serialize(message))
+    {:reply, {:ok, result}, state}
   end
 
   defp connect(conf = %{env: :sandbox}) do
@@ -47,41 +67,24 @@ defmodule Cartel.Pusher.Apns2 do
     ]
   end
 
-  defp add_message_headers(headers, msg = %Message{id: nil, topic: nil}) do
+  defp add_message_headers(headers, msg = %Apns2Message{id: nil, topic: nil}) do
     add_message_required_headers(headers, msg)
   end
 
-  defp add_message_headers(headers, msg = %Message{id: id, topic: nil}) do
+  defp add_message_headers(headers, msg = %Apns2Message{id: id, topic: nil}) do
     [{":apns-id", "#{id}"} | add_message_required_headers(msg, headers)]
   end
 
-  defp add_message_headers(headers, msg = %Message{id: nil, topic: topic}) do
+  defp add_message_headers(headers, msg = %Apns2Message{id: nil, topic: topic})
+  do
     [{":apns-topic", "#{topic}"} | add_message_required_headers(msg, headers)]
   end
 
-  defp add_message_headers(headers, msg = %Message{id: id, topic: topic}) do
+  defp add_message_headers(headers, msg = %Apns2Message{id: id, topic: topic})
+  do
     add_message_required_headers(msg, headers) ++ [
       {":apns-id", "#{id}"},
       {":apns-topic", "#{topic}"}
     ]
-  end
-
-  @doc """
-  Sends the message via the specified worker process
-  """
-  def send(pid, message) do
-    GenServer.call(pid, {:send, message})
-  end
-
-  def handle_call({:send, message}, from, state = %{pid: nil, headers: nil}) do
-    {:ok, pid, headers} = connect(state.conf)
-    handle_call({:send, message}, from, %{state | pid: pid, headers: headers})
-  end
-
-  def handle_call({:send, message}, _from, state) do
-    {:ok, result} = :h2_client.send_request(state.pid,
-      add_message_headers(state.headers, message),
-      Message.serialize(message))
-    {:reply, {:ok, result}, state}
   end
 end
