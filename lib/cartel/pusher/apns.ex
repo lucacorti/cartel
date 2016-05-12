@@ -4,7 +4,6 @@ defmodule Cartel.Pusher.Apns do
   """
 
   use GenServer
-  alias Cartel.Pusher.Apns
   alias Cartel.Message
   alias Cartel.Message.Apns.Feedback
 
@@ -18,16 +17,20 @@ defmodule Cartel.Pusher.Apns do
 
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def init(conf = %{type: Apns}), do: {:ok, %{socket: nil, conf: conf}}
+  def init(conf = %{type: Cartel.Pusher.Apns}) do
+    {:ok, %{socket: nil, conf: conf}}
+  end
 
   @doc """
   Sends the message via the specified worker process
   """
+  @spec send(PID, Cartel.Message.t) :: :ok | :error
   def send(process, message), do: GenServer.call(process, {:send, message})
 
   @doc """
   Gets the feedback via the specified worker process
   """
+  @spec feedback(PID) :: Stream.t
   def feedback(process), do: GenServer.call(process, {:feedback})
 
   def handle_call({:send, message}, from, state = %{conf: conf, socket: nil}) do

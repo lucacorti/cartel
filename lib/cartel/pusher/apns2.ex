@@ -4,27 +4,22 @@ defmodule Cartel.Pusher.Apns2 do
   """
 
   use GenServer
-  alias Cartel.Pusher.Apns2
   alias Cartel.Message
-  alias Cartel.Message.Apns2, as: Apns2Message
+  alias Cartel.Message.Apns2
 
   @push_host 'api.push.apple.com'
   @push_sandbox_host 'api.development.push.apple.com'
 
-  def start_link(args) do
-    GenServer.start_link(__MODULE__, args, [])
-  end
+  def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def init(conf = %{type: Apns2}) do
+  def init(conf = %{type: Cartel.Pusher.Apns2}) do
     {:ok, %{conf: conf, headers: nil, pid: nil}}
   end
 
   @doc """
   Sends the message via the specified worker process
   """
-  def send(process, message) do
-    GenServer.call(process, {:send, message})
-  end
+  def send(process, message), do: GenServer.call(process, {:send, message})
 
   def handle_call({:send, message}, from, state = %{pid: nil, headers: nil}) do
     {:ok, pid, headers} = connect(state.conf)
@@ -67,20 +62,20 @@ defmodule Cartel.Pusher.Apns2 do
     ]
   end
 
-  defp add_message_headers(headers, msg = %Apns2Message{id: nil, topic: nil}) do
+  defp add_message_headers(headers, msg = %Apns2{id: nil, topic: nil}) do
     add_message_required_headers(headers, msg)
   end
 
-  defp add_message_headers(headers, msg = %Apns2Message{id: id, topic: nil}) do
+  defp add_message_headers(headers, msg = %Apns2{id: id, topic: nil}) do
     [{":apns-id", "#{id}"} | add_message_required_headers(msg, headers)]
   end
 
-  defp add_message_headers(headers, msg = %Apns2Message{id: nil, topic: topic})
+  defp add_message_headers(headers, msg = %Apns2{id: nil, topic: topic})
   do
     [{":apns-topic", "#{topic}"} | add_message_required_headers(msg, headers)]
   end
 
-  defp add_message_headers(headers, msg = %Apns2Message{id: id, topic: topic})
+  defp add_message_headers(headers, msg = %Apns2{id: id, topic: topic})
   do
     add_message_required_headers(msg, headers) ++ [
       {":apns-id", "#{id}"},

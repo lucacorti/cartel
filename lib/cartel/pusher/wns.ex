@@ -5,45 +5,19 @@ defmodule Cartel.Pusher.Wns do
 
   use GenServer
   alias Cartel.Message
+  alias HTTPotion.Response
 
   @wns_login_url "https://login.live.com/accesstoken.srf"
   @wns_server_url "https://cloud.notify.windows.com"
 
+  def start_link(id, args), do: GenServer.start_link(__MODULE__, args, name: id)
+
+  def init(state), do: {:ok, %{conf: state, token: nil}}
+
   @doc """
   Sends the message via the specified worker process
   """
-  def send(pid, message) do
-    GenServer.cast(pid, {:send, message})
-  end
-
-  def start_link(id, args) do
-    GenServer.start_link(__MODULE__, args, name: id)
-  end
-
-  def init(state) do
-    {:ok, %{conf: state, token: nil}}
-  end
-
-  defp login(id, conf) do
-    query = [
-      "grant_type": "client_credentials",
-      "client_id": id,
-      "client_secret": conf.client_secret,
-      "scope": "notify.windows.com"
-    ]
-    res = HTTPotion.post(@wns_login_url, [query: query])
-    login_response(res)
-  end
-
-  defp login_response(res = %HTTPotion.Response{status_code: code})
-  when code >= 400 do
-    {:error, res.status_code}
-  end
-
-  defp login_response(res = %HTTPotion.Response{}) do
-    {:ok, body} = Poison.decode(res.body)
-    {:ok, body[:access_token]}
-  end
+  def send(pid, message), do: GenServer.cast(pid, {:send, message})
 
   def handle_call({:send, message}, from, state = %{token: nil}) do
       {:ok, token} = login(state.id, state.conf)
@@ -59,12 +33,31 @@ defmodule Cartel.Pusher.Wns do
     send_response(res, state)
   end
 
-  defp send_response(res = %HTTPotion.Response{status_code: code}, state)
-  when code >= 400 do
-    {:stop, res.code, state}
+  defp login(id, conf) do
+    query = [
+      "grant_type": "client_credentials",
+      "client_id": id,
+      "client_secret": conf.client_secret,
+      "scope": "notify.windows.com"
+    ]
+    res = HTTPotion.post(@wns_login_url, [query: query])
+    login_response(res)
   end
 
-  defp send_response(res = %HTTPotion.Response{}, state) do
-    {:reply, {:ok, res.status_code, Poison.decode!(res.body)}, state}
+  defp login_response(%Response{status_code: code}) when code >= 400 do
+    {:error, code}
+  end
+
+  defp login_response(%Response{body: body}) do
+    {:ok, body} = Poison.decode(body)
+    {:ok, body[:access_token]}
+  end
+
+  defp send_response(%Response{status_code: code}, state) when code >= 400 do
+    {:stop, code, state}
+  end
+
+  defp send_response(%Response{status_code: code, body: body}, state) do
+    {:reply, {:ok, code, Poison.decode!(body)}, state}
   end
 end

@@ -8,21 +8,15 @@ defmodule Cartel.Pusher.Gcm do
 
   @gcm_server_url "https://gcm-http.googleapis.com/gcm/send"
 
+  def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
+
+  def init(state), do: {:ok, state}
+
   @doc """
   Sends the message via the specified worker process
   """
-  def send(pid, message) do
-    GenServer.call(pid, {:send, message})
-  end
-
-  def start_link(args) do
-    GenServer.start_link(__MODULE__, args, [])
-  end
-
-  def init(state) do
-    {:ok, state}
-  end
-
+  def send(pid, message), do: GenServer.call(pid, {:send, message})
+  
   def handle_call({:send, message}, _from, state) do
     {:ok, request} = Message.serialize(message)
     headers = [
