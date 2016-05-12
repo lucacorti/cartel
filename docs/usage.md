@@ -16,7 +16,14 @@ All the pusher types share a common interface for message sending.
 When doing bulk sending, the device token in the message is ignored.
 Each pusher uses a different message format, examples are provided below.
 
-## Pusher specific APIs and Message Formats
+The Apns pusher exposes the feedback service via a `Stream.t`
+
+    alias Cartel.Pusher.Apns
+
+    {:ok, stream} = Apns.feedback("appid", :sandbox)
+
+
+## Message Formats
 
 ### APNS
 
@@ -36,12 +43,6 @@ Each pusher uses a different message format, examples are provided below.
         }
       ]
     }
-
-`Cartel.Pusher.Apns` also allows consuming feedback as a `Stream.t`:
-
-    alias Cartel.Pusher.Apns
-
-    {:ok, stream} = Apns.feedback("appid", :sandbox)
 
 ### APNS2
 
