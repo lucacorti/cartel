@@ -22,7 +22,9 @@ Each pusher uses a different message format, examples are provided below.
 
 `Cartel.Message.Apns`:
 
-    %Cartel.Apns.Message{
+    alias Cartel.Message.Apns, as: Message
+
+    %Message{
       items: [
         %Item{
           id: Item.device_token,
@@ -45,7 +47,9 @@ Each pusher uses a different message format, examples are provided below.
 
 `Cartel.Message.Apns2`:
 
-    %Cartel.Message.Apns2{
+    alias Cartel.Message.Apns2, as: Message
+
+    %Message{
       token: "devicetoken",
       payload: %{aps: %{alert: "Hello"}}
     }
