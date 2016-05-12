@@ -14,7 +14,7 @@ All the `Cartel.Pusher` types share a common interface for message sending.
     Pusher.send_bulk("appid", :sandbox, ["devicetoken", "devicetoken"], <message>)
 
 When doing bulk sending, the device token in the message is ignored.
-Each pusher uses a different message format, detailed below.
+Each pusher uses a different message format, examples are provided below.
 
 ## Pusher specific APIs and Message Formats
 
