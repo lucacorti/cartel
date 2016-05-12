@@ -1,6 +1,6 @@
 defmodule Cartel.Message.Apns.Feedback do
   @moduledoc """
-  APNS legacy binary interface feedback message format
+  APNS binary interface feedback message format
   """
 
   @type t :: %__MODULE__{}
