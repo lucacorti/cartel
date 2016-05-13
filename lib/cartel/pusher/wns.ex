@@ -19,15 +19,15 @@ defmodule Cartel.Pusher.Wns do
   @doc """
   Sends the message via the specified worker process
   """
-  @spec send(pid, Wns.t) :: :ok | :error
-  def send(pid, message), do: GenServer.cast(pid, {:send, message})
+  @spec push(pid, Wns.t) :: :ok | :error
+  def push(pid, message), do: GenServer.cast(pid, {:push, message})
 
-  def handle_call({:send, message}, from, state = %{token: nil}) do
+  def handle_call({:push, message}, from, state = %{token: nil}) do
       {:ok, token} = login(state.id, state.conf)
-      handle_call({:send, message}, from, %{state | token: token})
+      handle_call({:push, message}, from, %{state | token: token})
   end
 
-  def handle_call({:send, message}, _from, state) do
+  def handle_call({:push, message}, _from, state) do
     {:ok, request} = Message.serialize(message)
     query = ["token": state[:token]]
     headers = ["Content-Type": "text/xml"]

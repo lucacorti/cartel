@@ -20,15 +20,15 @@ defmodule Cartel.Pusher.Apns2 do
   @doc """
   Sends the message via the specified worker process
   """
-  @spec send(pid, Apns2.t) :: :ok | :error
-  def send(process, message), do: GenServer.call(process, {:send, message})
+  @spec push(pid, Apns2.t) :: :ok | :error
+  def push(process, message), do: GenServer.call(process, {:push, message})
 
-  def handle_call({:send, message}, from, state = %{pid: nil, headers: nil}) do
+  def handle_call({:push, message}, from, state = %{pid: nil, headers: nil}) do
     {:ok, pid, headers} = connect(state.conf)
-    handle_call({:send, message}, from, %{state | pid: pid, headers: headers})
+    handle_call({:push, message}, from, %{state | pid: pid, headers: headers})
   end
 
-  def handle_call({:send, message}, _from, state) do
+  def handle_call({:push, message}, _from, state) do
     {:ok, _} = :h2_client.send_request(state.pid,
       add_message_headers(state.headers, message),
       Message.serialize(message))

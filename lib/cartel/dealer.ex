@@ -15,7 +15,7 @@ defmodule Cartel.Dealer do
   def init(args) do
     args[:pushers]
     |> Enum.map(fn pusher ->
-      id = Pusher.name(args[:id], pusher[:type], pusher[:env])
+      id = Pusher.name(args[:id], pusher[:type])
       worker(Pusher, [[id: args[:id], pusher: pusher]], id: id, name: id)
     end)
     |> supervise([strategy: :one_for_one])

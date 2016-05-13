@@ -3,15 +3,15 @@
 ## Common API
 
 All the pusher types share a common interface for message sending.
-`send/3` for single recipient and `send_bulk/4` for bulk sending.
+`send/2` for single recipient and `send_bulk/3` for bulk sending.
 
     alias Cartel.Pusher.<Type>, as: Pusher
     alias Cartel.Message.<Type>, as: Message
     alias Message.Item
 
-    Pusher.send("appid", :production, <message>)
+    Pusher.send("appid", <message>)
 
-    Pusher.send_bulk("appid", :sandbox, ["devicetoken", "devicetoken"], <message>)
+    Pusher.send_bulk("appid", ["devicetoken", "devicetoken"], <message>)
 
 When doing bulk sending, the device token in the message is ignored.
 Each pusher uses a different message format, examples are provided below.
@@ -20,7 +20,7 @@ The Apns pusher exposes the feedback service via a `Stream.t`
 
     alias Cartel.Pusher.Apns
 
-    {:ok, stream} = Apns.feedback("appid", :sandbox)
+    {:ok, stream} = Apns.feedback("appid")
 
 
 ## Message Formats
