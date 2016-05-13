@@ -41,7 +41,7 @@ defmodule Cartel.Pusher do
       - `tokens`: device tokens
       - `payload`: payload
       """
-      @spec send_bulk(String.t, :sandbox | :production, [String.t], [%{}])
+      @spec send_bulk(String.t, :sandbox | :production, [String.t], Message.t)
       :: [{:ok | :error}]
       def send_bulk(appid, env, tokens, message) do
           tokens
