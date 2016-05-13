@@ -4,7 +4,7 @@ defmodule Cartel.Pusher.Gcm do
   """
 
   use GenServer
-  use Cartel.Pusher
+  use Cartel.Pusher, message_module: Cartel.Message.Gcm
 
   alias Cartel.Message.Gcm
 

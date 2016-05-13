@@ -11,7 +11,7 @@ defmodule Cartel.Pusher do
   """
   @callback push(pid :: pid, message :: Message.t) :: :ok | :error
 
-  defmacro __using__(_) do
+  defmacro __using__([message_module: message_module]) do
     quote do
       @behaviour Cartel.Pusher
 
@@ -22,10 +22,10 @@ defmodule Cartel.Pusher do
       Sends a push notification
 
       - `appid`: target application identifier present in `config.exs`
-      - `message`: `Cartel.Message` struct for the target platform
+      - `message`: message struct
       """
-      @spec send(String.t, Message.t) :: {:ok | :error}
-      def send(appid, message) do
+      @spec send(String.t, unquote(message_module).t) :: {:ok | :error}
+      def send(appid, message = %unquote(message_module){}) do
         :poolboy.transaction(Pusher.name(appid, __MODULE__), fn
           worker ->
             __MODULE__.push(worker, message)
@@ -37,11 +37,11 @@ defmodule Cartel.Pusher do
 
       - `appid`: target application identifier present in `config.exs`
       - `tokens`: device tokens
-      - `payload`: payload
+      - `message`: message struct
       """
-      @spec send_bulk(String.t, [String.t], Message.t)
+      @spec send_bulk(String.t, [String.t], unquote(message_module).t)
       :: [{:ok | :error}]
-      def send_bulk(appid, tokens, message) do
+      def send_bulk(appid, tokens, message = %unquote(message_module){}) do
           tokens
           |> Enum.map(fn
             token ->

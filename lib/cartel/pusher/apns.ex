@@ -4,7 +4,7 @@ defmodule Cartel.Pusher.Apns do
   """
 
   use GenServer
-  use Cartel.Pusher
+  use Cartel.Pusher, message_module: Cartel.Message.Apns
 
   alias Cartel.Message.Apns
   alias Cartel.Message.Apns.Feedback
