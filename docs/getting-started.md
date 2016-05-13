@@ -5,7 +5,7 @@
 Add cartel to your list of dependencies in `mix.exs`:
 
     def deps do
-      [{:cartel, "~> 0.1.0"}]
+      [{:cartel, "~> 0.2.1"}]
     end
 
 Ensure cartel is started before your application:
