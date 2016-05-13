@@ -6,9 +6,7 @@ defmodule Cartel do
 
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
-    case Application.fetch_env(:cartel, :dealers) do
-      {:ok, dealers} -> Cartel.Supervisor.start_link(dealers)
-      _ -> Cartel.Supervisor.start_link([])
-    end
+    dealers = Application.get_env(:cartel, :dealers, [])
+    Cartel.Supervisor.start_link(dealers)
   end
 end
