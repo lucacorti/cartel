@@ -24,6 +24,7 @@ Configure your mobile applications in `config.exs`:
         pushers: [
           %{
             type: Cartel.Pusher.Apns2,
+            env: :sandbox,
             cert: "app1-cert.pem",
             key: "app1-key.pem",
             cacert: "entrust_2048_ca.cer"
@@ -40,6 +41,7 @@ Configure your mobile applications in `config.exs`:
         pushers: [
           %{
             type: Cartel.Pusher.Apns,
+            env: :production,
             cert: "app2-crt.pem",
             key: "app2-key.pem",
             cacert: "entrust_2048_ca.cer"
