@@ -4,13 +4,12 @@ defmodule Cartel.Dealer do
   """
 
   use Supervisor
+
   alias Cartel.Pusher
 
-  defp dealer_name(id), do: :"#{__MODULE__}@#{id}"
-
   def start_link(args) do
-    opts = [id: dealer_name(args[:id]), name: dealer_name(args[:id])]
-    Supervisor.start_link(__MODULE__, args, opts)
+    dealer = dealer_name(args[:id])
+    Supervisor.start_link(__MODULE__, args, id: dealer, name: dealer)
   end
 
   def init(args) do
@@ -21,4 +20,6 @@ defmodule Cartel.Dealer do
     end)
     |> supervise([strategy: :one_for_one])
   end
+
+  defp dealer_name(id), do: :"#{__MODULE__}@#{id}"
 end
