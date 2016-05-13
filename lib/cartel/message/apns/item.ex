@@ -1,6 +1,24 @@
 defmodule Cartel.Message.Apns.Item do
   @moduledoc """
-  APNS binary interface item submessage format
+  APNS binary interface item submessage format. At a minimum, `id` and `payload`
+  must be populated.
+
+  `id`: Can be one of:
+    - `device_token/0`
+    - `payload/0`
+    - `notification_identifier/0`
+    - `expiration_date/0`
+    - `priority/0`
+
+  `data`: the value varies based on `id`:
+    - `device_token`: `String.t`, token of the recipient
+    - `payload`: `Map` representing the notification payload
+    - `notification_identifier`: `Integer.t` id for delivery errors
+    - `expiration_date`: `Integer.t`, UNIX timestamp of notification expiration
+    - `priority`: `priority_immediately/0` or `priority_when_convenient/0`
+
+  For more details on the format see the [Binary Provider API](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Appendixes/BinaryProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH106-SW5)
+  section of Apple [Local and Remote Notification Programming Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/Introduction.html)
   """
 
   alias Cartel.Message.Apns.Item
@@ -50,7 +68,6 @@ defmodule Cartel.Message.Apns.Item do
   @spec priority :: Integer.t
   def priority, do: @priority
 
-
   @priority_immediately 10
 
   @doc """
@@ -60,7 +77,6 @@ defmodule Cartel.Message.Apns.Item do
   def priority_immediately, do: @priority_immediately
 
   @priority_when_convenient 5
-
 
   @doc """
   Returns the `priority_when_convenient` item binary protocol value

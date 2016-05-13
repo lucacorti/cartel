@@ -1,6 +1,11 @@
 defmodule Cartel.Message.Apns do
   @moduledoc """
   APNS binary interface message format
+
+  `items`: `List` of `Cartel.Message.Apns.Item`
+
+  For more details on the format see the [Binary Provider API](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Appendixes/BinaryProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH106-SW5)
+  section of Apple [Local and Remote Notification Programming Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/Introduction.html)
   """
 
   @type t :: %__MODULE__{}

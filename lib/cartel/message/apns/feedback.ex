@@ -1,6 +1,12 @@
 defmodule Cartel.Message.Apns.Feedback do
   @moduledoc """
   APNS binary interface feedback message format
+
+  `time`: UNIX Timestamp since the `token` is not valid anymore
+  `token`: token of the recipient
+
+  For more details on the format see the [Binary Provider API](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Appendixes/BinaryProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH106-SW5)
+  section of Apple [Local and Remote Notification Programming Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/Introduction.html)
   """
 
   @type t :: %__MODULE__{}
