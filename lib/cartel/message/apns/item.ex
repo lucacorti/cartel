@@ -2,8 +2,6 @@ defmodule Cartel.Message.Apns.Item do
   @moduledoc """
   Apple APNS Binary API item submessage
 
-  At a minimum, `id` and `payload` must be populated.
-
   `id`: Can be one of:
     - `device_token/0`
     - `payload/0`

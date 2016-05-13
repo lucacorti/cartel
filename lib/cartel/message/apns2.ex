@@ -9,6 +9,8 @@ defmodule Cartel.Message.Apns2 do
   - `topic`: `String.t`, If your certificate includes multiple topics
   - `payload`: `Map`, the notification payload
 
+  At a minimum, `id` and `payload` items must be populated.
+
   For more details on the format see the [APNS Provider API](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/APNsProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH101-SW1)
   section of Apple [Local and Remote Notification Programming Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/Introduction.html)
   """
