@@ -1,6 +1,6 @@
 defmodule Cartel.Message.Apns2 do
   @moduledoc """
-  APNS HTTP/2 interface message format
+  Apple APNS Provider API interface message
 
   - `token`: `String.t`, token of the recipient
   - `id`: `String.t`, canonical form UUID for delivery errors

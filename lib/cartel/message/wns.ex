@@ -1,6 +1,6 @@
 defmodule Cartel.Message.Wns do
   @moduledoc """
-  WNS message format
+  Microsoft WNS message
   """
 
   @type t :: %__MODULE__{}

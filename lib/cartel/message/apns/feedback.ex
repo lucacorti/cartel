@@ -1,6 +1,6 @@
 defmodule Cartel.Message.Apns.Feedback do
   @moduledoc """
-  APNS binary interface feedback message format
+  Apple APNS Binary API feedback message
 
   `time`: UNIX Timestamp since the `token` is not valid anymore
   `token`: token of the recipient

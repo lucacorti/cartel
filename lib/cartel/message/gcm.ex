@@ -1,6 +1,6 @@
 defmodule Cartel.Message.Gcm do
   @moduledoc """
-  Google GCM message format
+  Google GCM message
   """
   @derive Poison.Encoder
 

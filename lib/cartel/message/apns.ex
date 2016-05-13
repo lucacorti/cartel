@@ -1,6 +1,6 @@
 defmodule Cartel.Message.Apns do
   @moduledoc """
-  APNS binary interface message format
+  Apple APNS Binary API message
 
   `items`: `List` of `Cartel.Message.Apns.Item`
 
