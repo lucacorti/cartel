@@ -1,6 +1,6 @@
 defmodule Cartel.Pusher.Wns do
   @moduledoc """
-  WNS interface worker
+  Microsoft WNS interface worker
   """
 
   use GenServer

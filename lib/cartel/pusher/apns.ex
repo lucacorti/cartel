@@ -1,6 +1,6 @@
 defmodule Cartel.Pusher.Apns do
   @moduledoc """
-  APNS Binary API worker
+  Apple APNS Binary API worker
   """
 
   use GenServer

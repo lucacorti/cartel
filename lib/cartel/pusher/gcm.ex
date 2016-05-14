@@ -1,6 +1,6 @@
 defmodule Cartel.Pusher.Gcm do
   @moduledoc """
-  GCM interface worker
+  Google GCM interface worker
   """
 
   use GenServer
