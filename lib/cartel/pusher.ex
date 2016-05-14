@@ -55,7 +55,7 @@ defmodule Cartel.Pusher do
     Generate the registered process name for the requested app pusher
   """
   @spec name(String.t, atom) :: atom
-  def name(appid, type), do: :"#{appid}@#{type}"
+  def name(appid, type), do: :"#{type}@#{appid}"
 
   def start_link(args) do
     Supervisor.start_link(__MODULE__, args, [])
