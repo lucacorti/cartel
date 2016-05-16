@@ -25,10 +25,21 @@ defmodule Cartel.Pusher do
       - `message`: message struct
       """
       @spec send(String.t, unquote(message_module).t) :: {:ok | :error}
-      def send(appid, message = %unquote(message_module){}) do
+      def send(appid, message, tokens \\ [])
+
+      def send(appid, message, []) do
         :poolboy.transaction(Pusher.name(appid, __MODULE__), fn
           worker ->
             __MODULE__.push(worker, message)
+        end)
+      end
+
+      def send(appid, message = %unquote(message_module){}, tokens)
+      when is_list(tokens) do
+        tokens
+        |> Enum.map(fn
+          token ->
+            __MODULE__.send(appid, Message.update_token(message, token))
         end)
       end
 
