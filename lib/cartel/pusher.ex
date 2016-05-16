@@ -23,8 +23,10 @@ defmodule Cartel.Pusher do
 
       - `appid`: target application identifier present in `config.exs`
       - `message`: message struct
+      - `tokens`: list of device tokens
       """
-      @spec send(String.t, unquote(message_module).t) :: {:ok | :error}
+      @spec send(String.t, unquote(message_module).t, [String.t])
+      :: {:ok | :error}
       def send(appid, message, tokens \\ [])
 
       def send(appid, message, []) do
@@ -41,23 +43,6 @@ defmodule Cartel.Pusher do
           token ->
             __MODULE__.send(appid, Message.update_token(message, token))
         end)
-      end
-
-      @doc """
-      Bulk sends the same push notification to multiple recipients
-
-      - `appid`: target application identifier present in `config.exs`
-      - `tokens`: device tokens
-      - `message`: message struct
-      """
-      @spec send_bulk(String.t, [String.t], unquote(message_module).t)
-      :: [{:ok | :error}]
-      def send_bulk(appid, tokens, message = %unquote(message_module){}) do
-          tokens
-          |> Enum.map(fn
-            token ->
-              __MODULE__.send(appid, Message.update_token(message, token))
-          end)
       end
     end
   end
