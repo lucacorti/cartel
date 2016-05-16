@@ -6,6 +6,9 @@ See the documentation at https://hexdocs.pm/cartel
 
 ## ChangeLog
 
+- 0.2.2 - 16/5/2016
+    - Move chatterbox to rebar.config
+
 - 0.2.1 - 13/5/2016
     - Minor message fix and added docs
 
