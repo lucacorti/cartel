@@ -2,19 +2,5 @@
 
 **Multi platform, multi app push notifications**
 
+Get the package from hex.pm at https://hex.pm/packages/cartel
 See the documentation at https://hexdocs.pm/cartel
-
-## ChangeLog
-
-- 0.2.2 - 16/5/2016
-    - Move chatterbox to rebar.config
-
-- 0.2.1 - 13/5/2016
-    - Minor message fix and added docs
-
-- 0.2.0 - 13/5/2016
-    - Remove environment concept
-    - Cleanup pusher API as needed, please see the docs
-
-- 0.1.0 - 12/5/2016
-    - Initial release
