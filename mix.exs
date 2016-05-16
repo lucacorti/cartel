@@ -3,7 +3,7 @@ defmodule Cartel.Mixfile do
 
   def project do
     [app: :cartel,
-     version: "0.2.1",
+     version: "0.2.2",
      elixir: "~> 1.2",
      description: "Multi platform, multi app push notifications",
      package: package,
@@ -34,8 +34,7 @@ defmodule Cartel.Mixfile do
       {:dialyxir, "~> 0.3.3", only: [:dev]},
       {:poison, "~> 2.1.0"},
       {:httpotion, "~> 2.2.0"},
-      {:poolboy, "~> 1.5.1"},
-      {:chatterbox, github: "joedevivo/chatterbox", branch: :master}
+      {:poolboy, "~> 1.5.1"}
     ]
   end
 
