@@ -34,7 +34,8 @@ defmodule Cartel.Mixfile do
       {:dialyxir, "~> 0.3.3", only: [:dev]},
       {:poison, "~> 2.1.0"},
       {:httpotion, "~> 2.2.0"},
-      {:poolboy, "~> 1.5.1"}
+      {:poolboy, "~> 1.5.1"},
+      {:chatterbox, "~> 0.3.0", manager: :rebar, github: "joedevivo/chatterbox", tag: "0.3.0"}
     ]
   end
 
