@@ -6,7 +6,7 @@ See the documentation at https://hexdocs.pm/cartel
 
 ## ChangeLog
 
-- 0.2.0 - 13/5/2016
+- 0.2.1 - 13/5/2016
     - Minor message fix and added docs
 
 - 0.2.0 - 13/5/2016
