@@ -24,18 +24,14 @@ defmodule Cartel.Pusher.Gcm do
     {:ok, request} = Message.serialize(message)
     headers = [
       "Content-Type": "application/json",
-      "Authorization": "key=" <> state[:key]
+      "Authorization": "key=#{state[:key]}"
     ]
     res = HTTPotion.post(@gcm_server_url, [body: request, headers: headers])
-    respond(res, state)
-  end
-
-  defp respond(res = %HTTPotion.Response{status_code: code}, state)
-  when code >= 400 do
-    {:stop, res.code, state}
-  end
-
-  defp respond(res = %HTTPotion.Response{}, state) do
-    {:reply, {:ok, res.status_code, Poison.decode(res.body)}, state}
+    case Poison.decode!(res.body) do
+      %{"results" => [%{"message_id" => id}]} ->
+        {:reply, {:ok, id}, state}
+      %{"results" => [%{"error" => error}]} ->
+        {:reply, {:error, error}, state}
+    end
   end
 end

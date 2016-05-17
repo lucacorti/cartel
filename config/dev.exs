@@ -15,8 +15,7 @@ config :cartel, dealers: [
       },
       %{
         type: Cartel.Pusher.Gcm,
-        sender: "abc",
-        key: "def"
+        key: "gcm-key"
       }
     ]
   ],
@@ -37,8 +36,7 @@ config :cartel, dealers: [
     pushers: [
       %{
         type: Cartel.Pusher.Gcm,
-        sender: "abc",
-        key: "def"
+        key: "gcm-key"
       }
     ]
   ]
