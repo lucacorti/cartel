@@ -59,7 +59,14 @@ The Apns pusher exposes the feedback service via a `Stream.t`
 
 ### GCM
 
-TBD
+`Cartel.Message.Gcm`:
+
+    alias Cartel.Message.Gcm, as: Message
+
+    %Message{
+      to: "devicetoken",
+      data: %{"message": "Hello"}
+    }
 
 ### WNS
 
