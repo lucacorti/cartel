@@ -11,6 +11,11 @@ defmodule Cartel.Pusher.Apns2 do
   @push_host 'api.push.apple.com'
   @push_sandbox_host 'api.development.push.apple.com'
 
+  @doc """
+  Starts the pusher
+  """
+  @spec start_link([type: __MODULE__, env: :production | :sandbox,
+  cert: String.t, key: String.t, cacert: String.t]) :: GenServer.on_start
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
   def init(conf = %{type: __MODULE__}) do

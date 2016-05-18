@@ -10,6 +10,10 @@ defmodule Cartel.Pusher.Gcm do
 
   @gcm_server_url "https://gcm-http.googleapis.com/gcm/send"
 
+  @doc """
+  Starts the pusher
+  """
+  @spec start_link([type: __MODULE__, key: String.t]) :: GenServer.on_start
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
   def init(conf = %{type: __MODULE__}), do: {:ok, conf}

@@ -17,6 +17,11 @@ defmodule Cartel.Pusher.Apns do
   @feedback_sandbox_host 'feedback.sandbox.push.apple.com'
   @feedback_port 2196
 
+  @doc """
+  Starts the pusher
+  """
+  @spec start_link([type: __MODULE__, env: :production | :sandbox,
+  cert: String.t, key: String.t, cacert: String.t]) :: GenServer.on_start
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
   def init(conf = %{type: __MODULE__}) do
