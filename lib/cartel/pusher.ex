@@ -38,10 +38,13 @@ defmodule Cartel.Pusher do
 
       def send(appid, message = %unquote(message_module){}, tokens)
       when is_list(tokens) do
-        tokens
-        |> Enum.map(fn
-          token ->
-            __MODULE__.send(appid, Message.update_token(message, token))
+        :poolboy.transaction(Pusher.name(appid, __MODULE__), fn
+          worker ->
+            tokens
+            |> Enum.map(fn
+              token ->
+                __MODULE__.push(worker, Message.update_token(message, token))
+            end)
         end)
       end
     end
