@@ -1,10 +1,7 @@
 defmodule Cartel.Pusher do
   @moduledoc """
-  `Cartel.Pusher` Behaviour and OTP Supervisor managing `Cartel.Pusher` workers
+  `Cartel.Pusher` Behaviour for push workers
   """
-  use Supervisor
-
-  alias Cartel.Message
 
   @doc """
   Callback for Pusher behaviour implementors
@@ -54,21 +51,5 @@ defmodule Cartel.Pusher do
         end)
       end
     end
-  end
-
-  def start_link(args) do
-    Supervisor.start_link(__MODULE__, args, [])
-  end
-
-  def init([id: id, pusher: pusher]) do
-    pusher_name = pusher[:type].name(id)
-    pool_options = Map.get(pusher, :pool, [size: 5, max_overflow: 10])
-
-    pool_options = pool_options
-    |> Keyword.put(:name, {:local, pusher_name})
-    |> Keyword.put(:worker_module, pusher[:type])
-
-    [:poolboy.child_spec(pusher_name, pool_options, pusher)]
-    |> supervise(strategy: :one_for_one)
   end
 end
