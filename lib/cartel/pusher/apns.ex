@@ -41,7 +41,7 @@ defmodule Cartel.Pusher.Apns do
   """
   @spec feedback(String.t) :: {:ok, Stream.t}
   def feedback(appid) do
-    :poolboy.transaction(Pusher.name(appid, __MODULE__), fn
+    :poolboy.transaction(name(appid), fn
       worker -> GenServer.call(worker, {:feedback})
     end)
   end

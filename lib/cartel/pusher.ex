@@ -19,6 +19,12 @@ defmodule Cartel.Pusher do
       alias Cartel.Message
 
       @doc """
+        Generate the registered process name for the requested app pusher
+      """
+      @spec name(String.t) :: atom
+      def name(appid), do: :"#{__MODULE__}@#{appid}"
+
+      @doc """
       Sends a push notification
 
       - `appid`: target application identifier present in `config.exs`
@@ -30,7 +36,7 @@ defmodule Cartel.Pusher do
       def send(appid, message, tokens \\ [])
 
       def send(appid, message, []) do
-        :poolboy.transaction(Pusher.name(appid, __MODULE__), fn
+        :poolboy.transaction(name(appid), fn
           worker ->
             __MODULE__.push(worker, message)
         end)
@@ -38,7 +44,7 @@ defmodule Cartel.Pusher do
 
       def send(appid, message = %unquote(message_module){}, tokens)
       when is_list(tokens) do
-        :poolboy.transaction(Pusher.name(appid, __MODULE__), fn
+        :poolboy.transaction(name(appid), fn
           worker ->
             tokens
             |> Enum.map(fn
@@ -50,18 +56,12 @@ defmodule Cartel.Pusher do
     end
   end
 
-  @doc """
-    Generate the registered process name for the requested app pusher
-  """
-  @spec name(String.t, atom) :: atom
-  def name(appid, type), do: :"#{type}@#{appid}"
-
   def start_link(args) do
     Supervisor.start_link(__MODULE__, args, [])
   end
 
   def init([id: id, pusher: pusher]) do
-    pusher_name = name(id, pusher[:type])
+    pusher_name = pusher[:type].name(id)
     pool_options = Map.get(pusher, :pool, [size: 5, max_overflow: 10])
 
     pool_options = pool_options
