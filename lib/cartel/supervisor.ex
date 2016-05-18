@@ -1,9 +1,13 @@
 defmodule Cartel.Supervisor do
   @moduledoc """
-  `Cartel.Supervisor` main OTP Supervisor
+  Supervisor for `Cartel.Dealer` processes
   """
   use Supervisor
 
+  @doc """
+  Starts the supervisor
+  """
+  @spec start_link([id: String.t, pushers: [%{}]]) :: Supervisor.on_start
   def start_link(dealers) do
     Supervisor.start_link(__MODULE__, dealers, name: __MODULE__)
   end
