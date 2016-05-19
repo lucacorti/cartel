@@ -1,6 +1,6 @@
 defprotocol Cartel.Message do
   @moduledoc """
-  Protocol to be implemented by `Cartel.Message` structs
+  Protocol for the implementation of message formats
   """
 
   @typedoc """
@@ -9,13 +9,13 @@ defprotocol Cartel.Message do
   @type t :: struct
 
   @doc """
-  Serializes `Cartel.Message` struct to binary
+  Serializes the message struct for sending
   """
   @spec serialize(t) :: binary
   def serialize(message)
 
   @doc """
-  Returns an updated message with the new `token`
+  Returns a copy of message with the `token` updated
   """
   @spec update_token(t, String.t) :: t
   def update_token(message, token)

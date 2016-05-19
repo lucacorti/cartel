@@ -13,10 +13,10 @@ defmodule Cartel.Pusher.Gcm do
   @doc """
   Starts the pusher
   """
-  @spec start_link([type: __MODULE__, key: String.t]) :: GenServer.on_start
+  @spec start_link(%{key: String.t}) :: GenServer.on_start
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def init(conf = %{type: __MODULE__}), do: {:ok, conf}
+  def init(conf = %{}), do: {:ok, conf}
 
   @doc """
   Sends the message via the specified worker process

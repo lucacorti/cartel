@@ -3,7 +3,7 @@ defmodule Cartel.Mixfile do
 
   def project do
     [app: :cartel,
-     version: "0.4.2",
+     version: "0.5.0",
      elixir: "~> 1.2",
      description: "Multi platform, multi app push notifications",
      package: package,
@@ -42,7 +42,12 @@ defmodule Cartel.Mixfile do
   defp docs do
     [
       main: "main",
-      extras: ["docs/main.md", "docs/getting-started.md", "docs/usage.md"]
+      extras: [
+        "docs/main.md",
+        "docs/getting-started.md",
+        "docs/usage.md",
+        # "docs/extending.md"
+      ]
     ]
   end
 end

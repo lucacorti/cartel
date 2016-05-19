@@ -1,6 +1,6 @@
 defmodule Cartel do
   @moduledoc """
-  `Cartel` OTP Application
+  Cartel OTP Application
   """
   use Application
 

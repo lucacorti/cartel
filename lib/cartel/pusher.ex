@@ -1,10 +1,15 @@
 defmodule Cartel.Pusher do
   @moduledoc """
-  `Cartel.Pusher` Behaviour for push workers
+  Behaviour for the implementation of push workers
   """
 
+  alias Cartel.Message
+
   @doc """
-  Callback for Pusher behaviour implementors
+  Pushers must implement actual message sending via this callback
+
+  Implementations should use `Cartel.Message.serialize/1` to transform the
+  struct in a format suitable for wire transmission
   """
   @callback push(pid :: pid, message :: Message.t) :: :ok | :error
 
@@ -16,7 +21,7 @@ defmodule Cartel.Pusher do
       alias Cartel.Message
 
       @doc """
-        Generate the registered process name for the requested app pusher
+      Generate the registered process name for the requested app pusher
       """
       @spec name(String.t) :: atom
       def name(appid), do: :"#{__MODULE__}@#{appid}"

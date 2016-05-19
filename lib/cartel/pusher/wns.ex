@@ -15,17 +15,17 @@ defmodule Cartel.Pusher.Wns do
   @doc """
   Starts the pusher
   """
-  @spec start_link([type: __MODULE__, client_secret: String.t])
+  @spec start_link(%{client_secret: String.t})
   :: GenServer.on_start
   def start_link(args), do: GenServer.start_link(__MODULE__, args)
 
-  def init(conf = %{type: __MODULE__}), do: {:ok, %{conf: conf, token: nil}}
+  def init(conf = %{}), do: {:ok, %{conf: conf, token: nil}}
 
   @doc """
   Sends the message via the specified worker process
   """
   @spec push(pid, Wns.t) :: :ok | :error
-  def push(pid, message), do: GenServer.cast(pid, {:push, message})
+  def push(pid, message), do: GenServer.call(pid, {:push, message})
 
   def handle_call({:push, message}, from, state = %{token: nil}) do
       {:ok, token} = login(state.id, state.conf)

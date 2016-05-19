@@ -5,7 +5,7 @@
 Add cartel to your list of dependencies in `mix.exs`:
 
     def deps do
-      [{:cartel, "~> 0.2.1"}]
+      [{:cartel, "~> 0.0.0"}]
     end
 
 Ensure cartel is started before your application:
@@ -18,44 +18,43 @@ Ensure cartel is started before your application:
 
 Configure your mobile applications in `config.exs`:
 
-    config :cartel, dealers: [
-      [
-        id: "com.mydomain1.myapp1",
-        pushers: [
-          %{
-            type: Cartel.Pusher.Apns2,
+    config :cartel, dealers: %{
+      "app1": %{
+        Cartel.Pusher.Apns2 => %{
             env: :sandbox,
-            cert: "app1-cert.pem",
-            key: "app1-key.pem",
-            cacert: "entrust_2048_ca.cer"
-          },
-          %{
-            type: Cartel.Pusher.Gcm,
-            sender: "abc",
-            key: "def"
-          }
-        ]
-      ],
-      [
-        id: "com.mydomain1.myapp2",
-        pushers: [
-          %{
-            type: Cartel.Pusher.Apns,
+            cert: "/path/to/app1-cert.pem",
+            key: "/path/to/app1-key.pem",
+            cacert: "/path/to/entrust_2048_ca.cer"
+        },
+        Cartel.Pusher.Gcm => %{
+            key: "gcm-key"
+        }
+      },
+      "app2": %{
+        Cartel.Pusher.Apns => %{
             env: :production,
-            cert: "app2-crt.pem",
-            key: "app2-key.pem",
-            cacert: "entrust_2048_ca.cer"
-          }
-        ]
-      ],
-      [
-        id: "com.mydomain2.myapp1",
-        pushers: [
-          %{
-            type: Cartel.Pusher.Gcm,
-            sender: "abc",
-            key: "def"
-          }
-        ]
-      ]
-    ]
+            cert: "/path/to/app2-crt.pem",
+            key: "/path/to/app2-key.pem",
+            cacert: "/path/to/entrust_2048_ca.cer"
+        }
+      },
+      "app3": %{
+        Cartel.Pusher.Gcm => %{
+            key: "gcm-key"
+        }
+      }
+    }
+
+***Cartel*** uses [poolboy](https://github.com/devinus/poolboy) to pool
+pusher processes. By default `poolboy` creates a pool of 5 workers.
+You can change pooling options per pusher by adding a `pool` key:
+
+    ...
+    "app3": %{
+        Cartel.Pusher.Gcm => %{
+            [size: 10, max_overflow: 20]
+        }
+    }
+    ...
+
+Refer to the poolboy docs for more information.

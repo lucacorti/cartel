@@ -1,9 +1,9 @@
 # Usage
 
-## Common API
+## Pusher API
 
 All the pusher types share a common interface for message sending.
-Use `send/3` for both single recipient and bulk sending.
+You can use `send/3` for both single recipient and bulk sending.
 
     alias Cartel.Pusher.<Type>, as: Pusher
     alias Cartel.Message.<Type>, as: Message
@@ -18,7 +18,9 @@ is ignored.
 
 Each pusher type uses a different message format, examples are provided below.
 
-The Apns pusher exposes the feedback service via a `Stream.t`
+### Apns Feedback
+
+The `Cartel.Pusher.Apns` module exposes the feedback service via a `Stream.t`
 
     alias Cartel.Pusher.Apns
 
