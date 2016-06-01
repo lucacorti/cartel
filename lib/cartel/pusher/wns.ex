@@ -15,8 +15,7 @@ defmodule Cartel.Pusher.Wns do
   @doc """
   Starts the pusher
   """
-  @spec start_link(%{client_secret: String.t})
-  :: GenServer.on_start
+  @spec start_link(%{client_secret: String.t}) :: GenServer.on_start
   def start_link(args), do: GenServer.start_link(__MODULE__, args)
 
   def init(conf = %{}), do: {:ok, %{conf: conf, token: nil}}

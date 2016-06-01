@@ -52,7 +52,8 @@ You can change pooling options per pusher by adding a `pool` key:
     ...
     "app3": %{
         Cartel.Pusher.Gcm => %{
-            [size: 10, max_overflow: 20]
+            key: "gcm-key",
+            pool: [size: 10, max_overflow: 20]
         }
     }
     ...
