@@ -31,36 +31,11 @@ defmodule Cartel.Pusher.Wns do
   end
 
   def handle_call({:push, message}, _from, state) do
-    headers = [
+    headers = add_message_headers(message, [
       "Content-Type": Wns.content_type(message),
       "Authorization": "Bearer #{state.token}",
       "X-WNS-Type": message.type
-    ]
-
-    if is_boolean(message.cache_policy) && message.cache_policy do
-      headers = ["X-WNS-Cache-Policy": "cache"] ++ headers
-    end
-
-    if String.valid?(message.tag) && String.length(message.tag) > 0 do
-      headers = ["X-WNS-Tag": message.tag] ++ headers
-    end
-
-    if String.valid?(message.group) && String.length(message.group) > 0 do
-      headers = ["X-WNS-Group": message.group] ++ headers
-    end
-
-    if is_integer(message.ttl) and message.ttl > 0 do
-      headers = ["X-WNS-TTL": message.ttl] ++ headers
-    end
-
-    if is_boolean(message.suppress_popup) && message.suppress_popup do
-      headers = ["X-WNS-SuppressPopup": "true"] ++ headers
-    end
-
-    if is_boolean(message.request_for_status) && message.request_for_status do
-      headers = ["X-WNS-RequestForStatus": "true"] ++ headers
-    end
-
+    ])
     body = Message.serialize(message)
     res = HTTPotion.post(message.channel, [headers: headers, body: body])
     send_response(res, state)
@@ -85,5 +60,33 @@ defmodule Cartel.Pusher.Wns do
 
     res = HTTPotion.post(@wns_login_url, [headers: headers, body: body])
     {:ok, Poison.decode!(res.body)["access_token"]}
+  end
+
+  defp add_message_headers(message, headers) do
+    if is_boolean(message.cache_policy) && message.cache_policy do
+      headers = ["X-WNS-Cache-Policy": "cache"] ++ headers
+    end
+
+    if String.valid?(message.tag) && String.length(message.tag) > 0 do
+      headers = ["X-WNS-Tag": message.tag] ++ headers
+    end
+
+    if String.valid?(message.group) && String.length(message.group) > 0 do
+      headers = ["X-WNS-Group": message.group] ++ headers
+    end
+
+    if is_integer(message.ttl) and message.ttl > 0 do
+      headers = ["X-WNS-TTL": message.ttl] ++ headers
+    end
+
+    if is_boolean(message.suppress_popup) && message.suppress_popup do
+      headers = ["X-WNS-SuppressPopup": "true"] ++ headers
+    end
+
+    if is_boolean(message.request_for_status) && message.request_for_status do
+      headers = ["X-WNS-RequestForStatus": "true"] ++ headers
+    end
+
+    headers
   end
 end
