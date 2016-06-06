@@ -3,7 +3,7 @@ defmodule Cartel.Mixfile do
 
   def project do
     [app: :cartel,
-     version: "0.5.0",
+     version: "0.6.0",
      elixir: "~> 1.2",
      description: "Multi platform, multi app push notifications",
      package: package,
