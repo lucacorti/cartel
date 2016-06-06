@@ -8,10 +8,13 @@ defmodule Cartel.Pusher do
   @doc """
   Pushers must implement actual message sending via this callback
 
-  Implementations should use `Cartel.Message.serialize/1` to transform the
-  struct in a format suitable for wire transmission
+  - `message`: The message struct of the message to be sent, included to allow
+  metadata additions by the `Cartel.Pusher.handle_push/3` impelementation.
+  - `payload`: binary to be used for wire transmission, encoded via the message
+  `Cartel.Message.serialize/1` implementation.
   """
-  @callback push(pid :: pid, message :: Message.t) :: :ok | :error
+  @callback handle_push(pid :: pid, message :: Message.t, payload :: binary)
+  :: :ok | :error
 
   defmacro __using__([message_module: message_module]) do
     quote do
@@ -40,7 +43,8 @@ defmodule Cartel.Pusher do
       def send(appid, message, []) do
         :poolboy.transaction(name(appid), fn
           worker ->
-            __MODULE__.push(worker, message)
+            payload = Message.serialize(message)
+            __MODULE__.handle_push(worker, message, payload)
         end)
       end
 
@@ -51,7 +55,9 @@ defmodule Cartel.Pusher do
             tokens
             |> Enum.map(fn
               token ->
-                __MODULE__.push(worker, Message.update_token(message, token))
+                message = Message.update_token(message, token)
+                payload = Message.serialize(message)
+                __MODULE__.handle_push(worker, message, payload)
             end)
         end)
       end

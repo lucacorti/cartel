@@ -19,25 +19,22 @@ defmodule Cartel.Pusher.Wns do
 
   def init(conf = %{}), do: {:ok, %{conf: conf, token: nil}}
 
-  @doc """
-  Sends the message via the specified worker process
-  """
-  @spec push(pid, Wns.t) :: :ok | :error
-  def push(pid, message), do: GenServer.call(pid, {:push, message})
-
-  def handle_call({:push, message}, from, state = %{token: nil}) do
-      {:ok, token} = login(state.conf.sid, state.conf.secret)
-      handle_call({:push, message}, from, %{state | token: token})
+  def handle_push(pid, message, payload) do
+    GenServer.call(pid, {:push, message, payload})
   end
 
-  def handle_call({:push, message}, _from, state) do
+  def handle_call({:push, message, payload}, from, state = %{token: nil}) do
+      {:ok, token} = login(state.conf.sid, state.conf.secret)
+      handle_call({:push, message, payload}, from, %{state | token: token})
+  end
+
+  def handle_call({:push, message, payload}, _from, state) do
     headers = add_message_headers(message, [
       "Content-Type": Wns.content_type(message),
       "Authorization": "Bearer #{state.token}",
       "X-WNS-Type": message.type
     ])
-    body = Message.serialize(message)
-    res = HTTPotion.post(message.channel, [headers: headers, body: body])
+    res = HTTPotion.post(message.channel, [headers: headers, body: payload])
     send_response(res, state)
   end
 
@@ -62,31 +59,42 @@ defmodule Cartel.Pusher.Wns do
     {:ok, Poison.decode!(res.body)["access_token"]}
   end
 
-  defp add_message_headers(message, headers) do
-    if is_boolean(message.cache_policy) && message.cache_policy do
-      headers = ["X-WNS-Cache-Policy": "cache"] ++ headers
-    end
-
-    if String.valid?(message.tag) && String.length(message.tag) > 0 do
-      headers = ["X-WNS-Tag": message.tag] ++ headers
-    end
-
-    if String.valid?(message.group) && String.length(message.group) > 0 do
-      headers = ["X-WNS-Group": message.group] ++ headers
-    end
-
-    if is_integer(message.ttl) and message.ttl > 0 do
-      headers = ["X-WNS-TTL": message.ttl] ++ headers
-    end
-
-    if is_boolean(message.suppress_popup) && message.suppress_popup do
-      headers = ["X-WNS-SuppressPopup": "true"] ++ headers
-    end
-
-    if is_boolean(message.request_for_status) && message.request_for_status do
-      headers = ["X-WNS-RequestForStatus": "true"] ++ headers
-    end
+  defp add_message_headers(msg = %Wns{}, headers) do
+    headers = add_message_header_cache_policy(msg.cache_policy, headers)
+    headers = add_message_header_ttl(msg.ttl, headers)
+    headers = add_message_header_suppress_popup(msg.suppress_popup, headers)
+    headers = add_message_header_status(msg.request_for_status, headers)
 
     headers
   end
+
+  defp add_message_header_cache_policy(true, headers) do
+    ["X-WNS-Cache-Policy": "cache"] ++ headers
+  end
+
+  defp add_message_header_cache_policy(false, headers) do
+    ["X-WNS-Cache-Policy": "no-cache"] ++ headers
+  end
+
+  defp add_message_header_cache_policy(_, headers), do: headers
+
+  defp add_message_header_ttl(ttl, headers) when is_integer(ttl) and ttl > 0 do
+    ["X-WNS-TTL": ttl] ++ headers
+  end
+
+  defp add_message_header_ttl(_, headers), do: headers
+
+  defp add_message_header_suppress_popup(suppress_popup, headers)
+  when is_boolean(suppress_popup) and suppress_popup do
+    ["X-WNS-SuppressPopup": "true"] ++ headers
+  end
+
+  defp add_message_header_suppress_popup(_, headers), do: headers
+
+  defp add_message_header_status(request_for_status, headers)
+  when is_boolean(request_for_status) and request_for_status do
+    ["X-WNS-RequestForStatus": "true"] ++ headers
+  end
+
+  defp add_message_header_status(_, headers), do: headers
 end

@@ -29,12 +29,6 @@ defmodule Cartel.Pusher.Apns do
   end
 
   @doc """
-  Sends the message via the specified worker process
-  """
-  @spec push(pid, Apns.t) :: :ok | :error
-  def push(process, message), do: GenServer.call(process, {:push, message})
-
-  @doc """
   Method to fetch `Cartel.Message.Apns.Feedback.t` records from feedback service
 
   Returns an Enumerable `Stream` of `Cartel.Message.Apns.Feedback` structs.
@@ -46,16 +40,19 @@ defmodule Cartel.Pusher.Apns do
     end)
   end
 
-  def handle_call({:push, message}, from, state = %{conf: conf, socket: nil}) do
+  def handle_push(process, message, payload) do
+    GenServer.call(process, {:push, message, payload})
+  end
+
+  def handle_call({:push, message, payload}, from, state = %{conf: conf, socket: nil}) do
     opts = [:binary, active: true, certfile: conf.cert, keyfile: conf.key,
           cacertfile: conf.cacert]
     {:ok, socket} = connect(:push, conf.env, opts)
-    handle_call({:push, message}, from, %{state | socket: socket})
+    handle_call({:push, message, payload}, from, %{state | socket: socket})
   end
 
-  def handle_call({:push, message}, _from, state) do
-    request = Message.serialize(message)
-    :ok = :ssl.send(state.socket, request)
+  def handle_call({:push, _message, payload}, _from, state) do
+    :ok = :ssl.send(state.socket, payload)
     {:reply, :ok, state}
   end
 

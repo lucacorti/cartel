@@ -18,19 +18,16 @@ defmodule Cartel.Pusher.Gcm do
 
   def init(conf = %{}), do: {:ok, conf}
 
-  @doc """
-  Sends the message via the specified worker process
-  """
-  @spec push(pid, Gcm.t) :: :ok | :error
-  def push(pid, message), do: GenServer.call(pid, {:push, message})
+  def handle_push(pid, message, payload) do
+    GenServer.call(pid, {:push, message, payload})
+  end
 
-  def handle_call({:push, message}, _from, state) do
-    {:ok, request} = Message.serialize(message)
+  def handle_call({:push, _message, payload}, _from, state) do
     headers = [
       "Content-Type": "application/json",
       "Authorization": "key=#{state[:key]}"
     ]
-    res = HTTPotion.post(@gcm_server_url, [body: request, headers: headers])
+    res = HTTPotion.post(@gcm_server_url, [body: payload, headers: headers])
     case Poison.decode!(res.body) do
       %{"results" => [%{"message_id" => id}]} ->
         {:reply, {:ok, id}, state}

@@ -17,7 +17,7 @@ end
 
 defimpl Cartel.Message, for: Cartel.Message.Gcm do
   def serialize(message) do
-    Poison.encode(message)
+    Poison.encode!(message)
   end
 
   def update_token(message, token) do

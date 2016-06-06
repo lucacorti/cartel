@@ -22,21 +22,18 @@ defmodule Cartel.Pusher.Apns2 do
     {:ok, %{conf: conf, headers: nil, pid: nil}}
   end
 
-  @doc """
-  Sends the message via the specified worker process
-  """
-  @spec push(pid, Apns2.t) :: :ok | :error
-  def push(process, message), do: GenServer.call(process, {:push, message})
-
-  def handle_call({:push, message}, from, state = %{pid: nil, headers: nil}) do
-    {:ok, pid, headers} = connect(state.conf)
-    handle_call({:push, message}, from, %{state | pid: pid, headers: headers})
+  def handle_push(process, message, payload) do
+    GenServer.call(process, {:push, message, payload})
   end
 
-  def handle_call({:push, message}, _from, state) do
-    {:ok, _} = :h2_client.send_request(state.pid,
-      add_message_headers(state.headers, message),
-      Message.serialize(message))
+  def handle_call({:push, message, payload}, from, state = %{pid: nil, headers: nil}) do
+    {:ok, pid, headers} = connect(state.conf)
+    handle_call({:push, message, payload}, from, %{state | pid: pid, headers: headers})
+  end
+
+  def handle_call({:push, message, payload}, _from, state) do
+    headers = add_message_headers(state.headers, message)
+    {:ok, _} = :h2_client.send_request(state.pid, headers, payload)
     {:reply, :ok, state}
   end
 
