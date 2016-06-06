@@ -3,7 +3,7 @@ defmodule Cartel.Message.Wns do
   Microsoft WNS message
 
   - `channel`: `String.t`, recipient channel URI obtained from the user
-  - `type`: notification type, one of `type_toast/0`, `type_badge/0`, `type_tile/0` or `type_raw/0`
+  - `type`: `String.t`, one of `type_toast/0`, `type_badge/0`, `type_tile/0` or `type_raw/0`
   - `cache_policy`: `boolean`, cache notification when device is offline.
   - `tag`: `String.t`, notification tag
   - `group`: `String.t`, notification group
@@ -50,7 +50,7 @@ defmodule Cartel.Message.Wns do
   @spec type_raw :: String.t
   def type_raw, do: @type_raw
 
-  defstruct [channel: nil, type: @type_raw, cache_policy: nil, tag: nil, ttl: 0,
+  defstruct [channel: nil, type: @type_toast, cache_policy: nil, tag: nil, ttl: 0,
              suppress_popup: nil, request_for_status: nil, group: nil,
              payload: ""]
 

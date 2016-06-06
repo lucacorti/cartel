@@ -72,4 +72,11 @@ The `Cartel.Pusher.Apns` module exposes the feedback service via a `Stream.t`
 
 ### WNS
 
-TBD
+`Cartel.Message.Wns`:
+
+    alias Cartel.Message.Wns, as: Message
+
+    %Message{
+      channel: "channeluri",
+      payload: "..."
+    }
