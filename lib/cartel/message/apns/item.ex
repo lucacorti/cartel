@@ -2,12 +2,16 @@ defmodule Cartel.Message.Apns.Item do
   @moduledoc """
   Apple APNS Binary API item submessage
 
-  `id`: Can be one of:
-    - `device_token/0`
-    - `payload/0`
-    - `notification_identifier/0`
-    - `expiration_date/0`
-    - `priority/0`
+  For more details on the format see the [Binary Provider API](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Appendixes/BinaryProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH106-SW5)
+  section of Apple [Local and Remote Notification Programming Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/Introduction.html)
+  """
+
+  alias Cartel.Message.Apns.Item
+
+  @typedoc """
+  Apple APNS Binary API item submessage
+
+  `id`: `device_token/0`, `payload/0`, `notification_identifier/0`, `expiration_date/0` or `priority/0`
 
   `data`: the value varies based on `id`:
     - `device_token`: `String.t`, token of the recipient
@@ -15,15 +19,8 @@ defmodule Cartel.Message.Apns.Item do
     - `notification_identifier`: `Integer.t` id for delivery errors
     - `expiration_date`: `Integer.t`, UNIX timestamp of notification expiration
     - `priority`: `priority_immediately/0` or `priority_when_convenient/0`
-
-  For more details on the format see the [Binary Provider API](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Appendixes/BinaryProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH106-SW5)
-  section of Apple [Local and Remote Notification Programming Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/Introduction.html)
   """
-
-  alias Cartel.Message.Apns.Item
-
-  @type t :: %__MODULE__{}
-
+  @type t :: %__MODULE__{id: Integer.t, data: String.t | %{} | Integer.t}
   defstruct [:id, :data]
 
   @device_token 1
@@ -86,7 +83,7 @@ defmodule Cartel.Message.Apns.Item do
   @doc """
   Encodes the `item` to binary format
   """
-  @spec encode(t) :: {:ok, binary}
+  @spec encode(t) :: {:ok, <<_::_ * 24>> }
   def encode(item = %Item{id: @device_token}) do
     {:ok, token} = Base.decode16(item.data, case: :mixed)
     {:ok, <<item.id::size(8), 32::size(16)>> <> token}

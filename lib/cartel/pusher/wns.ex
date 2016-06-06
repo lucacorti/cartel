@@ -59,42 +59,41 @@ defmodule Cartel.Pusher.Wns do
     {:ok, Poison.decode!(res.body)["access_token"]}
   end
 
-  defp add_message_headers(msg = %Wns{}, headers) do
-    headers = add_message_header_cache_policy(msg.cache_policy, headers)
-    headers = add_message_header_ttl(msg.ttl, headers)
-    headers = add_message_header_suppress_popup(msg.suppress_popup, headers)
-    headers = add_message_header_status(msg.request_for_status, headers)
-
+  defp add_message_headers(message = %Wns{}, headers) do
     headers
+    |> add_message_header_cache_policy(message.cache_policy)
+    |> add_message_header_ttl(message.ttl)
+    |> add_message_header_suppress_popup(message.suppress_popup)
+    |> add_message_header_request_for_status(message.request_for_status)
   end
 
-  defp add_message_header_cache_policy(true, headers) do
-    ["X-WNS-Cache-Policy": "cache"] ++ headers
+  defp add_message_header_cache_policy(headers, true) do
+    List.insert_at(headers, 0, {"X-WNS-Cache-Policy", "cache"})
   end
 
-  defp add_message_header_cache_policy(false, headers) do
-    ["X-WNS-Cache-Policy": "no-cache"] ++ headers
+  defp add_message_header_cache_policy(headers, false) do
+    List.insert_at(headers, 0, {"X-WNS-Cache-Policy", "no-cache"})
   end
 
-  defp add_message_header_cache_policy(_, headers), do: headers
+  defp add_message_header_cache_policy(headers, _), do: headers
 
-  defp add_message_header_ttl(ttl, headers) when is_integer(ttl) and ttl > 0 do
-    ["X-WNS-TTL": ttl] ++ headers
+  defp add_message_header_ttl(headers, ttl) when is_integer(ttl) and ttl > 0 do
+    List.insert_at(headers, 0, {"X-WNS-TTL", ttl})
   end
 
-  defp add_message_header_ttl(_, headers), do: headers
+  defp add_message_header_ttl(headers, _), do: headers
 
-  defp add_message_header_suppress_popup(suppress_popup, headers)
-  when is_boolean(suppress_popup) and suppress_popup do
-    ["X-WNS-SuppressPopup": "true"] ++ headers
+  defp add_message_header_suppress_popup(headers, suppress_popup)
+  when is_boolean(suppress_popup) and suppress_popup == true do
+    List.insert_at(headers, 0, {"X-WNS-SuppressPopup", "true"})
   end
 
-  defp add_message_header_suppress_popup(_, headers), do: headers
+  defp add_message_header_suppress_popup(headers, _), do: headers
 
-  defp add_message_header_status(request_for_status, headers)
-  when is_boolean(request_for_status) and request_for_status do
-    ["X-WNS-RequestForStatus": "true"] ++ headers
+  defp add_message_header_request_for_status(headers, request_for_status)
+  when is_boolean(request_for_status) and request_for_status == true do
+    List.insert_at(headers, 0, {"X-WNS-RequestForStatus", "true"}) ++ headers
   end
 
-  defp add_message_header_status(_, headers), do: headers
+  defp add_message_header_request_for_status(headers, _), do: headers
 end

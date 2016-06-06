@@ -40,16 +40,16 @@ defmodule Cartel.Pusher.Apns2 do
   defp connect(conf = %{env: :sandbox}) do
     opts = [certfile: conf.cert, keyfile: conf.key, cacertfile: conf.cacert]
     {:ok, pid} = :h2_client.start_link(:https, @push_sandbox_host, 443, opts)
-    {:ok, pid, add_basic_headers(@push_sandbox_host)}
+    {:ok, pid, basic_headers(@push_sandbox_host)}
   end
 
   defp connect(conf = %{env: :production}) do
     opts = [certfile: conf.cert, keyfile: conf.key, cacertfile: conf.cacert]
     {:ok, pid} = :h2_client.start_link(:https, @push_host, 443, opts)
-    {:ok, pid, add_basic_headers(@push_host)}
+    {:ok, pid, basic_headers(@push_host)}
   end
 
-  defp add_basic_headers(host) do
+  defp basic_headers(host) do
     [
       {":method", "POST"},
       {":scheme", "https"},
@@ -59,31 +59,36 @@ defmodule Cartel.Pusher.Apns2 do
     ]
   end
 
-  defp add_message_required_headers(headers, msg) do
-    headers ++ [{":path", "/3/device/#{msg.token}"},
-      {":apns-expiration", "#{msg.expiration}"},
-      {":apns-priority", "#{msg.priority}"}
-    ]
+  defp add_message_headers(headers, message = %Apns2{}) do
+    headers
+    |> add_message_priority_header(message.priority)
+    |> add_message_expiration_header(message.expiration)
+    |> add_message_id_header(message.id)
+    |> add_message_topic_header(message.topic)
+    |> add_message_path_header(message.token)
   end
 
-  defp add_message_headers(headers, msg = %Apns2{id: nil, topic: nil}) do
-    add_message_required_headers(headers, msg)
+  defp add_message_priority_header(headers, priority) when is_integer(priority) do
+    List.insert_at(headers, 0, {":apns-priority", "#{priority}"})
   end
 
-  defp add_message_headers(headers, msg = %Apns2{id: id, topic: nil}) do
-    [{":apns-id", "#{id}"} | add_message_required_headers(msg, headers)]
+  defp add_message_expiration_header(headers, expiration) when is_integer(expiration) do
+    List.insert_at(headers, 0, {":apns-expiration", "#{expiration}"})
   end
 
-  defp add_message_headers(headers, msg = %Apns2{id: nil, topic: topic})
-  do
-    [{":apns-topic", "#{topic}"} | add_message_required_headers(msg, headers)]
+  defp add_message_id_header(headers, id) when is_binary(id) do
+    List.insert_at(headers, 0, {":apns-id", "#{id}"})
   end
 
-  defp add_message_headers(headers, msg = %Apns2{id: id, topic: topic})
-  do
-    add_message_required_headers(msg, headers) ++ [
-      {":apns-id", "#{id}"},
-      {":apns-topic", "#{topic}"}
-    ]
+  defp add_message_id_header(headers, _), do: headers
+
+  defp add_message_topic_header(headers, topic) when is_binary(topic) do
+    List.insert_at(headers, 0, {":apns-topic", "#{topic}"})
+  end
+
+  defp add_message_topic_header(headers, _), do: headers
+
+  defp add_message_path_header(headers, token) when is_binary(token) do
+    List.insert_at(headers, 0, {":path", "/3/device/#{token}"})
   end
 end

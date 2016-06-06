@@ -2,15 +2,19 @@ defmodule Cartel.Message.Gcm do
   @moduledoc """
   Google GCM message
 
-  - `to`: `String.t`, recipient registration token
-  - `data`: `Map`, the notification payload
-
   For more details on the format see [Simple Downstream Messaging](https://developers.google.com/cloud-messaging/downstream)
   section of the [Google Cloud Messaging Documentation](https://developers.google.com/cloud-messaging/)
   """
-  @derive Poison.Encoder
 
-  @type t :: %__MODULE__{}
+  @typedoc """
+  Google GCM message
+
+  - `to`: recipient registration token
+  - `data`: the notification payload
+  """
+  @type t :: %__MODULE__{to: String.t, data: %{}}
+
+  @derive [Poison.Encoder]
 
   defstruct [:to, :data]
 end
