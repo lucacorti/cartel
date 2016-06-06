@@ -9,8 +9,7 @@ defmodule Cartel.Dealer do
   """
   @spec start_link([id: String.t, pushers: %{}]) :: Supervisor.on_start
   def start_link(args = [id: appid, pushers: _]) do
-    Supervisor.start_link(__MODULE__, args,
-                          id: appid, name: :"#{__MODULE__}@#{appid}")
+    Supervisor.start_link(__MODULE__, args, id: appid)
   end
 
   def init(args) do
