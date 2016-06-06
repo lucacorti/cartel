@@ -26,8 +26,9 @@ Configure your mobile applications in `config.exs`:
             key: "/path/to/app1-key.pem",
             cacert: "/path/to/entrust_2048_ca.cer"
         },
-        Cartel.Pusher.Gcm => %{
-            key: "gcm-key"
+        Cartel.Pusher.Wns => %{
+            sid: "ms-app://wns-sid",
+            secret: "wns-secret"
         }
       },
       "app2": %{
