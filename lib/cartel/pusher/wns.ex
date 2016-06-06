@@ -34,17 +34,12 @@ defmodule Cartel.Pusher.Wns do
       "Authorization": "Bearer #{state.token}",
       "X-WNS-Type": message.type
     ])
-    res = HTTPotion.post(message.channel, [headers: headers, body: payload])
-    send_response(res, state)
-  end
-
-  defp send_response(%Response{status_code: code, headers: headers}, state)
-  when code >= 400 do
-    {:reply, {:error, headers.hdrs}, state}
-  end
-
-  defp send_response(%Response{headers: headers}, state) do
-    {:reply, {:ok, headers.hdrs}, state}
+    case HTTPotion.post(message.channel, [headers: headers, body: payload]) do
+      %Response{status_code: code, headers: headers} when code >= 400 ->
+        {:reply, {:error, headers.hdrs}, state}
+      %Response{headers: _header} ->
+        {:reply, :ok, state}
+    end
   end
 
   defp login(client_id, client_secret) do

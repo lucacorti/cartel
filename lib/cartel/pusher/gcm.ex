@@ -27,8 +27,8 @@ defmodule Cartel.Pusher.Gcm do
     ]
     res = HTTPotion.post(@gcm_server_url, [body: payload, headers: headers])
     case Poison.decode!(res.body) do
-      %{"results" => [%{"message_id" => id}]} ->
-        {:reply, {:ok, id}, state}
+      %{"results" => [%{"message_id" => _id}]} ->
+        {:reply, :ok, state}
       %{"results" => [%{"error" => error}]} ->
         {:reply, {:error, error}, state}
     end
