@@ -1,4 +1,4 @@
-%{"bunt": {:hex, :bunt, "0.1.5", "c378ea1698232597d3778e4b83234dcea4a60e7c28114b0fe53657a2c0d8885e", [:mix], []},
+%{"bunt": {:hex, :bunt, "0.1.6", "5d95a6882f73f3b9969fdfd1953798046664e6f77ec4e486e6fafc7caad97c6f", [:mix], []},
   "chatterbox": {:git, "https://github.com/joedevivo/chatterbox.git", "98a032fac503ca52a55ca6a6c1627807e0de11f1", [tag: "0.3.0"]},
   "credo": {:hex, :credo, "0.3.13", "90d2d2deb9d376bb2a63f81126a320c3920ce65acb1294982ab49a8aacc7d89f", [:mix], [{:bunt, "~> 0.1.4", [hex: :bunt, optional: false]}]},
   "dialyxir": {:hex, :dialyxir, "0.3.3", "2f8bb8ab4e17acf4086cae847bd385c0f89296d3e3448dc304c26bfbe4b46cb4", [:mix], []},
