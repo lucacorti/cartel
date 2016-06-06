@@ -6,8 +6,6 @@ defmodule Cartel.Pusher.Gcm do
   use GenServer
   use Cartel.Pusher, message_module: Cartel.Message.Gcm
 
-  alias Cartel.Message.Gcm
-
   @gcm_server_url "https://gcm-http.googleapis.com/gcm/send"
 
   @doc """

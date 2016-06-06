@@ -6,7 +6,6 @@ defmodule Cartel.Pusher.Apns do
   use GenServer
   use Cartel.Pusher, message_module: Cartel.Message.Apns
 
-  alias Cartel.Message.Apns
   alias Cartel.Message.Apns.Feedback
 
   @push_host 'gateway.push.apple.com'
