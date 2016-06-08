@@ -6,6 +6,8 @@ defmodule Cartel.Pusher.Gcm do
   use GenServer
   use Cartel.Pusher, message_module: Cartel.Message.Gcm
 
+  alias HTTPotion.Response
+
   @gcm_server_url "https://gcm-http.googleapis.com/gcm/send"
 
   @doc """
@@ -25,12 +27,18 @@ defmodule Cartel.Pusher.Gcm do
       "Content-Type": "application/json",
       "Authorization": "key=#{state[:key]}"
     ]
-    res = HTTPotion.post(@gcm_server_url, [body: payload, headers: headers])
-    case Poison.decode!(res.body) do
-      %{"results" => [%{"message_id" => _id}]} ->
-        {:reply, :ok, state}
-      %{"results" => [%{"error" => error}]} ->
-        {:reply, {:error, error}, state}
+
+    case HTTPotion.post(@gcm_server_url, [body: payload, headers: headers]) do
+      %Response{status_code: code} when code >= 400 ->
+        {:reply, {:error, :unauthorized}, state}
+
+      %Response{body: body} ->
+        case Poison.decode!(body) do
+          %{"results" => [%{"message_id" => _id}]} ->
+            {:reply, :ok, state}
+          %{"results" => [%{"error" => error}]} ->
+            {:reply, {:error, error}, state}
+        end
     end
   end
 end

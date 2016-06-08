@@ -83,7 +83,7 @@ defmodule Cartel.Message.Apns.Item do
   @doc """
   Encodes the `item` to binary format
   """
-  @spec encode(t) :: {:ok, <<_::_ * 24>> }
+  @spec encode(t) :: {:ok, <<_::_ * 24>>}
   def encode(item = %Item{id: @device_token}) do
     {:ok, token} = Base.decode16(item.data, case: :mixed)
     {:ok, <<item.id::size(8), 32::size(16)>> <> token}

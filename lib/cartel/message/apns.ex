@@ -13,7 +13,9 @@ defmodule Cartel.Message.Apns do
 
   - `items`: List of `Cartel.Message.Apns.Item`
   """
-  @type t :: %__MODULE__{items: [Cartel.Message.Apns.Item.t]}
+  alias Cartel.Message.Apns.Item
+
+  @type t :: %__MODULE__{items: [Item.t]}
 
   defstruct [items: []]
 end
