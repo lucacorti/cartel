@@ -24,10 +24,10 @@ defmodule Cartel.Pusher do
       alias Cartel.Message
 
       @doc """
-      Generate the registered process name for the requested app pusher
+      Generate the process name for the requested app
       """
       @spec name(String.t) :: atom
-      def name(appid), do: :"#{__MODULE__}@#{appid}"
+      def name(appid), do: String.to_atom("#{__MODULE__}@#{appid}")
 
       @doc """
       Sends a push notification
@@ -40,7 +40,7 @@ defmodule Cartel.Pusher do
       :: {:ok | :error}
       def send(appid, message, tokens \\ [])
 
-      def send(appid, message, []) do
+      def send(appid, message = %unquote(message_module){}, []) do
         :poolboy.transaction(name(appid), fn
           worker ->
             payload = Message.serialize(message)
