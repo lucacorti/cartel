@@ -4,6 +4,8 @@ defmodule Cartel.Supervisor do
   """
   use Supervisor
 
+  alias Cartel.Dealer
+
   @doc """
   Starts the supervisor
   """
@@ -14,7 +16,7 @@ defmodule Cartel.Supervisor do
 
   def init(_) do
     children = [
-      worker(Cartel.Dealer, [], restart: :permanent)
+      worker(Dealer, [], restart: :permanent)
     ]
     supervise(children, strategy: :simple_one_for_one)
   end
@@ -47,7 +49,7 @@ defmodule Cartel.Supervisor do
 
   @spec whereis_dealer(String.t) :: {:ok, pid} | {:error, :not_found}
   defp whereis_dealer(appid) do
-    case Process.whereis(Cartel.Dealer.name(appid)) do
+    case Process.whereis(Dealer.name(appid)) do
       nil ->
         {:error, :not_found}
       pid ->
