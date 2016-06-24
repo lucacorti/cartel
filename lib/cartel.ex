@@ -5,8 +5,14 @@ defmodule Cartel do
   use Application
 
   def start(_type, _args) do
-    import Supervisor.Spec, warn: false
     dealers = Application.get_env(:cartel, :dealers, [])
-    Cartel.Supervisor.start_link(dealers)
+    supervisor = Cartel.Supervisor.start_link()
+
+    dealers
+    |> Enum.each(fn {appid, pushers} ->
+      {:ok, _} = Cartel.Supervisor.add_dealer(appid, pushers)
+    end)
+
+    supervisor
   end
 end

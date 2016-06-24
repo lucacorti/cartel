@@ -9,8 +9,14 @@ defmodule Cartel.Dealer do
   """
   @spec start_link([id: String.t, pushers: %{}]) :: Supervisor.on_start
   def start_link(args = [id: appid, pushers: _]) do
-    Supervisor.start_link(__MODULE__, args, id: appid)
+    Supervisor.start_link(__MODULE__, args, name: name(appid), id: appid)
   end
+
+  @doc """
+  Generate the process name for the requested app
+  """
+  @spec name(String.t) :: atom
+  def name(appid), do: String.to_atom("#{__MODULE__}@#{appid}")
 
   def init(args) do
     args[:pushers]
