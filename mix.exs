@@ -14,7 +14,7 @@ defmodule Cartel.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :ssl, :poolboy, :poison, :httpotion, :chatterbox],
+    [applications: [:logger, :ssl, :poolboy, :poison, :httpoison, :chatterbox],
      mod: {Cartel, []}]
   end
 
@@ -33,9 +33,9 @@ defmodule Cartel.Mixfile do
       {:credo, "~> 0.4", only: [:dev]},
       {:dialyxir, "~> 0.3.3", only: [:dev]},
       {:poison, "~> 2.2.0"},
-      {:httpotion, "~> 3.0.0"},
+      {:httpoison, "~> 0.9.1"},
       {:poolboy, "~> 1.5.1"},
-      {:chatterbox, "~> 0.3.0", manager: :rebar, github: "joedevivo/chatterbox", tag: "0.3.0"}
+      {:chatterbox, manager: :rebar, github: "joedevivo/chatterbox"}
     ]
   end
 

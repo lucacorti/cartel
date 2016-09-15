@@ -34,7 +34,7 @@ defmodule Cartel.Pusher do
 
       - `appid`: target application identifier present in `config.exs`
       - `message`: message struct
-      - `tokens`: list of device tokens
+      - `tokens`: list of recipient device tokens
       """
       @spec send(String.t, unquote(message_module).t, [String.t])
       :: {:ok | :error}

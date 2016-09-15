@@ -7,7 +7,7 @@ defmodule Cartel.Pusher.Wns do
   use Cartel.Pusher, message_module: Cartel.Message.Wns
 
   alias Cartel.Message.Wns
-  alias HTTPotion.Response
+  alias HTTPoison.Response
 
   @wns_login_url "https://login.live.com/accesstoken.srf"
 
@@ -34,7 +34,7 @@ defmodule Cartel.Pusher.Wns do
       "Authorization": "Bearer #{state.token}",
       "X-WNS-Type": message.type
     ])
-    case HTTPotion.post(message.channel, [headers: headers, body: payload]) do
+    case HTTPoison.post(message.channel, [headers: headers, body: payload]) do
       %Response{status_code: code, headers: headers} when code >= 400 ->
         {:reply, {:error, headers.hdrs}, state}
       %Response{headers: _header} ->
@@ -50,7 +50,7 @@ defmodule Cartel.Pusher.Wns do
     body = "grant_type=#{gt}&scope=#{sc}&client_id=#{cid}&client_secret=#{cs}"
     headers = ["Content-Type": "application/x-www-form-urlencoded"]
 
-    res = HTTPotion.post(@wns_login_url, [headers: headers, body: body])
+    res = HTTPoison.post(@wns_login_url, [headers: headers, body: body])
     {:ok, Poison.decode!(res.body)["access_token"]}
   end
 
