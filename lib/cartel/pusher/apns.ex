@@ -84,11 +84,7 @@ defmodule Cartel.Pusher.Apns do
   end
 
   def handle_info({:ssl_closed, _}, state) do
-    {:stop, "Connection closed", state}
-  end
-
-  def handle_info(info, state) do
-    {:stop, info, state}
+    {:stop, {:error, :closed}, state}
   end
 
   defp connect(:push, :sandbox, opts) do
