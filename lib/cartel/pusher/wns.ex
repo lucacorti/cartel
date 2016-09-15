@@ -7,7 +7,7 @@ defmodule Cartel.Pusher.Wns do
   use Cartel.Pusher, message_module: Cartel.Message.Wns
 
   alias Cartel.Message.Wns
-  alias HTTPoison.Response
+  alias HTTPoison.{Response, Error}
 
   @wns_login_url "https://login.live.com/accesstoken.srf"
 
@@ -24,8 +24,12 @@ defmodule Cartel.Pusher.Wns do
   end
 
   def handle_call({:push, message, payload}, from, state = %{token: nil}) do
-      {:ok, token} = login(state.conf.sid, state.conf.secret)
-      handle_call({:push, message, payload}, from, %{state | token: token})
+      case login(state.conf.sid, state.conf.secret) do
+        {:ok, token} ->
+          handle_call({:push, message, payload}, from, %{state | token: token})
+        {:error, reason} ->
+          {:stop, {:error, reason}, state}
+      end
   end
 
   def handle_call({:push, message, payload}, _from, state) do
@@ -34,11 +38,13 @@ defmodule Cartel.Pusher.Wns do
       "Authorization": "Bearer #{state.token}",
       "X-WNS-Type": message.type
     ])
-    case HTTPoison.post(message.channel, [headers: headers, body: payload]) do
-      %Response{status_code: code, headers: headers} when code >= 400 ->
+    case HTTPoison.post(message.channel, payload, headers) do
+      {:ok, %Response{status_code: code, headers: headers}} when code >= 400 ->
         {:reply, {:error, headers.hdrs}, state}
-      %Response{headers: _header} ->
+      {:ok, %Response{headers: _}} ->
         {:reply, :ok, state}
+      {:error, %Error{reason: reason}} ->
+        {:stop, {:error, reason}, state}
     end
   end
 
@@ -50,8 +56,13 @@ defmodule Cartel.Pusher.Wns do
     body = "grant_type=#{gt}&scope=#{sc}&client_id=#{cid}&client_secret=#{cs}"
     headers = ["Content-Type": "application/x-www-form-urlencoded"]
 
-    res = HTTPoison.post(@wns_login_url, [headers: headers, body: body])
-    {:ok, Poison.decode!(res.body)["access_token"]}
+    case HTTPoison.post(@wns_login_url, body, headers) do
+      {:ok, %Response{body: body}} ->
+        {:ok, Poison.decode!(body)["access_token"]}
+      {:error, %Error{reason: reason}} ->
+        {:error, reason}
+    end
+
   end
 
   defp add_message_headers(message = %Wns{}, headers) do

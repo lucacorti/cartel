@@ -4,14 +4,13 @@ defmodule Cartel do
   """
   use Application
 
-  def start(_type, _args) do
-    dealers = Application.get_env(:cartel, :dealers, [])
-    supervisor = Cartel.Supervisor.start_link()
+  alias Cartel.{Dealer, Supervisor}
 
-    dealers
-    |> Enum.each(fn {appid, pushers} ->
-      {:ok, _} = Cartel.Supervisor.add_dealer(appid, pushers)
-    end)
+  def start(_type, _args) do
+    supervisor = Supervisor.start_link()
+
+    dealers = Application.get_env(:cartel, :dealers, [])
+    for {appid, pushers} <- dealers, do: {:ok, _} = Dealer.add(appid, pushers)
 
     supervisor
   end

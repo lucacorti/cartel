@@ -54,9 +54,9 @@ You can configure your mobile applications in `config.exs`:
 ### Dynamically adding and removing dealers ###
 
 If you wish you can dynamically add and remove dealers at runtime, to do so call
-`Cartel.Supervisor.add_dealer/2` and `Cartel.Supervisor.remove_dealer/1`:
+`Cartel.Dealer.add/2` and `Cartel.Dealer.remove/1`:
 
-    Cartel.Supervisor.add_dealer("app3", %{
+    Cartel.Dealer.add("app3", %{
       Cartel.Pusher.Gcm => %{
           key: "gcm-key"
       }
@@ -64,7 +64,7 @@ If you wish you can dynamically add and remove dealers at runtime, to do so call
 
     ...
 
-    Cartel.Supervisor.remove_dealer("app3")
+    Cartel.Dealer.remove("app3")
 
 
 ### Pooling ###
