@@ -33,7 +33,7 @@ defmodule Cartel.Mixfile do
       {:credo, "~> 1.1", only: [:dev]},
       {:dialyxir, "~> 0.3.3", only: [:dev]},
       {:poison, "~> 4.0.1"},
-      {:httpoison, "~> 1.5.1"},
+      {:httpoison, "~> 1.6.0"},
       {:poolboy, "~> 1.5.1"},
       {:chatterbox, manager: :rebar, github: "joedevivo/chatterbox"}
     ]
