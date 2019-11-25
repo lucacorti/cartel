@@ -9,7 +9,7 @@ defmodule Cartel.Pusher do
   Pushers must implement actual message sending via this callback
 
   - `message`: The message struct of the message to be sent, included to allow
-  metadata additions by the `Cartel.Pusher.handle_push/3` impelementation.
+  metadata additions by the `Cartel.Pusher` implementation.
   - `payload`: binary to be used for wire transmission, encoded via the message
   `Cartel.Message.serialize/1` implementation.
   """

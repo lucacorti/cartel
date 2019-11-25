@@ -17,12 +17,15 @@ defmodule Cartel.Pusher.Gcm do
   @spec start_link(%{key: String.t()}) :: GenServer.on_start()
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def init(conf), do: {:ok, conf}
-
+  @impl Cartel.Pusher
   def handle_push(pid, message, payload) do
     GenServer.call(pid, {:push, message, payload})
   end
 
+  @impl GenServer
+  def init(conf), do: {:ok, conf}
+
+  @impl GenServer
   def handle_call({:push, _message, payload}, _from, state) do
     request =
       @gcm_server_url

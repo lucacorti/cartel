@@ -12,8 +12,3 @@ The following pusher modules are distributed with **Cartel**:
 
 See [Getting Started](getting-started.html) and [Usage](usage.html) for more
 information on how to use the package.
-
-<!-- ## Extensibility
-
-If you are not happy with the existing pushers or need support for other push
-services, you can [easily extend Cartel](extending.html) with your own code. -->

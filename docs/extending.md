@@ -9,6 +9,7 @@ directly modifying **Cartel**.
 
 Define a struct and implement the `Cartel.Message` protocol for it.
 
+```elixir
     defmodule MyMessage do
         ...
         @defstruct [ ... ]
@@ -17,22 +18,26 @@ Define a struct and implement the `Cartel.Message` protocol for it.
     defimpl Cartel.Message, for: MyMessage do
         ...
     end
+```
 
 ### Pusher
 
 You also need a matching pusher module adopting the `Cartel.Pusher` behaviour:
 
+```elixir
     defmodule MyPusher do
         use Cartel.Pusher, message_module: MyMessage
 
         ...
     end
+```
 
 ## Configuration
 
 To configure your pusher in the **Cartel** configuration just add a pusher in
 your application pushers section.
 
+```elixir
     config :cartel, dealers: %{
         "myappid": %{
             MyPusher => %{
@@ -42,6 +47,7 @@ your application pushers section.
             }
          }
     }
+```
 
 All options in the config will passed to the `start_link/1` function of your
 pusher module.

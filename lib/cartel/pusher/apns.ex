@@ -24,12 +24,15 @@ defmodule Cartel.Pusher.Apns do
         }) :: GenServer.on_start()
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def init(conf), do: {:ok, %{conf: conf, headers: nil, pid: nil}}
-
+  @impl Cartel.Pusher
   def handle_push(process, message, payload) do
     GenServer.call(process, {:push, message, payload})
   end
 
+  @impl GenServer
+  def init(conf), do: {:ok, %{conf: conf, headers: nil, pid: nil}}
+
+  @impl GenServer
   def handle_call({:push, message, payload}, from, %{pid: nil, headers: nil, conf: conf} = state) do
     {:ok, pid, url} = connect(conf)
     handle_call({:push, message, payload}, from, %{state | pid: pid, url: url})
@@ -65,13 +68,13 @@ defmodule Cartel.Pusher.Apns do
   end
 
   defp connect(%{env: :sandbox, cert: cert, key: key, cacert: cacert}) do
-    with {:ok, pid} <- HTTP.connect(@sandbox_url, certfile: cert, keyfile: key, cacertfile: cacert),
-         do: {:ok, pid, @sandbox_url}
+    {:ok, pid} = HTTP.connect(@sandbox_url, certfile: cert, keyfile: key, cacertfile: cacert)
+    {:ok, pid, @sandbox_url}
   end
 
   defp connect(%{env: :production, cert: cert, key: key, cacert: cacert}) do
-    with {:ok, pid} = HTTP.connect(@production_url, certfile: cert, keyfile: key, cacertfile: cacert),
-      do: {:ok, pid, @production_url}
+    {:ok, pid} = HTTP.connect(@production_url, certfile: cert, keyfile: key, cacertfile: cacert)
+    {:ok, pid, @production_url}
   end
 
   defp message_headers(message) do

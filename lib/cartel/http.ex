@@ -1,7 +1,5 @@
 defmodule Cartel.HTTP do
-  @moduledoc """
-  HTTP Client
-  """
+  @moduledoc false
 
   alias Cartel.HTTP.{Request, Response}
 
