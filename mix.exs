@@ -33,9 +33,9 @@ defmodule Cartel.Mixfile do
       {:credo, "~> 1.1", only: [:dev]},
       {:dialyxir, "~> 0.5.0", only: [:dev]},
       {:jason, "~> 1.1.0"},
-      {:httpoison, "~> 1.6.0"},
-      {:poolboy, "~> 1.5.1"},
-      {:chatterbox, manager: :rebar, github: "joedevivo/chatterbox"}
+      {:mint, "~> 1.0.0"},
+      {:castore, ">= 0.0.0"},
+      {:poolboy, "~> 1.5.1"}
     ]
   end
 
