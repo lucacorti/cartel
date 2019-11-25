@@ -14,14 +14,12 @@ defmodule Cartel.Message.Gcm do
   """
   @type t :: %__MODULE__{to: String.t, data: %{}}
 
-  @derive [Poison.Encoder]
-
   defstruct [:to, :data]
 end
 
 defimpl Cartel.Message, for: Cartel.Message.Gcm do
   def serialize(message) do
-    Poison.encode!(message)
+    Jason.encode!(message)
   end
 
   def update_token(message, token) do

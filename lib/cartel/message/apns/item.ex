@@ -90,7 +90,7 @@ defmodule Cartel.Message.Apns.Item do
   end
 
   def encode(item = %Item{id: @payload}) do
-    {:ok, msg_payload} = Poison.encode(item.data)
+    {:ok, msg_payload} = Jason.encode(item.data)
     payload_size = byte_size(msg_payload)
     {:ok, <<item.id::size(8), payload_size::size(16)>> <> msg_payload}
   end

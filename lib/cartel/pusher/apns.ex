@@ -113,7 +113,6 @@ defmodule Cartel.Pusher.Apns do
   @invalid_payload_size 7
   @invalid_token 8
   @shutdown 10
-  @unknown_error 255
 
   defp status_to_string(@no_errors), do: "No errors encountered"
   defp status_to_string(@processing_error), do: "Processing error"

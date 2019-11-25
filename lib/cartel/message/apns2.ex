@@ -44,7 +44,7 @@ end
 
 defimpl Cartel.Message, for: Cartel.Message.Apns2 do
   def serialize(message) do
-    Poison.encode!(message.payload)
+    Jason.encode!(message.payload)
   end
 
   def update_token(message, token) do

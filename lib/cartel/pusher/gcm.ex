@@ -33,7 +33,7 @@ defmodule Cartel.Pusher.Gcm do
         {:reply, {:error, :unauthorized}, state}
 
       {:ok, %Response{body: body}} ->
-        case Poison.decode!(body) do
+        case Jason.decode!(body) do
           %{"results" => [%{"message_id" => _id}]} ->
             {:reply, :ok, state}
           %{"results" => [%{"error" => error}]} ->

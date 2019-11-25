@@ -58,7 +58,7 @@ defmodule Cartel.Pusher.Wns do
 
     case HTTPoison.post(@wns_login_url, body, headers) do
       {:ok, %Response{body: body}} ->
-        {:ok, Poison.decode!(body)["access_token"]}
+        {:ok, Jason.decode!(body)["access_token"]}
       {:error, %Error{reason: reason}} ->
         {:error, reason}
     end

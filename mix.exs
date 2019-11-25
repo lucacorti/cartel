@@ -4,17 +4,17 @@ defmodule Cartel.Mixfile do
   def project do
     [app: :cartel,
      version: "0.7.0",
-     elixir: "~> 1.2",
+     elixir: "~> 1.5",
      description: "Multi platform, multi app push notifications",
-     package: package,
-     docs: docs,
+     package: package(),
+     docs: docs(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps()]
   end
 
   def application do
-    [applications: [:logger, :ssl, :poolboy, :poison, :httpoison, :chatterbox],
+    [extra_applications: [:logger],
      mod: {Cartel, []}]
   end
 
@@ -31,8 +31,8 @@ defmodule Cartel.Mixfile do
       {:ex_doc, ">= 0.0.0", only: [:dev]},
       {:earmark, ">= 0.0.0", only: [:dev]},
       {:credo, "~> 1.1", only: [:dev]},
-      {:dialyxir, "~> 0.3.3", only: [:dev]},
-      {:poison, "~> 4.0.1"},
+      {:dialyxir, "~> 0.5.0", only: [:dev]},
+      {:jason, "~> 1.1.0"},
       {:httpoison, "~> 1.6.0"},
       {:poolboy, "~> 1.5.1"},
       {:chatterbox, manager: :rebar, github: "joedevivo/chatterbox"}
