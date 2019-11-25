@@ -39,7 +39,6 @@ defmodule Cartel.Message.Apns.Item do
   @spec payload :: Integer.t
   def payload, do: @payload
 
-
   @notification_identifier 3
 
   @doc """

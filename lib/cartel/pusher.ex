@@ -20,8 +20,7 @@ defmodule Cartel.Pusher do
     quote do
       @behaviour Cartel.Pusher
 
-      alias Cartel.Pusher
-      alias Cartel.Message
+      alias Cartel.{Message, Pusher}
 
       @doc """
       Generate the process name for the requested app

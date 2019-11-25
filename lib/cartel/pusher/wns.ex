@@ -7,7 +7,7 @@ defmodule Cartel.Pusher.Wns do
   use Cartel.Pusher, message_module: Cartel.Message.Wns
 
   alias Cartel.Message.Wns
-  alias HTTPoison.{Response, Error}
+  alias HTTPoison.{Error, Response}
 
   @wns_login_url "https://login.live.com/accesstoken.srf"
 
