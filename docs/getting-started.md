@@ -25,7 +25,7 @@ You can configure your mobile applications in `config.exs`:
 
     config :cartel, dealers: %{
       "app1": %{
-        Cartel.Pusher.Apns2 => %{
+        Cartel.Pusher.Apns => %{
             env: :sandbox,
             cert: "/path/to/app1-cert.pem",
             key: "/path/to/app1-key.pem",

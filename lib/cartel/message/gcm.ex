@@ -12,7 +12,7 @@ defmodule Cartel.Message.Gcm do
   - `to`: recipient registration token
   - `data`: the notification payload
   """
-  @type t :: %__MODULE__{to: String.t, data: %{}}
+  @type t :: %__MODULE__{to: String.t(), data: %{}}
 
   defstruct [:to, :data]
 end

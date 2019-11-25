@@ -29,30 +29,12 @@ The `Cartel.Pusher.Apns` module exposes the feedback service via a `Stream.t`
 
 ## Message Formats
 
+
 ### APNS
 
 `Cartel.Message.Apns`:
 
     alias Cartel.Message.Apns, as: Message
-
-    %Message{
-      items: [
-        %Item{
-          id: Item.device_token,
-          data: "devicetoken"
-        },
-        %Item{
-          id: Item.payload,
-          data: %{aps: %{alert: "Hello"}}
-        }
-      ]
-    }
-
-### APNS2
-
-`Cartel.Message.Apns2`:
-
-    alias Cartel.Message.Apns2, as: Message
 
     %Message{
       token: "devicetoken",

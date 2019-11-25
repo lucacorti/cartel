@@ -6,8 +6,7 @@
 
 The following pusher modules are distributed with **Cartel**:
 
-- `Apns`: Apple APNS Binary API (iOS), implemented for both push and feedback
-- `Apns2`: Apple APNS Provider API (iOS), push (**EXPERIMENTAL** no errors back)
+- `Apns`: Apple APNS Provider API (iOS), implemented for push
 - `Gcm`: Google GCM (Android), implemented for push
 - `Wns`: Microsoft WNS (Windows Phone), implemented for push
 

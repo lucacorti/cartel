@@ -2,27 +2,28 @@ defmodule Cartel.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :cartel,
-     version: "0.7.0",
-     elixir: "~> 1.5",
-     description: "Multi platform, multi app push notifications",
-     package: package(),
-     docs: docs(),
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps()]
+    [
+      app: :cartel,
+      version: "0.7.0",
+      elixir: "~> 1.5",
+      description: "Multi platform, multi app push notifications",
+      package: package(),
+      docs: docs(),
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps()
+    ]
   end
 
   def application do
-    [extra_applications: [:logger],
-     mod: {Cartel, []}]
+    [extra_applications: [:logger], mod: {Cartel, []}]
   end
 
   defp package do
     [
       maintainers: ["Luca Corti"],
       licenses: ["MIT"],
-      links: %{ "GitHub": "https://github.com/lucacorti/cartel" }
+      links: %{GitHub: "https://github.com/lucacorti/cartel"}
     ]
   end
 
@@ -33,9 +34,9 @@ defmodule Cartel.Mixfile do
       {:credo, "~> 1.1", only: [:dev]},
       {:dialyxir, "~> 0.5.0", only: [:dev]},
       {:jason, "~> 1.1.0"},
-      {:httpoison, "~> 1.6.0"},
-      {:poolboy, "~> 1.5.1"},
-      {:chatterbox, manager: :rebar, github: "joedevivo/chatterbox"}
+      {:mint, "~> 1.0.0"},
+      {:castore, ">= 0.0.0"},
+      {:poolboy, "~> 1.5.1"}
     ]
   end
 
@@ -45,7 +46,7 @@ defmodule Cartel.Mixfile do
       extras: [
         "docs/main.md",
         "docs/getting-started.md",
-        "docs/usage.md",
+        "docs/usage.md"
         # "docs/extending.md"
       ]
     ]
