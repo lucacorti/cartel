@@ -34,7 +34,7 @@ defmodule Cartel.Mixfile do
       {:credo, "~> 1.1", only: [:dev]},
       {:dialyxir, "~> 0.5.0", only: [:dev]},
       {:jason, "~> 1.2.0"},
-      {:mint, "~> 1.0.0"},
+      {:mint, "~> 1.1.0"},
       {:castore, ">= 0.0.0"},
       {:poolboy, "~> 1.5.1"}
     ]
