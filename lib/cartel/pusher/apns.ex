@@ -1,129 +1,114 @@
 defmodule Cartel.Pusher.Apns do
   @moduledoc """
-  Apple APNS Binary API worker
+  Apple APNS Provider API worker
   """
 
   use GenServer
   use Cartel.Pusher, message_module: Cartel.Message.Apns
 
-  alias Cartel.Message.Apns.Feedback
+  alias Cartel.HTTP
+  alias Cartel.Message.Apns
+  alias HTTP.{Request, Response}
 
-  @push_host 'gateway.push.apple.com'
-  @push_sandbox_host 'gateway.sandbox.push.apple.com'
-  @push_port 2195
-
-  @feedback_host 'feedback.push.apple.com'
-  @feedback_sandbox_host 'feedback.sandbox.push.apple.com'
-  @feedback_port 2196
+  @production_url "https://api.push.apple.com"
+  @sandbox_url "https://api.development.push.apple.com"
 
   @doc """
   Starts the pusher
   """
-  @spec start_link(%{env: :production | :sandbox, cert: String.t, key: String.t,
-                    cacert: String.t}) :: GenServer.on_start
+  @spec start_link(%{
+          env: :production | :sandbox,
+          cert: String.t(),
+          key: String.t(),
+          cacert: String.t()
+        }) :: GenServer.on_start()
   def start_link(args), do: GenServer.start_link(__MODULE__, args, [])
 
-  def init(conf = %{}) do
-    {:ok, %{socket: nil, conf: conf}}
-  end
-
-  @doc """
-  Method to fetch `Cartel.Message.Apns.Feedback.t` records from feedback service
-
-  Returns an Enumerable `Stream` of `Cartel.Message.Apns.Feedback` structs.
-  """
-  @spec feedback(String.t) :: {:ok, Stream.t}
-  def feedback(appid) do
-    :poolboy.transaction(name(appid), fn
-      worker -> GenServer.call(worker, {:feedback})
-    end)
-  end
-
+  @impl Cartel.Pusher
   def handle_push(process, message, payload) do
     GenServer.call(process, {:push, message, payload})
   end
 
-  def handle_call({:push, message, payload}, from, state = %{conf: conf, socket: nil}) do
-    opts = [:binary, active: true, certfile: conf.cert, keyfile: conf.key,
-          cacertfile: conf.cacert]
-    {:ok, socket} = connect(:push, conf.env, opts)
-    handle_call({:push, message, payload}, from, %{state | socket: socket})
+  @impl GenServer
+  def init(conf), do: {:ok, %{conf: conf, headers: nil, pid: nil}}
+
+  @impl GenServer
+  def handle_call({:push, message, payload}, from, %{pid: nil, headers: nil, conf: conf} = state) do
+    {:ok, pid, url} = connect(conf)
+    handle_call({:push, message, payload}, from, %{state | pid: pid, url: url})
   end
 
-  def handle_call({:push, _message, payload}, _from, state) do
-    :ok = :ssl.send(state.socket, payload)
-    {:reply, :ok, state}
-  end
+  def handle_call({:push, message, payload}, _from, %{url: url} = state) do
+    headers = message_headers(message)
 
-  def handle_call({:feedback}, _from, state = %{conf: conf}) do
-    opts = [:binary, active: false, certfile: conf.cert, keyfile: conf.key,
-          cacertfile: conf.cacert]
-    {:ok, socket} = connect(:feedback, conf.env, opts)
-    stream = Stream.resource(
-      fn -> socket end,
-      fn socket ->
-        case  :ssl.recv(socket, Feedback.record_size) do
-          {:ok, data} ->
-            Feedback.decode!(data)
-          _ ->
-            {:halt, socket}
+    request =
+      url
+      |> Request.new("POST")
+      |> Request.set_body(payload)
+      |> Request.set_headers(headers)
+      |> Request.put_header({"accept", "application/json"})
+      |> Request.put_header({"accept-encoding", "gzip, deflate"})
+
+    case HTTP.request(%HTTP{}, request) do
+      {:ok, _, %Response{status: code}} when code >= 400 ->
+        {:reply, {:error, :unauthorized}, state}
+
+      {:ok, _, %Response{body: body}} ->
+        case Jason.decode!(body) do
+          %{"results" => [%{"message_id" => _id}]} ->
+            {:reply, :ok, state}
+
+          %{"results" => [%{"error" => error}]} ->
+            {:reply, {:error, error}, state}
         end
-      end,
-      fn socket -> :ssl.close(socket) end
-    )
-    {:reply, {:ok, stream}, state}
-  end
 
-  def handle_info({:ssl, _, data}, state) do
-    case data do
-      <<8::size(8), status::size(8), identifier::size(32)>> ->
-        {:stop, {:error, identifier, status, status_to_string(status)}, state}
-      _ ->
-        {:stop, {:error, :unknown}, state}
+      {:error, reason} ->
+        {:error, reason}
     end
   end
 
-  def handle_info({:ssl_closed, _}, state) do
-    {:stop, {:error, :closed}, state}
+  defp connect(%{env: :sandbox, cert: cert, key: key, cacert: cacert}) do
+    {:ok, pid} = HTTP.connect(@sandbox_url, certfile: cert, keyfile: key, cacertfile: cacert)
+    {:ok, pid, @sandbox_url}
   end
 
-  defp connect(:push, :sandbox, opts) do
-   :ssl.connect(@push_sandbox_host, @push_port, opts)
+  defp connect(%{env: :production, cert: cert, key: key, cacert: cacert}) do
+    {:ok, pid} = HTTP.connect(@production_url, certfile: cert, keyfile: key, cacertfile: cacert)
+    {:ok, pid, @production_url}
   end
 
-  defp connect(:push, :production, opts) do
-    :ssl.connect(@push_host, @push_port, opts)
+  defp message_headers(message) do
+    []
+    |> add_message_priority_header(message)
+    |> add_message_expiration_header(message)
+    |> add_message_id_header(message)
+    |> add_message_topic_header(message)
+    |> add_message_path_header(message)
   end
 
-  defp connect(:feedback, :sandbox, opts) do
-   :ssl.connect(@feedback_sandbox_host, @feedback_port, opts)
+  defp add_message_priority_header(headers, %Apns{priority: priority})
+       when is_integer(priority) do
+    [{":apns-priority", "#{priority}"} | headers]
   end
 
-  defp connect(:feedback, :production, opts) do
-    :ssl.connect(@feedback_host, @feedback_port, opts)
+  defp add_message_expiration_header(headers, %Apns{expiration: expiration})
+       when is_integer(expiration) do
+    [{":apns-expiration", "#{expiration}"} | headers]
   end
 
-  @no_errors 0
-  @processing_error 1
-  @missing_token 2
-  @missing_topic 3
-  @missing_payload 4
-  @invalid_token_size 5
-  @invalid_topic_size 6
-  @invalid_payload_size 7
-  @invalid_token 8
-  @shutdown 10
-  @unknown_error 255
+  defp add_message_id_header(headers, %Apns{id: id}) when is_binary(id) do
+    [{":apns-id", "#{id}"} | headers]
+  end
 
-  defp status_to_string(@no_errors), do: "No errors encountered"
-  defp status_to_string(@processing_error), do: "Processing error"
-  defp status_to_string(@missing_token), do: "Missing device token"
-  defp status_to_string(@missing_topic), do: "Missing topic"
-  defp status_to_string(@missing_payload), do: "Missing payload"
-  defp status_to_string(@invalid_token_size), do: "Invalid token size"
-  defp status_to_string(@invalid_topic_size), do: "Invalid topic size"
-  defp status_to_string(@invalid_payload_size), do: "Invalid payload_size"
-  defp status_to_string(@invalid_token), do: "Invalid token"
-  defp status_to_string(@shutdown), do: "Shutdown"
-  defp status_to_string(_), do: "None (unknown)"
+  defp add_message_id_header(headers, _), do: headers
+
+  defp add_message_topic_header(headers, %Apns{topic: topic}) when is_binary(topic) do
+    [{":apns-topic", "#{topic}"} | headers]
+  end
+
+  defp add_message_topic_header(headers, _), do: headers
+
+  defp add_message_path_header(headers, %Apns{token: token}) when is_binary(token) do
+    [{":path", "/3/device/#{token}"} | headers]
+  end
 end

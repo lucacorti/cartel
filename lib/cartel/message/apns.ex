@@ -1,41 +1,57 @@
 defmodule Cartel.Message.Apns do
   @moduledoc """
-  Apple APNS Binary API message
+  Apple APNS Provider API interface message
 
-  At a minimum, `id` and `payload` items must be present.
-
-  For more details on the format see the [Binary Provider API](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Appendixes/BinaryProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH106-SW5)
+  For more details on the format see the [APNS Provider API](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/APNsProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH101-SW1)
   section of Apple [Local and Remote Notification Programming Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/Introduction.html)
   """
 
   @typedoc """
-  Apple APNS Binary API message
+  Apple APNS Provider API interface message
 
-  - `items`: List of `Cartel.Message.Apns.Item`
+  - `token`: token of the recipient
+  - `id`: canonical form UUID for delivery errors
+  - `expiration`: UNIX timestamp of notification expiration
+  - `priority`: `priority_immediately/0` or `priority_when_convenient/0`
+  - `topic`: If your certificate includes multiple topics
+  - `payload`: the notification payload
+
+  At a minimum, `id` and `payload` items must be populated.
   """
-  alias Cartel.Message.Apns.Item
+  @type t :: %__MODULE__{
+          token: String.t(),
+          id: String.t(),
+          expiration: Integer.t(),
+          priority: Integer.t(),
+          topic: String.t(),
+          payload: %{}
+        }
 
-  @type t :: %__MODULE__{items: [Item.t]}
+  defstruct token: nil, id: nil, expiration: 0, priority: 10, topic: nil, payload: %{}
 
-  defstruct [items: []]
+  @priority_immediately 10
+
+  @doc """
+  Returns the `priority_immediately` protocol value
+  """
+  @spec priority_immediately :: Integer.t()
+  def priority_immediately, do: @priority_immediately
+
+  @priority_when_convenient 5
+
+  @doc """
+  Returns the `priority_when_convenient` protocol value
+  """
+  @spec priority_when_convenient :: Integer.t()
+  def priority_when_convenient, do: @priority_when_convenient
 end
 
 defimpl Cartel.Message, for: Cartel.Message.Apns do
-  alias Cartel.Message.Apns.Item
-
   def serialize(message) do
-    items = Enum.map_join(message.items, fn item ->
-      {:ok, binary} = Item.encode(item)
-      binary
-    end)
-    <<2::size(8), byte_size(items)::size(32)>> <> items
+    Jason.encode!(message.payload)
   end
 
   def update_token(message, token) do
-    items = message.items
-    |> Enum.filter(fn item -> item.id !== Item.device_token end)
-    |> List.insert_at(0, %Item{id: Item.device_token, data: token})
-
-    %{message | items: items}
+    %{message | token: token}
   end
 end

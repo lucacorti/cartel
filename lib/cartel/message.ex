@@ -17,6 +17,6 @@ defprotocol Cartel.Message do
   @doc """
   Returns a copy of message with the `token` updated
   """
-  @spec update_token(t, String.t) :: t
+  @spec update_token(t, String.t()) :: t
   def update_token(message, token)
 end

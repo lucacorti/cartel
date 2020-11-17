@@ -9,24 +9,23 @@ defmodule Cartel.Pusher do
   Pushers must implement actual message sending via this callback
 
   - `message`: The message struct of the message to be sent, included to allow
-  metadata additions by the `Cartel.Pusher.handle_push/3` impelementation.
+  metadata additions by the `Cartel.Pusher` implementation.
   - `payload`: binary to be used for wire transmission, encoded via the message
   `Cartel.Message.serialize/1` implementation.
   """
-  @callback handle_push(pid :: pid, message :: Message.t, payload :: binary)
-  :: :ok | :error
+  @callback handle_push(pid :: pid, message :: Message.t(), payload :: binary) ::
+              :ok | :error
 
-  defmacro __using__([message_module: message_module]) do
+  defmacro __using__(message_module: message_module) do
     quote do
       @behaviour Cartel.Pusher
 
-      alias Cartel.Pusher
-      alias Cartel.Message
+      alias Cartel.{Message, Pusher}
 
       @doc """
       Generate the process name for the requested app
       """
-      @spec name(String.t) :: atom
+      @spec name(String.t()) :: atom
       def name(appid), do: String.to_atom("#{__MODULE__}@#{appid}")
 
       @doc """
@@ -36,11 +35,11 @@ defmodule Cartel.Pusher do
       - `message`: message struct
       - `tokens`: list of recipient device tokens
       """
-      @spec send(String.t, unquote(message_module).t, [String.t])
-      :: {:ok | :error}
+      @spec send(String.t(), unquote(message_module).t, [String.t()]) ::
+              {:ok | :error}
       def send(appid, message, tokens \\ [])
 
-      def send(appid, message = %unquote(message_module){}, []) do
+      def send(appid, %unquote(message_module){} = message, []) do
         :poolboy.transaction(name(appid), fn
           worker ->
             payload = Message.serialize(message)
@@ -48,8 +47,8 @@ defmodule Cartel.Pusher do
         end)
       end
 
-      def send(appid, message = %unquote(message_module){}, tokens)
-      when is_list(tokens) do
+      def send(appid, %unquote(message_module){} = message, tokens)
+          when is_list(tokens) do
         :poolboy.transaction(name(appid), fn
           worker ->
             tokens

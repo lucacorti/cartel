@@ -12,16 +12,14 @@ defmodule Cartel.Message.Gcm do
   - `to`: recipient registration token
   - `data`: the notification payload
   """
-  @type t :: %__MODULE__{to: String.t, data: %{}}
-
-  @derive [Poison.Encoder]
+  @type t :: %__MODULE__{to: String.t(), data: %{}}
 
   defstruct [:to, :data]
 end
 
 defimpl Cartel.Message, for: Cartel.Message.Gcm do
   def serialize(message) do
-    Poison.encode!(message)
+    Jason.encode!(message)
   end
 
   def update_token(message, token) do

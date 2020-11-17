@@ -4,15 +4,19 @@
 
 Add cartel to your list of dependencies in `mix.exs`:
 
+```elixir
     def deps do
       [{:cartel, "~> 0.0.0"}]
     end
+```
 
 Ensure cartel is started before your application:
 
+```elixir
     def application do
       [applications: [:cartel]]
     end
+```
 
 ## Configuration
 
@@ -23,9 +27,10 @@ dealers at runtime.
 
 You can configure your mobile applications in `config.exs`:
 
+```elixir
     config :cartel, dealers: %{
       "app1": %{
-        Cartel.Pusher.Apns2 => %{
+        Cartel.Pusher.Apns => %{
             env: :sandbox,
             cert: "/path/to/app1-cert.pem",
             key: "/path/to/app1-key.pem",
@@ -50,12 +55,14 @@ You can configure your mobile applications in `config.exs`:
         }
       }
     }
+```
 
 ### Dynamically adding and removing dealers ###
 
 If you wish you can dynamically add and remove dealers at runtime, to do so call
 `Cartel.Dealer.add/2` and `Cartel.Dealer.remove/1`:
 
+```elixir
     Cartel.Dealer.add("app3", %{
       Cartel.Pusher.Gcm => %{
           key: "gcm-key"
@@ -65,7 +72,7 @@ If you wish you can dynamically add and remove dealers at runtime, to do so call
     ...
 
     Cartel.Dealer.remove("app3")
-
+```
 
 ### Pooling ###
 
@@ -73,6 +80,7 @@ If you wish you can dynamically add and remove dealers at runtime, to do so call
 By default `poolboy` creates a pool of 5 workers. You can change pooling options
 per pusher by adding a `pool` key:
 
+```elixir
     ...
     "app4": %{
         Cartel.Pusher.Gcm => %{
@@ -81,6 +89,7 @@ per pusher by adding a `pool` key:
         }
     }
     ...
+```
 
 Refer to the poolboy docs for more information.
 Please note that `name` and `worker_module` values, if present in the passed
