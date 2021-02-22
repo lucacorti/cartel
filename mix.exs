@@ -32,7 +32,7 @@ defmodule Cartel.Mixfile do
       {:ex_doc, ">= 0.0.0", only: [:dev]},
       {:earmark, ">= 0.0.0", only: [:dev]},
       {:credo, "~> 1.1", only: [:dev]},
-      {:dialyxir, "~> 1.0.0", only: [:dev]},
+      {:dialyxir, "~> 1.1.0", only: [:dev]},
       {:jason, "~> 1.2.0"},
       {:mint, "~> 1.2.0"},
       {:castore, ">= 0.0.0"},
